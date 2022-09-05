@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Dell\\Desktop\\CrossRiver bootCamp\\group5\\CRB-Project-Server\\Bank\\Account.Data\\Account.Data.csproj": {}
+    "C:\\Users\\1\\Desktop\\bootcamp\\final-project3\\group5\\CRB-Project-Server\\Bank\\Account.Data\\Account.Data.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Dell\\Desktop\\CrossRiver bootCamp\\group5\\CRB-Project-Server\\Bank\\Account.Data\\Account.Data.csproj": {
+    "C:\\Users\\1\\Desktop\\bootcamp\\final-project3\\group5\\CRB-Project-Server\\Bank\\Account.Data\\Account.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Dell\\Desktop\\CrossRiver bootCamp\\group5\\CRB-Project-Server\\Bank\\Account.Data\\Account.Data.csproj",
+        "projectUniqueName": "C:\\Users\\1\\Desktop\\bootcamp\\final-project3\\group5\\CRB-Project-Server\\Bank\\Account.Data\\Account.Data.csproj",
         "projectName": "Account.Data",
-        "projectPath": "C:\\Users\\Dell\\Desktop\\CrossRiver bootCamp\\group5\\CRB-Project-Server\\Bank\\Account.Data\\Account.Data.csproj",
-        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dell\\Desktop\\CrossRiver bootCamp\\group5\\CRB-Project-Server\\Bank\\Account.Data\\obj\\",
+        "projectPath": "C:\\Users\\1\\Desktop\\bootcamp\\final-project3\\group5\\CRB-Project-Server\\Bank\\Account.Data\\Account.Data.csproj",
+        "packagesPath": "C:\\Users\\1\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\1\\Desktop\\bootcamp\\final-project3\\group5\\CRB-Project-Server\\Bank\\Account.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\1\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +40,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[11.0.1, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[6.0.8, )"

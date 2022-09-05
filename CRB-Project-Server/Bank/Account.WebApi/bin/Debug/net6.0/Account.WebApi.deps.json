@@ -1267,6 +1267,7 @@
       },
       "Account.Data/1.0.0": {
         "dependencies": {
+          "AutoMapper": "11.0.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.8"
         },
         "runtime": {

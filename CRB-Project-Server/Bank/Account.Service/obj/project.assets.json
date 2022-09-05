@@ -614,6 +614,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "AutoMapper": "11.0.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.8"
         },
         "compile": {
@@ -1817,19 +1818,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Dell\\.nuget\\packages\\": {}
+    "C:\\Users\\1\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Dell\\Desktop\\CrossRiver bootCamp\\group5\\CRB-Project-Server\\Bank\\Account.Service\\Account.Service.csproj",
+      "projectUniqueName": "C:\\Users\\1\\Desktop\\bootcamp\\final-project3\\group5\\CRB-Project-Server\\Bank\\Account.Service\\Account.Service.csproj",
       "projectName": "Account.Service",
-      "projectPath": "C:\\Users\\Dell\\Desktop\\CrossRiver bootCamp\\group5\\CRB-Project-Server\\Bank\\Account.Service\\Account.Service.csproj",
-      "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Dell\\Desktop\\CrossRiver bootCamp\\group5\\CRB-Project-Server\\Bank\\Account.Service\\obj\\",
+      "projectPath": "C:\\Users\\1\\Desktop\\bootcamp\\final-project3\\group5\\CRB-Project-Server\\Bank\\Account.Service\\Account.Service.csproj",
+      "packagesPath": "C:\\Users\\1\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\1\\Desktop\\bootcamp\\final-project3\\group5\\CRB-Project-Server\\Bank\\Account.Service\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\1\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1843,8 +1844,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Dell\\Desktop\\CrossRiver bootCamp\\group5\\CRB-Project-Server\\Bank\\Account.Data\\Account.Data.csproj": {
-              "projectPath": "C:\\Users\\Dell\\Desktop\\CrossRiver bootCamp\\group5\\CRB-Project-Server\\Bank\\Account.Data\\Account.Data.csproj"
+            "C:\\Users\\1\\Desktop\\bootcamp\\final-project3\\group5\\CRB-Project-Server\\Bank\\Account.Data\\Account.Data.csproj": {
+              "projectPath": "C:\\Users\\1\\Desktop\\bootcamp\\final-project3\\group5\\CRB-Project-Server\\Bank\\Account.Data\\Account.Data.csproj"
             }
           }
         }

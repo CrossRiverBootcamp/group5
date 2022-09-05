@@ -16,19 +16,7 @@ namespace Account.WebApi.Controllers
         {
             _accountService = accountService;
         }
-        // GET: api/<AccountController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
 
-        // GET api/<AccountController>/5
-        [HttpGet("Login")]
-        public async Task<ActionResult> LoginAsync([FromBody] LoginDTO loginDTO)
-        {
-            return Ok(await _accountService.LoginAsync(loginDTO));
-        }
 
         // POST api/<AccountController>
         [HttpPost("AddCustomer")]

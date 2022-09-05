@@ -15,6 +15,8 @@ builder.Services.AddDbContextFactory<AccountDbContext>(item =>
 // Add services to the container.
 builder.Services.AddScoped<IAccountData, AccountData>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<ILoginData, LoginData>();
+builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddCors(options =>
@@ -31,6 +33,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+//using (var client = new AccountDbContext())
+//{
+//    client.Database.EnsureCreated();
+//}
 //using (var scope = app.Services.CreateScope())
 //{
 //    var dataContext = scope.ServiceProvider.GetRequiredService<DataContext>();
