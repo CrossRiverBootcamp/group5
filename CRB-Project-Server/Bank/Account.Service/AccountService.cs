@@ -39,5 +39,10 @@ namespace Account.Service
             }
             return false;
         }
+
+        public Task<Guid> LoginAsync(LoginDTO loginDTO)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
