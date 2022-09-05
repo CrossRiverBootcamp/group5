@@ -24,10 +24,10 @@ namespace Account.WebApi.Controllers
         }
 
         // GET api/<AccountController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("Login")]
+        public async Task<ActionResult> LoginAsync([FromBody] LoginDTO loginDTO)
         {
-            return "value";
+            return Ok(await _accountService.LoginAsync(loginDTO));
         }
 
         // POST api/<AccountController>
