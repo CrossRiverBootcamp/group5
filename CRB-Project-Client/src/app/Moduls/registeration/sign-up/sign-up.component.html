@@ -1,0 +1,39 @@
+<form [formGroup]="newCustomerForm">
+    <input name="firstName" formControlName="firstName"/>
+    <input  name="lastName" formControlName="lastName"/>
+    <input  type="email" name="email" formControlName="email"/>
+    <input  type="password" name="password" formControlName="password"/>
+    <button mat-raised-button color="accent" (click)="signUp()"
+    [disabled]="newCustomerForm.invalid">register</button>
+
+</form>
+
+<!-- <mat-card>
+    <form [formGroup]="newSubscriberForm" class="example-form">
+
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label> first name</mat-label>
+            <input matInput name="firstName" formControlName="firstName">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label> last name</mat-label>
+            <input matInput name="lastName" formControlName="lastName">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label> email</mat-label>
+            <input matInput type="email" name="email" formControlName="email">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label> password</mat-label>
+            <input matInput type="password" name="password" formControlName="password">
+        </mat-form-field>
+
+
+        <section>
+            <div class="example-button-row">
+                <button mat-raised-button color="accent" (click)="addNewSubscriber()"
+                    [disabled]="newSubscriberForm.invalid">register</button>
+            </div>
+        </section>
+    </form>
+</mat-card> -->
