@@ -454,3 +454,4 @@ baseline.json
 
 # Husky
 .husky/_
+CRB-Client/package-lock.json
