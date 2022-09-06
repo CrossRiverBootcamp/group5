@@ -11,6 +11,9 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { LoginComponent } from './login/login.component';
 import { AccountDetailsModule } from '../account-details/account-details.module';
+import { Routes } from '@angular/router';
+import { AccountRoutingModule } from './registeration-routing.module';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +23,7 @@ import { AccountDetailsModule } from '../account-details/account-details.module'
   imports: [
     CommonModule, HttpClientModule,
     ReactiveFormsModule,MatFormFieldModule, MatInputModule,MatIconModule,MatButtonModule, 
-    AccountDetailsModule
+    AccountDetailsModule, AccountRoutingModule
   ],
   exports: [SignUpComponent, LoginComponent],
   providers: [registerationService]

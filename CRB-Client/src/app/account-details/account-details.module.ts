@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AccountDetailsComponent } from './account-details/account-details.component';
 import { AccountDetailsService } from './account-details.service';
+import {MatCardModule} from '@angular/material/card';
 
 
 
@@ -10,7 +11,8 @@ import { AccountDetailsService } from './account-details.service';
     AccountDetailsComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatCardModule
   ],
   exports: [AccountDetailsComponent],
   providers:[AccountDetailsService,]

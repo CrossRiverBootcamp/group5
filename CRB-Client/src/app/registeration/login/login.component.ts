@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { registerationService } from '../registration.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { registerationService } from '../registration.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private _registerationService: registerationService) { }
+  constructor(private _registerationService: registerationService,  private _router: Router) { }
 
   ngOnInit(): void {
   }
@@ -24,13 +25,19 @@ export class LoginComponent implements OnInit {
     if (this.login.valid) {
       let loginDTO = this.login.value;
       this._registerationService.login(loginDTO)
-        .subscribe((success: any) => {
-            if (success) {
-              alert("The account id is: " + success)      }
-            else {
-              alert("Account creation failed... try again later")
+        .subscribe((accountId: any) => {
+            if (accountId) {
+              this._router.navigate(['/account-details', accountId]);
             }
-          });
-    }
+          },
+          err => {
+        
 
-}}
+          });
+        }
+    }
+  }
+
+
+
+

@@ -69,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "CRB-Project-Client:build:production"
+              "browserTarget": "CRB-Project-Client:build:production",
             },
             "development": {
-              "browserTarget": "CRB-Project-Client:build:development"
+              "browserTarget": "CRB-Project-Client:build:development",
             }
           },
           "defaultConfiguration": "development"

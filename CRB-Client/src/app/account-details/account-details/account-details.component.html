@@ -1,2 +1,10 @@
 
-<div>Account Details</div>
+<mat-card class="example-card">
+    <mat-card-title>Hi {{accountInfo?.firstName }}</mat-card-title>
+    <mat-card-subtitle>here are your account details</mat-card-subtitle>
+    <mat-card-content>
+      <h4>Name of account owner: </h4><p>{{accountInfo?.firstName + " " + accountInfo?.lastName}}</p>
+      <h4>Email address: </h4><p>{{accountInfo?.email}}</p>
+      <h4>Current balance: </h4><p>{{accountInfo?.balance}} $</p>
+    </mat-card-content>
+  </mat-card>

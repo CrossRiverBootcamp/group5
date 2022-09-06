@@ -9,17 +9,9 @@ import { LoginDTO } from "../Models/LoginDTO";
 export class AccountDetailsService {
 
     constructor(private _http: HttpClient) { }
-// Observable<AccountInfo> 
-    getInfo() {
-        // return this._http.get<AccountInfo>("https://localhost:7182/api/Account"+accountId);
-        let accountInfo:AccountInfo={
-            firstName:"h",
-            lastName:"h" ,
-            openDate : new Date,
-            balance: 12000 
-        };
 
-        return accountInfo;
+    getAccountInfo(accountId: string): Observable<AccountInfo> {
+        return this._http.get<AccountInfo>("https://localhost:7182/api/Login/GetCustomerInfoAsync/"+accountId);
     }
   
 }

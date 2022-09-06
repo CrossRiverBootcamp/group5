@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Route, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AccountInfo } from 'src/app/Models/AccountInfo';
 import { AccountDetailsService } from '../account-details.service';
 
@@ -9,15 +11,23 @@ import { AccountDetailsService } from '../account-details.service';
 })
 export class AccountDetailsComponent implements OnInit {
 
-  constructor(private _accountDetailsService: AccountDetailsService) { }
+  constructor(private _accountDetailsService: AccountDetailsService, private _acr: ActivatedRoute) { }
 
- accountInfo?: AccountInfo;
+  //subscription: Subscription | undefined;
+  accountId?: any;
+  accountInfo?: AccountInfo;
 
   ngOnInit(): void {
-    this.accountInfo= this._accountDetailsService.getInfo();
-    console.log(this.accountInfo);
-  
-    
+    this._acr.paramMap.subscribe(params => {
+      if (params.get('id') !== undefined) {
+        this.accountId = params.get('id');
+        this._accountDetailsService.getAccountInfo(this.accountId).subscribe(data => {
+          this.accountInfo = data;
+        })
+      }
+    })
   }
 
 }
+
+
