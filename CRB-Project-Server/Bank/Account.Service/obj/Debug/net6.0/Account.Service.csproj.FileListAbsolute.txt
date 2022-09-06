@@ -1,0 +1,30 @@
+C:\Users\Dell\Desktop\CrossRiver bootCamp\group5\CRB-Project-Server\Bank\Account.Service\bin\Debug\net6.0\Account.Service.deps.json
+C:\Users\Dell\Desktop\CrossRiver bootCamp\group5\CRB-Project-Server\Bank\Account.Service\bin\Debug\net6.0\Account.Service.dll
+C:\Users\Dell\Desktop\CrossRiver bootCamp\group5\CRB-Project-Server\Bank\Account.Service\bin\Debug\net6.0\Account.Service.pdb
+C:\Users\Dell\Desktop\CrossRiver bootCamp\group5\CRB-Project-Server\Bank\Account.Service\bin\Debug\net6.0\Account.Data.dll
+C:\Users\Dell\Desktop\CrossRiver bootCamp\group5\CRB-Project-Server\Bank\Account.Service\bin\Debug\net6.0\Account.Data.pdb
+C:\Users\Dell\Desktop\CrossRiver bootCamp\group5\CRB-Project-Server\Bank\Account.Service\obj\Debug\net6.0\Account.Service.csproj.AssemblyReference.cache
+C:\Users\Dell\Desktop\CrossRiver bootCamp\group5\CRB-Project-Server\Bank\Account.Service\obj\Debug\net6.0\Account.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Dell\Desktop\CrossRiver bootCamp\group5\CRB-Project-Server\Bank\Account.Service\obj\Debug\net6.0\Account.Service.AssemblyInfoInputs.cache
+C:\Users\Dell\Desktop\CrossRiver bootCamp\group5\CRB-Project-Server\Bank\Account.Service\obj\Debug\net6.0\Account.Service.AssemblyInfo.cs
+C:\Users\Dell\Desktop\CrossRiver bootCamp\group5\CRB-Project-Server\Bank\Account.Service\obj\Debug\net6.0\Account.Service.csproj.CoreCompileInputs.cache
+C:\Users\Dell\Desktop\CrossRiver bootCamp\group5\CRB-Project-Server\Bank\Account.Service\obj\Debug\net6.0\Account.Service.csproj.CopyComplete
+C:\Users\Dell\Desktop\CrossRiver bootCamp\group5\CRB-Project-Server\Bank\Account.Service\obj\Debug\net6.0\Account.Service.dll
+C:\Users\Dell\Desktop\CrossRiver bootCamp\group5\CRB-Project-Server\Bank\Account.Service\obj\Debug\net6.0\refint\Account.Service.dll
+C:\Users\Dell\Desktop\CrossRiver bootCamp\group5\CRB-Project-Server\Bank\Account.Service\obj\Debug\net6.0\Account.Service.pdb
+C:\Users\Dell\Desktop\CrossRiver bootCamp\group5\CRB-Project-Server\Bank\Account.Service\obj\Debug\net6.0\ref\Account.Service.dll
+C:\Users\1\Desktop\bootcamp\final-project3\group5\CRB-Project-Server\Bank\Account.Service\bin\Debug\net6.0\Account.Service.deps.json
+C:\Users\1\Desktop\bootcamp\final-project3\group5\CRB-Project-Server\Bank\Account.Service\bin\Debug\net6.0\Account.Service.dll
+C:\Users\1\Desktop\bootcamp\final-project3\group5\CRB-Project-Server\Bank\Account.Service\bin\Debug\net6.0\Account.Service.pdb
+C:\Users\1\Desktop\bootcamp\final-project3\group5\CRB-Project-Server\Bank\Account.Service\bin\Debug\net6.0\Account.Data.dll
+C:\Users\1\Desktop\bootcamp\final-project3\group5\CRB-Project-Server\Bank\Account.Service\bin\Debug\net6.0\Account.Data.pdb
+C:\Users\1\Desktop\bootcamp\final-project3\group5\CRB-Project-Server\Bank\Account.Service\obj\Debug\net6.0\Account.Service.csproj.AssemblyReference.cache
+C:\Users\1\Desktop\bootcamp\final-project3\group5\CRB-Project-Server\Bank\Account.Service\obj\Debug\net6.0\Account.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\1\Desktop\bootcamp\final-project3\group5\CRB-Project-Server\Bank\Account.Service\obj\Debug\net6.0\Account.Service.AssemblyInfoInputs.cache
+C:\Users\1\Desktop\bootcamp\final-project3\group5\CRB-Project-Server\Bank\Account.Service\obj\Debug\net6.0\Account.Service.AssemblyInfo.cs
+C:\Users\1\Desktop\bootcamp\final-project3\group5\CRB-Project-Server\Bank\Account.Service\obj\Debug\net6.0\Account.Service.csproj.CoreCompileInputs.cache
+C:\Users\1\Desktop\bootcamp\final-project3\group5\CRB-Project-Server\Bank\Account.Service\obj\Debug\net6.0\Account.Service.csproj.CopyComplete
+C:\Users\1\Desktop\bootcamp\final-project3\group5\CRB-Project-Server\Bank\Account.Service\obj\Debug\net6.0\Account.Service.dll
+C:\Users\1\Desktop\bootcamp\final-project3\group5\CRB-Project-Server\Bank\Account.Service\obj\Debug\net6.0\refint\Account.Service.dll
+C:\Users\1\Desktop\bootcamp\final-project3\group5\CRB-Project-Server\Bank\Account.Service\obj\Debug\net6.0\Account.Service.pdb
+C:\Users\1\Desktop\bootcamp\final-project3\group5\CRB-Project-Server\Bank\Account.Service\obj\Debug\net6.0\ref\Account.Service.dll
