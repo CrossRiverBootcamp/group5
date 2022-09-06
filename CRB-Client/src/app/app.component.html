@@ -1,0 +1,27 @@
+<p>
+  <mat-toolbar>
+   <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>My Bank</span>
+  <span class="example-spacer"></span>
+  <!-- <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+   <mat-icon>share</mat-icon>
+ </button> -->
+ <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+<mat-menu #menu="matMenu" #belowMenu="matMenu" yPosition="below">
+  <button mat-menu-item routerLink="sign-up" routerLinkActive="active">{{signUp}}</button>
+  <button mat-menu-item routerLink="login" routerLinkActive="active">{{login}}</button>
+</mat-menu>
+
+
+</mat-toolbar>
+</p>
+<div id="container">
+  <router-outlet></router-outlet><app-account-details></app-account-details>
+</div>
+
+
