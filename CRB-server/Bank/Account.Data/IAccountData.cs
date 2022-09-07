@@ -13,5 +13,7 @@ namespace Account.Data
         Task<bool> AddCustomerAsync(Customer customer);
         Task<bool> CreateAccountAsync(Entities.Account account);
         Task<bool> DoesAccountExist(Guid accountId);
+        Task<bool> IsBalanceGreater(Guid accountId, int amount);
+        Task<bool> TransactionBetweenAccountsAsync(Guid fromAccountId, Guid toAccountId, int amount);
     }
 }

@@ -45,7 +45,13 @@ namespace Account.Service
             return _accountData.DoesAccountExist(accountId);
         }
 
-
-
+        public Task<bool> IsBalanceGreater(Guid accountId, int amount)
+        {
+            return _accountData.IsBalanceGreater(accountId, amount);
+        }
+        public Task<bool> TransactionBetweenAccountsAsync(Guid fromAccountId, Guid toAccountId, int amount)
+        {
+            return _accountData.TransactionBetweenAccountsAsync(fromAccountId, toAccountId, amount);
+        }
     }
 }
