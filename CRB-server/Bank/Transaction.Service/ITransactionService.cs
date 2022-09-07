@@ -11,5 +11,6 @@ namespace Transaction.Service
     public interface ITransactionService
     {
         Task<bool> AddTransactionAsync(TransactionDTO transactionDTO, IMessageSession messageSession);
+        Task UpdateTransactionAsync();
     }
 }

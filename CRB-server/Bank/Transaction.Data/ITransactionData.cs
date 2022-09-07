@@ -9,6 +9,7 @@ namespace Transaction.Data
     public interface ITransactionData
     {
         Task<Guid> AddTransactionAsync(Data.Entities.Transaction transaction);
+        Task UpdateTransactionAsync();
 
     }
 }

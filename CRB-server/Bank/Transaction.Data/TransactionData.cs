@@ -25,5 +25,10 @@ namespace Transaction.Data
                 return transaction.Id;
             }
         }
+
+        public Task UpdateTransactionAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

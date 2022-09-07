@@ -11,6 +11,6 @@ namespace Transaction.NSB
     {
         public Guid TransactionId { get; set; }
         public bool IsTransactionAdded { get; set; }
-        //public bool IsTrackingAdded { get; set; }
+        public bool IsTransfered { get; set; }
     }
 }

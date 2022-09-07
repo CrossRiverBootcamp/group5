@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NSB.Messages\NSB.Messages.csproj" />
+    <ProjectReference Include="..\Transaction.Service\Transaction.Service.csproj" />
   </ItemGroup>
 
 </Project>

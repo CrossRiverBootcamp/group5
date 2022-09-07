@@ -34,5 +34,10 @@ namespace Transaction.Service
             return true;//???????
 
         }
+
+        public Task UpdateTransactionAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
