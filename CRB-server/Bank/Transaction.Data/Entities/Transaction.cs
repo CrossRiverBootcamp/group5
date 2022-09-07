@@ -21,7 +21,7 @@ namespace Transaction.Data.Entities
         public int Amount { get; set; }
         public DateTime Date { get; set; }
         public string Status { get; set; }// processing -> success / fail
-        public string FailureReason { get; set; }
+        public string? FailureReason { get; set; }
 
     }
 }

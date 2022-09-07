@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NServiceBus;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,6 @@ namespace Transaction.Service
 {
     public interface ITransactionService
     {
-        Task AddTransactionAsync(TransactionDTO transactionDTO);
+        Task<bool> AddTransactionAsync(TransactionDTO transactionDTO, IMessageSession messageSession);
     }
 }

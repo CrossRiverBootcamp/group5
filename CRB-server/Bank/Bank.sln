@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transaction.NSB", "Transact
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Account.NSB", "Account.NSB\Account.NSB.csproj", "{BEEF8061-DF81-49FA-BB2A-8A60396FAF03}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSB.Messages", "NSB.Messages\NSB.Messages.csproj", "{A64B1321-2F4A-4F95-9B68-0B11D4338CCF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{BEEF8061-DF81-49FA-BB2A-8A60396FAF03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEEF8061-DF81-49FA-BB2A-8A60396FAF03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEEF8061-DF81-49FA-BB2A-8A60396FAF03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A64B1321-2F4A-4F95-9B68-0B11D4338CCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A64B1321-2F4A-4F95-9B68-0B11D4338CCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A64B1321-2F4A-4F95-9B68-0B11D4338CCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A64B1321-2F4A-4F95-9B68-0B11D4338CCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
