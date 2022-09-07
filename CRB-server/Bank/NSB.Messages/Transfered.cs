@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NServiceBus;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NSB.Messages
 {
-    public class Transfered
+    public class Transfered:IEvent
     {
         public Guid TransactionId { get; set; }
         public string Status { get; set; }

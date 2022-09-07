@@ -1,3 +1,5 @@
+using Microsoft.Data.SqlClient;
+using NServiceBus;
 using Transaction.Service;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +7,36 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.ExtensionsDI();
 builder.Services.ExtensionAddDbContext(builder.Configuration.GetConnectionString("myconn"));
+
+
+var rabbitMQConnection = builder.Configuration.GetConnectionString("RabbitMQ");
+var databaseNSBConnection= builder.Configuration.GetConnectionString("NSB");
+#region back-end-use-nservicebus
+builder.Host.UseNServiceBus(hostBuilderContext =>
+{
+
+    var endpointConfiguration = new EndpointConfiguration("TransactionApi");
+    endpointConfiguration.EnableInstallers();
+    endpointConfiguration.EnableOutbox();
+    endpointConfiguration.SendOnly();
+
+    var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
+    persistence.ConnectionBuilder(
+    connectionBuilder: () =>
+    {
+        return new SqlConnection(databaseNSBConnection);
+    });
+    var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
+    dialect.Schema("NSB");
+
+    var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
+    transport.ConnectionString(rabbitMQConnection);
+    transport.UseConventionalRoutingTopology(QueueType.Quorum);
+
+    return endpointConfiguration;
+});
+
+#endregion
 
 builder.Services.AddControllers();
 builder.Services.AddCors(options =>

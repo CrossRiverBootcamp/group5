@@ -26,9 +26,15 @@ namespace Transaction.Data
             }
         }
 
-        public Task UpdateTransactionAsync()
+        public async Task UpdateTransactionAsync(Guid transactionId, string status, string failureReason)
         {
-            throw new NotImplementedException();
+            using (var context = _factory.CreateDbContext())
+            {
+                Entities.Transaction transaction = await context.Transactions.FindAsync(transactionId);
+                transaction.Status = status;
+                transaction.FailureReason = failureReason;
+                await context.SaveChangesAsync();              
+            }
         }
     }
 }
