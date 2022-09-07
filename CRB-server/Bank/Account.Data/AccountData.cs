@@ -58,5 +58,23 @@ namespace Account.Data
             var context = _factory.CreateDbContext();
                 return context.Accounts.AnyAsync(account => account.Id == accountId);
         }
+        public Task<bool> IsBalanceGreater(Guid accountId, int amount)
+        {
+            var context = _factory.CreateDbContext();
+            return context.Accounts.AnyAsync(account => account.Id == accountId && account.Balance >= amount);
+        }
+        public async Task<bool> TransactionBetweenAccountsAsync(Guid fromAccountId, Guid toAccountId, int amount)
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                Entities.Account fromAccount = await context.Accounts.FindAsync(fromAccountId);
+                fromAccount.Balance -= amount;
+                Entities.Account toAccount = await context.Accounts.FindAsync(toAccountId);
+                toAccount.Balance += amount;
+                await context.SaveChangesAsync();
+                return true;
+                //false?
+            }
+        }
     }
 }

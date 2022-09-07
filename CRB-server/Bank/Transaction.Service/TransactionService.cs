@@ -32,7 +32,7 @@ namespace Transaction.Service
             TransactionAdded transactionAdded = _mapper.Map<TransactionAdded>(transactionDTO);
             transactionAdded.TransactionId = transactionId;
             await messageSession.Publish(transactionAdded).ConfigureAwait(false);
-            return true;//???????
+            return true; //???????
 
         }
 

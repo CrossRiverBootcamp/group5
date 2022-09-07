@@ -11,5 +11,7 @@ namespace Account.Service
     {
         Task<bool> AddCustomerAsync(CustomerDTO customerDTO);
         Task<bool> DoesAccountExist(Guid accountId);
+        Task<bool> IsBalanceGreater(Guid accountId, int amount);
+        Task<bool> TransactionBetweenAccountsAsync(Guid fromAccountId, Guid toAccountId, int amount);
     }
 }
