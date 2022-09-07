@@ -16,15 +16,17 @@ class Program
         var endpointConfiguration = new EndpointConfiguration("Transaction");
 
         var databaseConnection = "Server=DESKTOP-8AHFHCN;Database=TransactionDB;Trusted_Connection=True;";
+        var rabbitMQConnection = @"host=localhost";
+
         var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
         containerSettings.ServiceCollection.AddScoped<ITransactionService, TransactionService>();
         containerSettings.ServiceCollection.AddScoped<ITransactionData, TransactionData>();
-        //containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
+        containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
+        //builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
         containerSettings.ServiceCollection.ExtensionAddDbContext(databaseConnection);
 
         #region ReceiverConfiguration
-        var rabbitMQConnection = @"host=localhost";
-        var databaseNSBConnection = "Server=DESKTOP-8AHFHCN;Database=BankNSB;Trusted_Connection=True;";
         endpointConfiguration.EnableInstallers();
         endpointConfiguration.EnableOutbox();
 
@@ -36,11 +38,11 @@ class Program
         persistence.ConnectionBuilder(
             connectionBuilder: () =>
             {
-                return new SqlConnection(databaseNSBConnection);
+                return new SqlConnection(databaseConnection);
             });
 
-        var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
-        dialect.Schema("NSB");
+        //var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
+        //dialect.Schema("NSB");
 
         //var conventions = endpointConfiguration.Conventions();
         //conventions.DefiningEventsAs(type => type.Namespace == "Measure.Messages.Events");

@@ -1,4 +1,5 @@
-﻿using NSB.Messages;
+﻿using AutoMapper;
+using NSB.Messages;
 using NServiceBus;
 using NServiceBus.Logging;
 using System;
@@ -15,35 +16,28 @@ namespace Transaction.NSB
     {
         static ILog log = LogManager.GetLogger<TransactionPolicy>();
         private readonly ITransactionService _transactionService;
+        private readonly IMapper _mapper;
 
-        public TransactionPolicy(ITransactionService transactionService)
+        public TransactionPolicy(ITransactionService transactionService, IMapper mapper)
         {
             _transactionService = transactionService;
+            _mapper = mapper;
         }
 
         public async Task Handle(TransactionAdded message, IMessageHandlerContext context)
         {
             log.Info($"Add Transaction, TransactionId = {message.TransactionId}");
-            Data.IsTransactionAdded=true;
-            //mapper?
-            MakeTransfer makeTransfer = new MakeTransfer()
-            {
-                TransactionId = message.TransactionId,
-                FromAccountID=message.FromAccountID,
-                ToAccountID=message.ToAccountID,
-                Amount=message.Amount
-            };
+            //Data.IsTransactionAdded=true;
+            MakeTransfer makeTransfer = _mapper.Map<MakeTransfer>(message);
             await context.Publish(makeTransfer).ConfigureAwait(false);
-            await UpdateTransaction();
         }
 
         public async Task Handle(Transfered message, IMessageHandlerContext context)
         {
             log.Info($"Transferred Transaction, TransactionId = {message.TransactionId}");
-            Data.IsTransferred = true;
-            Data.Status = message.Status;
-            Data.FailureReason = message.FailureReason;
-            await UpdateTransaction();
+            UpdateTransactionModel updateTransactionModel = _mapper.Map<UpdateTransactionModel>(message);
+            await _transactionService.UpdateTransactionAsync(updateTransactionModel);
+            MarkAsComplete();
         }
 
         protected override void ConfigureHowToFindSaga(SagaPropertyMapper<TransactionPolicyData> mapper)
@@ -52,20 +46,6 @@ namespace Transaction.NSB
                 .ToMessage<TransactionAdded>(message => message.TransactionId)
                 .ToMessage<Transfered>(message => message.TransactionId);
         }
-        private async Task UpdateTransaction()
-        {
-            if (Data.IsTransactionAdded && Data.IsTransferred)
-            {
-                //mapper?
-                UpdateTransactionModel updateTransactionModel = new UpdateTransactionModel()
-                {
-                    TransactionId=Data.TransactionId,
-                    Status=Data.Status,
-                    FailureReason=Data.FailureReason
-                };
-                await _transactionService.UpdateTransactionAsync(updateTransactionModel);
-                MarkAsComplete();
-            }
-        }
+        
     }
 }

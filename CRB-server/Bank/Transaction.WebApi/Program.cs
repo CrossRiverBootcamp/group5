@@ -10,7 +10,7 @@ builder.Services.ExtensionAddDbContext(builder.Configuration.GetConnectionString
 
 
 var rabbitMQConnection = builder.Configuration.GetConnectionString("RabbitMQ");
-var databaseNSBConnection= builder.Configuration.GetConnectionString("NSB");
+var databaseConnection = builder.Configuration.GetConnectionString("myconn");
 #region back-end-use-nservicebus
 builder.Host.UseNServiceBus(hostBuilderContext =>
 {
@@ -24,10 +24,10 @@ builder.Host.UseNServiceBus(hostBuilderContext =>
     persistence.ConnectionBuilder(
     connectionBuilder: () =>
     {
-        return new SqlConnection(databaseNSBConnection);
+        return new SqlConnection(databaseConnection);
     });
-    var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
-    dialect.Schema("NSB");
+    //var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
+    //dialect.Schema("NSB");
 
     var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
     transport.ConnectionString(rabbitMQConnection);
