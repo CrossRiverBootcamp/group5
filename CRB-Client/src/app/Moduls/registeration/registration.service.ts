@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Customer } from "src/app/Models/Customer";
-import { LoginDTO } from "../Models/LoginDTO";
+import { LoginDTO } from "src/app/Models/LoginDTO";
 
 @Injectable()
 export class registerationService {

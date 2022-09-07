@@ -26,8 +26,8 @@ builder.Host.UseNServiceBus(hostBuilderContext =>
     {
         return new SqlConnection(databaseConnection);
     });
-    //var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
-    //dialect.Schema("NSB");
+    var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
+    dialect.Schema("NSB");
 
     var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
     transport.ConnectionString(rabbitMQConnection);

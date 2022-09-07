@@ -1,9 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Customer } from "src/app/Models/Customer";
-import { AccountInfo } from "../Models/AccountInfo";
-import { LoginDTO } from "../Models/LoginDTO";
+import { AccountInfo } from "src/app/Models/AccountInfo";
+
+
 
 @Injectable()
 export class AccountDetailsService {

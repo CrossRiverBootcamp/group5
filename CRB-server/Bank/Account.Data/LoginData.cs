@@ -43,6 +43,7 @@ namespace Account.Data
                 if (account == null)
                     return null;
                 CustomerInfoModel customerInfoModel = _mapper.Map<CustomerInfoModel>(account.Customer);
+                customerInfoModel.OpenDate = account.OpenDate;
                 customerInfoModel.Balance = account.Balance;
                 return customerInfoModel;
 
