@@ -15,6 +15,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  title: string = "Log  in";
+
   hide:boolean = true;
   login: FormGroup = new FormGroup({
     "email": new FormControl('', [Validators.required, Validators.email]),
