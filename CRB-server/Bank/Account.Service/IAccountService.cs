@@ -10,5 +10,6 @@ namespace Account.Service
     public interface IAccountService
     {
         Task<bool> AddCustomerAsync(CustomerDTO customerDTO);
+        Task<bool> DoesAccountExist(Guid accountId);
     }
 }

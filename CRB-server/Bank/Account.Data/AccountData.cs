@@ -52,5 +52,11 @@ namespace Account.Data
                 //false?
             }
         }
+
+        public Task<bool> DoesAccountExist(Guid accountId)
+        {
+            var context = _factory.CreateDbContext();
+                return context.Accounts.AnyAsync(account => account.Id == accountId);
+        }
     }
 }

@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Account.Service\Account.Service.csproj" />
+    <ProjectReference Include="..\NSB.Messages\NSB.Messages.csproj" />
   </ItemGroup>
 
 </Project>

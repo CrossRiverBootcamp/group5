@@ -10,7 +10,7 @@ namespace Account.Services;
         public AutoMapper()
         {
             CreateMap<CustomerDTO, Customer>();
-        CreateMap<CustomerInfoModel, CustomerInfoDTO>();
+            CreateMap<CustomerInfoModel, CustomerInfoDTO>();
         }
     }
 

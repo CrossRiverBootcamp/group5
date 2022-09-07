@@ -40,6 +40,12 @@ namespace Account.Service
             return false;
         }
 
-        
+        public Task<bool> DoesAccountExist(Guid accountId)
+        {
+            return _accountData.DoesAccountExist(accountId);
+        }
+
+
+
     }
 }
