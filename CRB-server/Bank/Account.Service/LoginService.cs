@@ -36,5 +36,7 @@ namespace Account.Service
             CustomerInfoDTO customerInfoDTO = _mapper.Map<CustomerInfoDTO>(customerInfoModel);
             return customerInfoDTO;
         }
+
+        
     }
 }

@@ -12,5 +12,6 @@ namespace Account.Data
         Task<bool> IsEmailExistAsync(string email);
         Task<bool> AddCustomerAsync(Customer customer);
         Task<bool> CreateAccountAsync(Entities.Account account);
+        Task<bool> DoesAccountExist(Guid accountId);
     }
 }
