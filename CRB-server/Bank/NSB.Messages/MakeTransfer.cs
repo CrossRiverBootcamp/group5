@@ -8,14 +8,12 @@ using System.Threading.Tasks;
 
 namespace NSB.Messages
 {
-    public class Payload:IEvent
+    public class MakeTransfer:IEvent
     {
-        public Guid TransactionId { get; set; }
-       
         public Guid FromAccountID { get; set; }
-       
+
         public Guid ToAccountID { get; set; }
-        
+
         [Range(1, 1000000)]
         public int Amount { get; set; }
     }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NServiceBus;
 using Transaction.Service;
 using Transaction.Service.DTO;
 
@@ -11,16 +12,19 @@ namespace Transaction.WebApi.Controllers
     public class TransactionController : ControllerBase
     {
         private readonly ITransactionService _transactionService;
+        private IMessageSession _messageSession;
 
-        public TransactionController(ITransactionService transactionService)
+        public TransactionController(ITransactionService transactionService, IMessageSession messageSession)
         {
             _transactionService = transactionService;
+            _messageSession = messageSession;
         }
 
         // POST api/<TransactionController>
         [HttpPost]
-        public void AddTransactionAsync([FromBody] TransactionDTO transactionDTO)
+        public async Task<ActionResult> AddTransactionAsync([FromBody] TransactionDTO transactionDTO)
         {
+            return Ok(_transactionService.AddTransactionAsync(transactionDTO, _messageSession));//????
         }
 
     }

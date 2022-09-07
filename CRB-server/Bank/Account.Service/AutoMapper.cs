@@ -4,7 +4,7 @@ using Account.Service.DTO;
 using AutoMapper;
 
 
-namespace Subscriber.Services;
+namespace Account.Services;
     public class AutoMapper:Profile
     {
         public AutoMapper()

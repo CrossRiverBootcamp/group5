@@ -16,11 +16,13 @@ namespace Transaction.Data
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }
 
-        public Task AddTransactionAsync()
+        public async Task<Guid> AddTransactionAsync(Data.Entities.Transaction transaction)
         {
             using (var context = _factory.CreateDbContext())
             {
-                return Task.CompletedTask;
+                await context.Transactions.AddAsync(transaction);
+                await context.SaveChangesAsync();   
+                return transaction.Id;
             }
         }
     }

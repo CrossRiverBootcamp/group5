@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AutoMapper;
+using NSB.Messages;
+using NServiceBus;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,15 +14,25 @@ namespace Transaction.Service
     public class TransactionService: ITransactionService
     {
         private readonly ITransactionData _transactionData;
+        private readonly IMapper _mapper;
 
-        public TransactionService(ITransactionData transactionData)
+        public TransactionService(ITransactionData transactionData, IMapper mapper)
         {
             _transactionData = transactionData;
+            _mapper = mapper;
         }
 
-        public Task AddTransactionAsync(TransactionDTO transactionDTO)
+        public async Task<bool> AddTransactionAsync(TransactionDTO transactionDTO, IMessageSession messageSession)
         {
-            throw new NotImplementedException();
+            Data.Entities.Transaction transaction = _mapper.Map<Data.Entities.Transaction>(transactionDTO);
+            transaction.Status = "Processing";
+            transaction.Date = DateTime.UtcNow;
+            Guid transactionId =await _transactionData.AddTransactionAsync(transaction);
+            TransactionAdded transactionAdded = _mapper.Map<TransactionAdded>(transactionDTO);
+            transactionAdded.TransactionId = transactionId;
+            await messageSession.Publish(transactionAdded).ConfigureAwait(false);
+            return true;//???????
+
         }
     }
 }
