@@ -12,16 +12,17 @@ class Program
     {
         Console.Title = "Account";
         var endpointConfiguration = new EndpointConfiguration("Account");
-        var databaseConnection = "Server=DESKTOP-R5RADSP;Database=TrackingDB;Trusted_Connection=True;";
-        //var databaseConnection = "Server=DESKTOP-8AHFHCN;Database=TrackingDB;Trusted_Connection=True;";
-        var rabbitMQConnection = @"host=localhost";
+
+        var databaseConnection = "Server=DESKTOP-R5RADSP;Database=Bank;Trusted_Connection=True;";
         var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
         containerSettings.ServiceCollection.AddScoped<IAccountService, AccountService>();
         containerSettings.ServiceCollection.AddScoped<IAccountData, AccountData>();
         //containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
-        //containerSettings.ServiceCollection.AddDbContextFactory<MeasureContext>(opt => opt.UseSqlServer(databaseConnection));
-       
+        containerSettings.ServiceCollection.ExtensionAddDbContext(databaseConnection);
+
         #region ReceiverConfiguration
+        var rabbitMQConnection = @"host=localhost";
+        var databaseNSBConnection = "Server=DESKTOP-8AHFHCN;Database=BankNSB;Trusted_Connection=True;";
         endpointConfiguration.EnableInstallers();
         endpointConfiguration.EnableOutbox();
         var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
@@ -31,11 +32,11 @@ class Program
         persistence.ConnectionBuilder(
             connectionBuilder: () =>
             {
-                return new SqlConnection(databaseConnection);
+                return new SqlConnection(databaseNSBConnection);
             });
         var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
-        dialect.Schema("dbo");
-        var conventions = endpointConfiguration.Conventions();
+        dialect.Schema("NSB");
+       // var conventions = endpointConfiguration.Conventions();
         //conventions.DefiningEventsAs(type => type.Namespace == "Measure.Messages.Events");
         #endregion
        

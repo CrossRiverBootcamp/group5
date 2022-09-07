@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Transaction.Data;
 using Transaction.Service.DTO;
+using Transaction.Service.Models;
 
 namespace Transaction.Service
 {
@@ -35,9 +36,10 @@ namespace Transaction.Service
 
         }
 
-        public Task UpdateTransactionAsync()
+        public  Task UpdateTransactionAsync(UpdateTransactionModel updateTransactionModel)
         {
-            throw new NotImplementedException();
+            //how to send the object to DL?
+            return  _transactionData.UpdateTransactionAsync(updateTransactionModel.TransactionId, updateTransactionModel.Status, updateTransactionModel.FailureReason);
         }
     }
 }
