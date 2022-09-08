@@ -21,7 +21,7 @@ namespace Transaction.WebApi.Controllers
         }
 
         // POST api/<TransactionController>
-        [HttpPost]
+        [HttpPost("AddTransactionAsync")]
         public async Task<ActionResult> AddTransactionAsync([FromBody] TransactionDTO transactionDTO)
         {
             return Ok(_transactionService.AddTransactionAsync(transactionDTO, _messageSession));//????

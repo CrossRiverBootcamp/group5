@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Account.NSB
 {
-    public class TransactHandler  //: IHandleMessages<TransactionAdded>
+    public class TransactHandler : IHandleMessages<MakeTransfer>
     {
         static ILog log = LogManager.GetLogger<TransactHandler>();
 

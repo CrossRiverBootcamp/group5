@@ -58,11 +58,13 @@ namespace Account.Data
             var context = _factory.CreateDbContext();
                 return context.Accounts.AnyAsync(account => account.Id == accountId);
         }
+
         public Task<bool> IsBalanceGreater(Guid accountId, int amount)
         {
             var context = _factory.CreateDbContext();
             return context.Accounts.AnyAsync(account => account.Id == accountId && account.Balance >= amount);
         }
+
         public async Task<bool> TransactionBetweenAccountsAsync(Guid fromAccountId, Guid toAccountId, int amount)
         {
             using (var context = _factory.CreateDbContext())
