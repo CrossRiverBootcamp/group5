@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using NSB.Messages;
 using NServiceBus;
+using NServiceBus.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,11 @@ using Transaction.Service.Models;
 
 namespace Transaction.Service
 {
-    public class TransactionService: ITransactionService
+    public class TransactionService: ITransactionService, IHandleMessages<Transfered>
     {
         private readonly ITransactionData _transactionData;
         private readonly IMapper _mapper;
+        static ILog log = LogManager.GetLogger<TransactionService>();
 
         public TransactionService(ITransactionData transactionData, IMapper mapper)
         {
@@ -29,14 +31,25 @@ namespace Transaction.Service
             transaction.Status = "Processing";
             transaction.Date = DateTime.UtcNow;
             Guid transactionId =await _transactionData.AddTransactionAsync(transaction);
-            TransactionAdded transactionAdded = _mapper.Map<TransactionAdded>(transactionDTO);
-            transactionAdded.TransactionId = transactionId;
-            await messageSession.Publish(transactionAdded).ConfigureAwait(false);
-            return true; //???????
+            if(transactionId != Guid.Empty) 
+            { 
+                TransactionAdded transactionAdded = _mapper.Map<TransactionAdded>(transactionDTO);
+                transactionAdded.TransactionId = transactionId;
+                await messageSession.Publish(transactionAdded).ConfigureAwait(false);
+                return true;
+            }
+           return false;
 
         }
 
-        public  Task UpdateTransactionAsync(UpdateTransactionModel updateTransactionModel)
+        public async Task Handle(Transfered message, IMessageHandlerContext context)
+        {
+            log.Info($"Update status for Transaction, TransactionId = {message.TransactionId}");
+            UpdateTransactionModel updateTransactionModel = _mapper.Map<UpdateTransactionModel>(message);
+            await UpdateTransactionAsync(updateTransactionModel);
+        }
+
+        private Task UpdateTransactionAsync(UpdateTransactionModel updateTransactionModel)
         {
             //how to send the object to DL?
             return  _transactionData.UpdateTransactionAsync(updateTransactionModel.TransactionId, updateTransactionModel.Status, updateTransactionModel.FailureReason);

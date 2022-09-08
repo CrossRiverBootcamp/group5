@@ -13,9 +13,7 @@ namespace Transaction.NSB
     {
         public AutoMapper()
         {
-            CreateMap<Transfered, UpdateTransactionModel>();
             CreateMap<TransactionAdded, MakeTransfer>();
-
         }
     }
 }

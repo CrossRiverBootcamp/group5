@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NSB.Messages
 {
-    public class MakeTransfer:IMessage
+    public class MakeTransfer:ICommand
     {
         public Guid TransactionId { get; set; }
         public Guid FromAccountID { get; set; }

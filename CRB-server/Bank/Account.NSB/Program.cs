@@ -2,6 +2,7 @@
 using Account.Service;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.DependencyInjection;
+using NSB.Messages;
 using NServiceBus;
 using NServiceBus.Logging;
 
@@ -19,7 +20,7 @@ class Program
         var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
         containerSettings.ServiceCollection.AddScoped<IAccountService, AccountService>();
         containerSettings.ServiceCollection.AddScoped<IAccountData, AccountData>();
-        //containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
+        containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
         containerSettings.ServiceCollection.ExtensionAddDbContext(databaseConnection);
 
         #region ReceiverConfiguration
@@ -30,6 +31,8 @@ class Program
         var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
         transport.ConnectionString(rabbitMQConnection);
         transport.UseConventionalRoutingTopology(QueueType.Quorum);
+      
+
         var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
         persistence.ConnectionBuilder(
             connectionBuilder: () =>

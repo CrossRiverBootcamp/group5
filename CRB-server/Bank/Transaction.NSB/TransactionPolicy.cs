@@ -27,16 +27,14 @@ namespace Transaction.NSB
         public async Task Handle(TransactionAdded message, IMessageHandlerContext context)
         {
             log.Info($"Add Transaction, TransactionId = {message.TransactionId}");
-            //Data.IsTransactionAdded=true;
             MakeTransfer makeTransfer = _mapper.Map<MakeTransfer>(message);
-            await context.Publish(makeTransfer).ConfigureAwait(false);
+            await context.Send(makeTransfer).ConfigureAwait(false);
         }
 
         public async Task Handle(Transfered message, IMessageHandlerContext context)
         {
             log.Info($"Transferred Transaction, TransactionId = {message.TransactionId}");
-            UpdateTransactionModel updateTransactionModel = _mapper.Map<UpdateTransactionModel>(message);
-            await _transactionService.UpdateTransactionAsync(updateTransactionModel);
+           
             MarkAsComplete();
         }
 

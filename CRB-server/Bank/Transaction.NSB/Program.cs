@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.DependencyInjection;
+using NSB.Messages;
 using NServiceBus;
 using NServiceBus.Logging;
 using Transaction.Data;
@@ -34,6 +35,10 @@ class Program
         var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
         transport.ConnectionString(rabbitMQConnection);
         transport.UseConventionalRoutingTopology(QueueType.Quorum);
+        var routing = transport.Routing();
+        routing.RouteToEndpoint(
+            assembly: typeof(MakeTransfer).Assembly,
+            destination: "Account");
 
         var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
         persistence.ConnectionBuilder(
