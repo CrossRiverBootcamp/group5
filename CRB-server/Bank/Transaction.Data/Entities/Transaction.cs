@@ -19,7 +19,9 @@ namespace Transaction.Data.Entities
         [Required]
         [Range(1,1000000)]
         public int Amount { get; set; }
+        [Required]
         public DateTime Date { get; set; }
+        [Required]
         public string Status { get; set; }// processing -> success / fail
         public string? FailureReason { get; set; }
 
