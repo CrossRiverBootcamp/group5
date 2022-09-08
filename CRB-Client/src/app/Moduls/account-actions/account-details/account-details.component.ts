@@ -1,8 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AccountInfo } from 'src/app/Models/AccountInfo';
-import { AccountDetailsService } from '../account-details.service';
+import { AccountActionsService } from '../account-actions.service';
+
 
 @Component({
   selector: 'app-account-details',
@@ -11,7 +12,7 @@ import { AccountDetailsService } from '../account-details.service';
 })
 export class AccountDetailsComponent implements OnInit {
 
-  constructor(private _accountDetailsService: AccountDetailsService, private _acr: ActivatedRoute) { }
+  constructor(private _accountActionsService: AccountActionsService, private _acr: ActivatedRoute) { }
 
   //subscription: Subscription | undefined;
   accountId?: any;
@@ -21,7 +22,7 @@ export class AccountDetailsComponent implements OnInit {
     this._acr.paramMap.subscribe(params => {
       if (params.get('id') !== undefined) {
         this.accountId = params.get('id');
-        this._accountDetailsService.getAccountInfo(this.accountId).subscribe(data => {
+        this._accountActionsService.getAccountInfo(this.accountId).subscribe(data => {
           this.accountInfo = data;
         })
       }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FloatLabelType } from '@angular/material/form-field';
 import { registerationService } from '../registration.service';
 
 // export interface Customer {
@@ -22,10 +23,11 @@ export class SignUpComponent {
 
   }
 
-title: string = 'Open Account';
+  title: string = 'Open Account';
   hide:boolean = true;
+  // hideRequiredControl = new FormControl(false);
 
- 
+
   newCustomer: FormGroup = new FormGroup({
     "firstName": new FormControl('', [Validators.required, Validators.minLength(2),Validators.maxLength(50)]),
     "lastName": new FormControl('', [Validators.required, Validators.minLength(2),Validators.maxLength(50)]),

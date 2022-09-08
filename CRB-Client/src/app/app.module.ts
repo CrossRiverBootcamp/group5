@@ -9,20 +9,21 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 
 import { MatMenuModule} from '@angular/material/menu';
-import { AccountDetailsModule } from './Moduls/account-details/account-details.module';
 import { RegisterationModule } from './Moduls/registeration/registeration.module';
-
+import { AccountActionsModule } from './Moduls/account-actions/account-actions.module';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RegisterationModule,
-    AccountDetailsModule,
+    AccountActionsModule,
     BrowserAnimationsModule,
     MatIconModule,
     MatToolbarModule,

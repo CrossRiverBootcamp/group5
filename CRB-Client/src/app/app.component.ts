@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'CRB-Project-Client';
+  headTitle = 'CRB-Project-Client';
   login:string='Login';
   signUp :string='Sign-Up';
 }

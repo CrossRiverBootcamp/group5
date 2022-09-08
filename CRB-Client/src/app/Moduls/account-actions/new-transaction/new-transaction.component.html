@@ -1,1 +1,31 @@
-<p>new-transaction works!</p>
+<app-actions-menu></app-actions-menu>
+<div>
+    <div class="title">{{title}}</div>
+    <form [formGroup]="newTransactionForm">
+        <div id="form-inputs">
+            <div class="form-group">
+                <mat-form-field appearance="outline">
+                    <mat-label>Destination Account:</mat-label>
+                    <input matInput type="text" formControlName="toAccountId">
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <mat-form-field appearance="outline">
+                    <mat-label>Amount</mat-label>
+                    <input matInput type="number" class="example-right-align" formControlName="amount">
+                    <span matPrefix>$&nbsp;</span>
+                    <span matSuffix>.00</span>
+                </mat-form-field>
+            </div>
+            <p>
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label for="moreDetails">More Details</mat-label>
+                    <textarea matInput formControlName="moreDetails"></textarea>
+                </mat-form-field>
+            </p>
+
+            <button mat-stroked-button color="primary" (click)="addTransaction()">create transaction</button>
+        </div>
+    </form>
+
+</div>

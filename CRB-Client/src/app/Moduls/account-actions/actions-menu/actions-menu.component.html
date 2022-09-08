@@ -1,0 +1,19 @@
+<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="account-details/:id" routerLinkActive="active">
+      <mat-icon>dialpad</mat-icon>
+      <span>Account Details</span>
+    </button>
+    <button mat-menu-item routerLink="new-transaction/:id" routerLinkActive="active">
+      <mat-icon>voicemail</mat-icon>
+      <span>New transaction</span>
+    </button>
+    <button mat-menu-item routerLink="" routerLinkActive="active">
+      <mat-icon>notifications_off</mat-icon>
+      <span>Transactions history</span>
+    </button>
+</mat-menu>
+
+<router-outlet></router-outlet>

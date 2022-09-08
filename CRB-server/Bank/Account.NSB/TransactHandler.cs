@@ -30,7 +30,7 @@ namespace Account.NSB
                 transfered.Status = "fail";
                 transfered.FailureReason = "can't transfer from and to the same account";
             }
-            if (!await _accountService.DoesAccountExist(message.FromAccountID)
+            else if (!await _accountService.DoesAccountExist(message.FromAccountID)
                 || !await _accountService.DoesAccountExist(message.ToAccountID))
             {
                 log.Info($"failed to transfer from account: {message.FromAccountID} to account: {message.ToAccountID}");
@@ -38,7 +38,7 @@ namespace Account.NSB
                 transfered.Status = "fail";
                 transfered.FailureReason = "one or more of the accounts number do not exist";
             }
-            if (!await _accountService.IsBalanceGreater(message.FromAccountID, message.Amount))
+            else if (!await _accountService.IsBalanceGreater(message.FromAccountID, message.Amount))
             {
                 log.Info($"failed to transfer from account: {message.FromAccountID} to account: {message.ToAccountID}");
                 transfered.TransactionId = message.TransactionId;

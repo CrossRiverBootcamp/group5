@@ -10,9 +10,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { LoginComponent } from './login/login.component';
-import { AccountDetailsModule } from '../account-details/account-details.module';
 import { Routes } from '@angular/router';
 import { AccountRoutingModule } from './registeration-routing.module';
+import { AccountActionsModule } from '../account-actions/account-actions.module';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 @NgModule({
@@ -23,7 +25,7 @@ import { AccountRoutingModule } from './registeration-routing.module';
   imports: [
     CommonModule, HttpClientModule,
     ReactiveFormsModule,MatFormFieldModule, MatInputModule,MatIconModule,MatButtonModule, 
-    AccountDetailsModule, AccountRoutingModule
+    AccountActionsModule, AccountRoutingModule, MatToolbarModule, MatMenuModule,
   ],
   exports: [SignUpComponent, LoginComponent],
   providers: [registerationService]
