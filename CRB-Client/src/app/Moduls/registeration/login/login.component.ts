@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
   }
 
   title: string = "Log  in";
-
   hide: boolean = true;
+  
   login: FormGroup = new FormGroup({
     "email": new FormControl('', [Validators.required, Validators.email]),
     "password": new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]),
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
       this._registerationService.login(loginDTO)
         .subscribe((accountId: any) => {
           if (accountId) {
-            this._router.navigate(['/account-details', accountId]);
+            this._router.navigate(['/account-menu', accountId]);
           }
         },
           err => {

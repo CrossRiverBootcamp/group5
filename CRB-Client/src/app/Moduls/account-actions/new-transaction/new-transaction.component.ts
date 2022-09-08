@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { NewTransaction } from 'src/app/Models/NewTransaction';
 import { AccountActionsService } from '../account-actions.service';
 
@@ -10,12 +11,18 @@ import { AccountActionsService } from '../account-actions.service';
 })
 export class NewTransactionComponent implements OnInit {
 
-  constructor(private _accountActionsService: AccountActionsService) { }
+  constructor(private _accountActionsService: AccountActionsService, private _acr: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this._acr.paramMap.subscribe(params => {
+      if (params.get('id') !== undefined) {
+        this.accountId = params.get('id');
+      }
+    })
   }
 
   title: string = 'New Transaction';
+  accountId?: any;
   transaction: NewTransaction = new NewTransaction();
 
   newTransactionForm: FormGroup = new FormGroup({

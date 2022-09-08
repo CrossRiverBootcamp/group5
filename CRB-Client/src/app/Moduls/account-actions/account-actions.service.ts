@@ -15,6 +15,6 @@ export class AccountActionsService {
     }
 
     createTransaction(transaction: NewTransaction) :Observable<boolean> {
-        return this._http.post<boolean>("", transaction);
+        return this._http.post<boolean>("https://localhost:7147/api/Transaction/AddTransactionAsync", transaction);
     }
 }
