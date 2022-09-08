@@ -22,7 +22,7 @@ namespace Transaction.Data.Entities
         [Required]
         public DateTime Date { get; set; }
         [Required]
-        public string Status { get; set; }// processing -> success / fail
+        public string Status { get; set; }
         public string? FailureReason { get; set; }
 
     }
