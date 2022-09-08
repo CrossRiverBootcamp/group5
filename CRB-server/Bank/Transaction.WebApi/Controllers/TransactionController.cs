@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NServiceBus;
+using System.Net;
 using Transaction.Service;
 using Transaction.Service.DTO;
 
@@ -22,9 +23,10 @@ namespace Transaction.WebApi.Controllers
 
         // POST api/<TransactionController>
         [HttpPost("AddTransactionAsync")]
-        public async Task<ActionResult> AddTransactionAsync([FromBody] TransactionDTO transactionDTO)
+        public async  Task<ActionResult> AddTransactionAsync([FromBody] TransactionDTO transactionDTO)
         {
-            return Ok(_transactionService.AddTransactionAsync(transactionDTO, _messageSession));//????
+            bool isTransactionAdded = await _transactionService.AddTransactionAsync(transactionDTO, _messageSession);
+            return isTransactionAdded ? Accepted("Transaction successfully added in DB") : BadRequest("failed to add transaction in DB");
         }
 
     }

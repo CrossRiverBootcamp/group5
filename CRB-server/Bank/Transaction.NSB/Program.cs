@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.DependencyInjection;
+using NSB.Messages;
 using NServiceBus;
 using NServiceBus.Logging;
 using Transaction.Data;
@@ -27,22 +28,27 @@ class Program
         containerSettings.ServiceCollection.ExtensionAddDbContext(databaseConnection);
 
         #region ReceiverConfiguration
+        var databaseNSBConnection = "Server=DESKTOP-8AHFHCN;Database=BankNSB;Trusted_Connection=True;";
         endpointConfiguration.EnableInstallers();
         endpointConfiguration.EnableOutbox();
 
         var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
         transport.ConnectionString(rabbitMQConnection);
         transport.UseConventionalRoutingTopology(QueueType.Quorum);
+        var routing = transport.Routing();
+        routing.RouteToEndpoint(
+            assembly: typeof(MakeTransfer).Assembly,
+            destination: "Account");
 
         var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
         persistence.ConnectionBuilder(
             connectionBuilder: () =>
             {
-                return new SqlConnection(databaseConnection);
+                return new SqlConnection(databaseNSBConnection);
             });
 
-        //var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
-        //dialect.Schema("NSB");
+        var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
+        dialect.Schema("NSB");
 
         //var conventions = endpointConfiguration.Conventions();
         //conventions.DefiningEventsAs(type => type.Namespace == "Measure.Messages.Events");
