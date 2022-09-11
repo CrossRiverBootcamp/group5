@@ -26,6 +26,8 @@ export class ActionsMenuComponent implements OnInit {
   navigateToNewTransaction() {
     this._router.navigate(['/new-transaction', this.accountId]);
   }
-
+  navigateToOperationHistory() {
+    this._router.navigate(['/operations-history', this.accountId]);
+  }
 
 }

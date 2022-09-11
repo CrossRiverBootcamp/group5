@@ -11,9 +11,9 @@
             <mat-icon>voicemail</mat-icon>
             <span>New transaction</span>
         </button>
-        <button mat-menu-item routerLink="" routerLinkActive="active">
+        <button mat-menu-item (click)="navigateToOperationHistory()">
             <mat-icon>notifications_off</mat-icon>
-            <span>Transactions history</span>
+            <span>Operations history</span>
         </button>
     </mat-menu>
 </div>

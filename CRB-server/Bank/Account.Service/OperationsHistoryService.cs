@@ -22,7 +22,7 @@ namespace Account.Service
         }
         public async Task<List<OperationDTO>> GetOperationsHistotyListAsync(Guid accountID, int pageNumber, int numberOfRecords)
         {
-            List<Operation> operationsList = await _OperationsHistoryData.GetOperationsHistoty(AccountID, pageNumber, numberOfRecords);
+            List<Operation> operationsList = await _OperationsHistoryData.GetOperationsHistoty(accountID, pageNumber, numberOfRecords);
             List<OperationDTO> operationsListDTO = operationsList.ConvertAll(operation => _mapper.Map<OperationDTO>(operation));
             //operationsListDTO.Sort((a, b) => a.Date.CompareTo(b.Date));
             operationsListDTO.OrderByDescending(o => o.Date);
