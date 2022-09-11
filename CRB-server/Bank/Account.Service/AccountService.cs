@@ -1,6 +1,7 @@
 ﻿using Account.Data;
 using Account.Data.Entities;
 using Account.Service.DTO;
+using Account.Services;
 using AutoMapper;
 using NSB.Messages;
 using System;
@@ -19,7 +20,12 @@ namespace Account.Service
         public AccountService(IAccountData accountData, IMapper mapper)
         {
             _accountData = accountData;
-            _mapper = mapper;
+            //_mapper = mapper;
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<AutoMapperProfile>();
+            });
+            _mapper = config.CreateMapper();
         }
         public async Task<bool> AddCustomerAsync(CustomerDTO customerDTO)
         {
