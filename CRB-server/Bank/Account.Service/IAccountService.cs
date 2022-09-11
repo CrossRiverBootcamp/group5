@@ -1,4 +1,5 @@
 ﻿using Account.Service.DTO;
+using NSB.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace Account.Service
         Task<bool> DoesAccountExist(Guid accountId);
         Task<bool> IsBalanceGreater(Guid accountId, int amount);
         Task<bool> TransactionBetweenAccountsAsync(Guid fromAccountId, Guid toAccountId, int amount);
+        Task<bool> AddOperation(MakeTransfer makeTransfer);
     }
 }

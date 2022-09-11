@@ -2,6 +2,7 @@
 using Account.Data.Entities;
 using Account.Service.DTO;
 using AutoMapper;
+using NSB.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,7 @@ namespace Account.Service
             return false;
         }
 
+
         public Task<bool> DoesAccountExist(Guid accountId)
         {
             return _accountData.DoesAccountExist(accountId);
@@ -52,6 +54,24 @@ namespace Account.Service
         public Task<bool> TransactionBetweenAccountsAsync(Guid fromAccountId, Guid toAccountId, int amount)
         {
             return _accountData.TransactionBetweenAccountsAsync(fromAccountId, toAccountId, amount);
+        }
+        //operationservice in diffrent page?
+        public async Task<bool> AddOperation(MakeTransfer makeTransfer)
+        {
+            //add model?
+            Operation operationFromAccount = _mapper.Map<Operation>(makeTransfer);
+            operationFromAccount.AccountId = makeTransfer.FromAccountID;
+            operationFromAccount.Debit_Credit = false;
+            operationFromAccount.Balance = await _accountData.GetBalanceByAccountIdAsync(operationFromAccount.AccountId);
+            operationFromAccount.OperationTime = DateTime.UtcNow;
+
+            Operation operationToAccount = _mapper.Map<Operation>(makeTransfer);
+            operationToAccount.AccountId = makeTransfer.ToAccountID;
+            operationToAccount.Debit_Credit = true;
+            operationToAccount.Balance = await _accountData.GetBalanceByAccountIdAsync(operationToAccount.AccountId);
+            operationToAccount.OperationTime = DateTime.UtcNow;
+
+            return await _accountData.AddOperation(operationFromAccount, operationToAccount);
         }
     }
 }

@@ -15,5 +15,7 @@ namespace Account.Data
         Task<bool> DoesAccountExist(Guid accountId);
         Task<bool> IsBalanceGreater(Guid accountId, int amount);
         Task<bool> TransactionBetweenAccountsAsync(Guid fromAccountId, Guid toAccountId, int amount);
+        Task<int> GetBalanceByAccountIdAsync(Guid accountId);
+        Task<bool> AddOperation(Operation operationFromAccount, Operation operationToAccount);
     }
 }

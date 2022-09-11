@@ -23,7 +23,6 @@ class Program
         containerSettings.ServiceCollection.AddScoped<ITransactionService, TransactionService>();
         containerSettings.ServiceCollection.AddScoped<ITransactionData, TransactionData>();
         containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
-        //builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         containerSettings.ServiceCollection.ExtensionAddDbContext(databaseConnection);
 
