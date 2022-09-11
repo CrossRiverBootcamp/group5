@@ -30,7 +30,7 @@ builder.Host.UseNServiceBus(hostBuilderContext =>
         return new SqlConnection(databaseNSBConnection);
     });
     var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
-    dialect.Schema("NSB");
+    //dialect.Schema("NSB");
 
     var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
     transport.ConnectionString(rabbitMQConnection);

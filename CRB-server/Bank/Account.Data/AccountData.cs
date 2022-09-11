@@ -53,10 +53,10 @@ namespace Account.Data
             }
         }
 
-        public Task<bool> DoesAccountExist(Guid accountId)
+        public async Task<bool> DoesAccountExist(Guid accountId)
         {
             var context = _factory.CreateDbContext();
-                return context.Accounts.AnyAsync(account => account.Id == accountId);
+                return await context.Accounts.AnyAsync(account => account.Id == accountId);
         }
 
         public Task<bool> IsBalanceGreater(Guid accountId, int amount)
