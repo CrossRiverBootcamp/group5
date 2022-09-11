@@ -14,7 +14,7 @@ export class AccountActionsService {
         return this._http.get<AccountInfo>("https://localhost:7182/api/Login/GetCustomerInfoAsync/"+accountId);
     }
 
-    createTransaction(transaction: NewTransaction) :Observable<boolean> {
-        return this._http.post<boolean>("https://localhost:7147/api/Transaction/AddTransactionAsync", transaction);
+    createTransaction(transaction: NewTransaction) :Observable<any> {
+        return this._http.post<any>("https://localhost:7147/api/Transaction/AddTransactionAsync", transaction);
     }
 }

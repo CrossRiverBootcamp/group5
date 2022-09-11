@@ -5,9 +5,9 @@ using Transaction.Service.DTO;
 using Transaction.Service.Models;
 
 namespace Transaction.Services;
-    public class AutoMapper:Profile
+    public class AutoMapperProfile:Profile
     {
-        public AutoMapper()
+        public AutoMapperProfile()
         {
             CreateMap<TransactionDTO, Data.Entities.Transaction>();
             CreateMap<TransactionDTO, TransactionAdded>();

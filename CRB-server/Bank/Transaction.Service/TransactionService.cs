@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Transaction.Data;
 using Transaction.Service.DTO;
 using Transaction.Service.Models;
+using Transaction.Services;
 
 namespace Transaction.Service
 {
@@ -19,10 +20,15 @@ namespace Transaction.Service
         private readonly IMapper _mapper;
         static ILog log = LogManager.GetLogger<TransactionService>();
 
-        public TransactionService(ITransactionData transactionData, IMapper mapper)
+        public TransactionService(ITransactionData transactionData)//, IMapper mapper)
         {
             _transactionData = transactionData;
-            _mapper = mapper;
+            // _mapper = mapper;
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<AutoMapperProfile>();
+            });
+            _mapper = config.CreateMapper();
         }
 
         public async Task<bool> AddTransactionAsync(TransactionDTO transactionDTO, IMessageSession messageSession)
