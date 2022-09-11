@@ -33,7 +33,6 @@ namespace Transaction.Service
 
         public async Task<bool> AddTransactionAsync(TransactionDTO transactionDTO, IMessageSession messageSession)
         {
-            return false;
             Data.Entities.Transaction transaction = _mapper.Map<Data.Entities.Transaction>(transactionDTO);
             transaction.Status = "Processing";
             transaction.Date = DateTime.UtcNow;

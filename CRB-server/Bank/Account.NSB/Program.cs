@@ -14,8 +14,8 @@ class Program
         Console.Title = "Account";
         var endpointConfiguration = new EndpointConfiguration("Account");
 
-        //var databaseConnection = "Server=DESKTOP-8AHFHCN;Database=Bank;Trusted_Connection=True;";
-        var databaseConnection = "Server=DESKTOP-R5RADSP;Database=Bank;Trusted_Connection=True;";
+        var databaseConnection = "Server=DESKTOP-8AHFHCN;Database=Bank;Trusted_Connection=True;";
+        //var databaseConnection = "Server=DESKTOP-R5RADSP;Database=Bank;Trusted_Connection=True;";
         var rabbitMQConnection = @"host=localhost";
 
         var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
@@ -25,8 +25,8 @@ class Program
         containerSettings.ServiceCollection.ExtensionAddDbContext(databaseConnection);
 
         #region ReceiverConfiguration
-        //var databaseNSBConnection = "Server=DESKTOP-8AHFHCN;Database=BankNSB;Trusted_Connection=True;";
-        var databaseNSBConnection = "Server=DESKTOP-R5RADSP;Database=BankNSB;Trusted_Connection=True;";
+        var databaseNSBConnection = "Server=DESKTOP-8AHFHCN;Database=BankNSB;Trusted_Connection=True;";
+        //var databaseNSBConnection = "Server=DESKTOP-R5RADSP;Database=BankNSB;Trusted_Connection=True;";
 
         endpointConfiguration.EnableInstallers();
         endpointConfiguration.EnableOutbox();

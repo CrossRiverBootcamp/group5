@@ -5,9 +5,9 @@ using AutoMapper;
 using NSB.Messages;
 
 namespace Account.Services;
-    public class AutoMapper:Profile
+    public class AutoMapperProfile : Profile
     {
-        public AutoMapper()
+        public AutoMapperProfile()
         {
             CreateMap<CustomerDTO, Customer>();
             CreateMap<CustomerInfoModel, CustomerInfoDTO>();
