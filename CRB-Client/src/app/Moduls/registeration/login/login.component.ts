@@ -27,16 +27,25 @@ export class LoginComponent implements OnInit {
     if (this.login.valid) {
       let loginDTO = this.login.value;
       this._registerationService.login(loginDTO)
-        .subscribe((accountId: any) => {
-          if (accountId) {
-            this._router.navigate(['/account-menu', accountId]);
-          }
+        .subscribe( (res) => {
+          
+          this._router.navigate(['/account-menu', res]);
         },
-          err => {
+        (err) => {
+          console.log(err);
+      
+        });
 
-            console.log(err);
-
-          });
+          // .subscribe((accountId: any) => {
+          //   if (accountId) {
+          //     this._router.navigate(['/account-menu', accountId]);
+          //   }
+          // },
+          //   err => {
+  
+          //     console.log(err);
+  
+          //   });
     }
   }
 }

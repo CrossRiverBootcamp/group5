@@ -23,7 +23,7 @@ namespace Transaction.Service
         public TransactionService(ITransactionData transactionData)//, IMapper mapper)
         {
             _transactionData = transactionData;
-            _mapper = mapper;
+            //_mapper = mapper;
         }
 
         public async Task<bool> AddTransactionAsync(TransactionDTO transactionDTO, IMessageSession messageSession)
