@@ -20,15 +20,10 @@ namespace Transaction.Service
         private readonly IMapper _mapper;
         static ILog log = LogManager.GetLogger<TransactionService>();
 
-        public TransactionService(ITransactionData transactionData, IMapper mapper)
+        public TransactionService(ITransactionData transactionData)//, IMapper mapper)
         {
             _transactionData = transactionData;
-            //_mapper = mapper;
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile<AutoMapperProfile>();
-            });
-            _mapper = config.CreateMapper();
+            _mapper = mapper;
         }
 
         public async Task<bool> AddTransactionAsync(TransactionDTO transactionDTO, IMessageSession messageSession)
