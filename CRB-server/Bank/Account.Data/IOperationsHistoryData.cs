@@ -1,7 +1,9 @@
-﻿namespace Account.Data
+﻿using Account.Data.Entities;
+
+namespace Account.Data
 {
     public interface IOperationsHistoryData
     {
-        Task<List<Entities.Account>> GetOperationsHistoty(Guid AccountID);
+        Task<List<Operation>> GetOperationsHistoty(Guid AccountID);
     }
 }

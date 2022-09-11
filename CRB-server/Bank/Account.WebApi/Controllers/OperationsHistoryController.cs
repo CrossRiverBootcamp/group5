@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Account.Service;
+using Account.Service.DTO;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,11 +10,21 @@ namespace Account.WebApi.Controllers
     [ApiController]
     public class OperationsHistoryController : ControllerBase
     {
-        // GET: api/<OperationsHistoryController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IOperationsHistoryService _operationsHistoryService;
+
+        public OperationsHistoryController(IOperationsHistoryService operationsHistoryService)
         {
-            return new string[] { "value1", "value2" };
+            _operationsHistoryService = operationsHistoryService;
+        }
+
+        // GET: api/<OperationsHistoryController>
+        [HttpGet("GetOperationsList/{id}")]
+        public async Task<ActionResult<List<OperationDTO>>> GetOperationsList(Guid accountID)
+        {
+            List<OperationDTO> operationsDTO = await _operationsHistoryService.GetOperationsHistotyListAsync(accountID);
+            if (operationsDTO == null)
+                return NoContent();
+            return Ok(operationsDTO);
         }
 
     }

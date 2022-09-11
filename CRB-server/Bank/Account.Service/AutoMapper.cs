@@ -5,15 +5,16 @@ using AutoMapper;
 using NSB.Messages;
 
 namespace Account.Services;
-    public class AutoMapper:Profile
+public class AutoMapper : Profile
+{
+    public AutoMapper()
     {
-        public AutoMapper()
-        {
-            CreateMap<CustomerDTO, Customer>();
-            CreateMap<CustomerInfoModel, CustomerInfoDTO>();
-            CreateMap<MakeTransfer, Operation>()
-            .ForMember(dest => dest.TransactionAmount,      
-                            opt => opt.MapFrom(src => src.Amount));
-        }
+        CreateMap<CustomerDTO, Customer>();
+        CreateMap<CustomerInfoModel, CustomerInfoDTO>();
+        CreateMap<MakeTransfer, Operation>()
+        .ForMember(dest => dest.TransactionAmount,
+                        opt => opt.MapFrom(src => src.Amount));
+        CreateMap<Operation, OperationDTO>();
     }
+}
 

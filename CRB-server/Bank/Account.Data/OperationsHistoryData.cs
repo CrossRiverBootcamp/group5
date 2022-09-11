@@ -1,4 +1,5 @@
 ﻿using Account.Data.EF;
+using Account.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,11 @@ namespace Account.Data
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }
 
-        public async Task<List<Entities.Account>> GetOperationsHistoty(Guid AccountID)
+        public async Task<List<Operation>> GetOperationsHistoty(Guid AccountID)
         {
             using var context = _factory.CreateDbContext();
-            List<Entities.Account> operations = await context.Accounts.Where(account => account.Id == AccountID).ToListAsync();
-            return operations;
+                return await context.Operations.Where(operation => operation.AccountId == AccountID).ToListAsync();
+
         }
     }
 }
