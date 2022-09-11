@@ -21,6 +21,7 @@ namespace Account.Data.EF
 
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Entities.Account> Accounts { get; set; }
+        public virtual DbSet<Operation> Operations { get; set; }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{

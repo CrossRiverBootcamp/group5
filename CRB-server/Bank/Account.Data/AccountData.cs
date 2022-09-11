@@ -78,5 +78,27 @@ namespace Account.Data
                 //false?
             }
         }
+        public async Task<int> GetBalanceByAccountIdAsync(Guid accountId)
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                Entities.Account account = await context.Accounts.FindAsync(accountId);
+                //check account is null?
+                return account.Balance;
+
+            }
+        }
+
+        public async Task<bool> AddOperation(Operation operationFromAccount, Operation operationToAccount)
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                await context.Operations.AddAsync(operationFromAccount);
+                await context.Operations.AddAsync(operationToAccount);
+                await context.SaveChangesAsync();
+                return true;
+                //false?
+            }
+        }
     }
 }

@@ -23,16 +23,12 @@ namespace Transaction.Service
         public TransactionService(ITransactionData transactionData)//, IMapper mapper)
         {
             _transactionData = transactionData;
-            // _mapper = mapper;
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile<AutoMapperProfile>();
-            });
-            _mapper = config.CreateMapper();
+            _mapper = mapper;
         }
 
         public async Task<bool> AddTransactionAsync(TransactionDTO transactionDTO, IMessageSession messageSession)
         {
+            return false;
             Data.Entities.Transaction transaction = _mapper.Map<Data.Entities.Transaction>(transactionDTO);
             transaction.Status = "Processing";
             transaction.Date = DateTime.UtcNow;
@@ -53,6 +49,7 @@ namespace Transaction.Service
             log.Info($"Update status for Transaction, TransactionId = {message.TransactionId}");
             UpdateTransactionModel updateTransactionModel = _mapper.Map<UpdateTransactionModel>(message);
             await UpdateTransactionAsync(updateTransactionModel);
+
         }
 
         private Task UpdateTransactionAsync(UpdateTransactionModel updateTransactionModel)

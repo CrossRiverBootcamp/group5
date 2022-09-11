@@ -52,6 +52,7 @@ namespace Account.NSB
                     log.Info($"Successfully transfered from account: {message.FromAccountID} to account: {message.ToAccountID}");
                     transfered.TransactionId = message.TransactionId;
                     transfered.Status = "success";
+                    await _accountService.AddOperation(message);
                 }
                 else
                 {

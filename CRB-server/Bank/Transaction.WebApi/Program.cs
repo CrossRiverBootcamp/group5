@@ -1,6 +1,7 @@
 using Microsoft.Data.SqlClient;
 using NServiceBus;
 using Transaction.Service;
+using Transaction.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +42,8 @@ builder.Host.UseNServiceBus(hostBuilderContext =>
 #endregion
 
 builder.Services.AddControllers();
+//builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", p =>
@@ -50,7 +53,7 @@ builder.Services.AddCors(options =>
         .AllowAnyMethod();
     });
 });
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

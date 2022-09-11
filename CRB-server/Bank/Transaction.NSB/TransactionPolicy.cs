@@ -15,12 +15,10 @@ namespace Transaction.NSB
     public class TransactionPolicy : Saga<TransactionPolicyData>, IAmStartedByMessages<TransactionAdded>, IHandleMessages<Transfered>
     {
         static ILog log = LogManager.GetLogger<TransactionPolicy>();
-        private readonly ITransactionService _transactionService;
         private readonly IMapper _mapper;
 
-        public TransactionPolicy(ITransactionService transactionService, IMapper mapper)
+        public TransactionPolicy(IMapper mapper)
         {
-            _transactionService = transactionService;
             _mapper = mapper;
         }
 
