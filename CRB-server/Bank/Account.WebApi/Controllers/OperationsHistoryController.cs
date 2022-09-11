@@ -18,11 +18,13 @@ namespace Account.WebApi.Controllers
         }
 
         // GET: api/<OperationsHistoryController>
-        [HttpGet("GetOperationsList/{id}")]
-        public async Task<ActionResult<List<OperationDTO>>> GetOperationsList(Guid accountID)
+        [HttpGet("GetOperationsList/{id}/{pageNumber}/{numberOfRecords}")]
+        public async Task<ActionResult> GetOperationsList(Guid accountID, int pageNumber, int numberOfRecords)
         {
-            List<OperationDTO> operationsDTO = await _operationsHistoryService.GetOperationsHistotyListAsync(accountID);
+            List<OperationDTO> operationsDTO = await _operationsHistoryService.GetOperationsHistotyListAsync(accountID, pageNumber, numberOfRecords);
             if (operationsDTO == null)
+                return NotFound();
+            if(operationsDTO.Count == 0)
                 return NoContent();
             return Ok(operationsDTO);
         }

@@ -18,11 +18,11 @@ namespace Account.Data
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }
 
-        public async Task<List<Operation>> GetOperationsHistoty(Guid AccountID)
+        public async Task<List<Operation>> GetOperationsHistoty(Guid accountID, int pageNumber, int numberOfRecords)
         {
             using var context = _factory.CreateDbContext();
-                return await context.Operations.Where(operation => operation.AccountId == AccountID).ToListAsync();
-
+                return await context.Operations.Where(operation => operation.AccountId == accountID)
+                    .Skip(numberOfRecords*(pageNumber-1)).Take(numberOfRecords).ToListAsync();
         }
     }
 }

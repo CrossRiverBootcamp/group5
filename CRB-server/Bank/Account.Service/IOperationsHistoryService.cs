@@ -4,6 +4,6 @@ namespace Account.Service
 {
     public interface IOperationsHistoryService
     {
-        Task<List<OperationDTO>> GetOperationsHistotyListAsync(Guid AccountID);
+        Task<List<OperationDTO>> GetOperationsHistotyListAsync(Guid accountID, int pageNumber, int numberOfRecords);
     }
 }
