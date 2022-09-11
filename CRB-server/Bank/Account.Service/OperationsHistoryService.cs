@@ -1,4 +1,6 @@
 ﻿using Account.Data;
+using Account.Data.Entities;
+using Account.Service.DTO;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Account.Service
 {
-    public class OperationsHistoryService
+    public class OperationsHistoryService : IOperationsHistoryService
     {
         private readonly IOperationsHistoryData _OperationsHistoryData;
         private readonly IMapper _mapper;
@@ -18,9 +20,11 @@ namespace Account.Service
             _OperationsHistoryData = OperationsHistoryData;
             _mapper = mapper;
         }
-        public async Task<List<Data.Entities.Account>> GetOperationsHistotyListAsync(Guid AccountID)
+        public async Task<List<OperationDTO>> GetOperationsHistotyListAsync(Guid AccountID)
         {
-            Task<List<Data.Entities.Account>> operationsList = await _OperationsHistoryData.GetOperationsHistoty(AccountID).ToListAsync();
+            List<Operation> operationsList = await _OperationsHistoryData.GetOperationsHistoty(AccountID);
+            List<OperationDTO> operationsListDTO = operationsList.ConvertAll(operation => _mapper.Map<OperationDTO>(operation));
+            return operationsListDTO;
         }
     }
 }
