@@ -14,6 +14,6 @@ export class registerationService {
     }
 
     login(loginDTO: LoginDTO) :Observable<string> {
-        return this._http.post<string>("/api/Login/LoginAndGetAccountId", loginDTO);
+        return this._http.post<string>("https://localhost:7182/api/Login/LoginAndGetAccountId", loginDTO);
     }
 }

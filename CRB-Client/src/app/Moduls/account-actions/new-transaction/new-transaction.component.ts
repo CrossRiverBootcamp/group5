@@ -37,6 +37,7 @@ export class NewTransactionComponent implements OnInit {
       this.transaction = this.newTransactionForm.value;
       this._accountActionsService.createTransaction(this.transaction).subscribe(success => {
         if (success) {
+          //check status code
           alert("The transaction was successfully completed");
         }
         else {

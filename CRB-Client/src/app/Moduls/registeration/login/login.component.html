@@ -11,7 +11,8 @@
             <mat-form-field appearance="outline">            
                 <mat-label>Email:</mat-label>
                 <input matInput placeholder="pat@example.com" formControlName="email" required>
-                <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+                <!-- <mat-error *ngIf="email.invalid" formControlName="email">{{getErrorMessage()}}</mat-error> -->
+
             </mat-form-field>
         </div>
         <div class="form-group">
@@ -23,8 +24,11 @@
                 </button>
             </mat-form-field>
         </div>
+        
         <button mat-stroked-button color="primary" (click)="onFormSubmit()" >Login</button>
 
+        <mat-error *ngIf="error">{{errorMessage}}</mat-error>
+     
        <!-- [disabled]="!newCustomer.valid" -->
     </div>
     </form>
