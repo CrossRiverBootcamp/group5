@@ -45,7 +45,5 @@ export class NewTransactionComponent implements OnInit {
         }
       })
     }
-
   }
-
 }

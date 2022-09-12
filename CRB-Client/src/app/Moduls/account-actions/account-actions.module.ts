@@ -13,6 +13,9 @@ import { AccountActionsService } from './account-actions.service';
 import { ActionsMenuComponent } from './actions-menu/actions-menu.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { AccountActionsRoutingModule } from './account-action-routing.module';
+import { OperationsHistoryComponent } from './operations-history/operations-history.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 
@@ -21,6 +24,7 @@ import { AccountActionsRoutingModule } from './account-action-routing.module';
     NewTransactionComponent,
     AccountDetailsComponent,
     ActionsMenuComponent,
+    OperationsHistoryComponent
   ],
   imports: [
     CommonModule,
@@ -32,9 +36,11 @@ import { AccountActionsRoutingModule } from './account-action-routing.module';
     MatIconModule,
     MatButtonModule, 
     MatCardModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
-  exports: [NewTransactionComponent, AccountDetailsComponent, ActionsMenuComponent],
+  exports: [NewTransactionComponent, AccountDetailsComponent, ActionsMenuComponent, OperationsHistoryComponent],
   providers: [AccountActionsService]
 })
 export class AccountActionsModule { }
