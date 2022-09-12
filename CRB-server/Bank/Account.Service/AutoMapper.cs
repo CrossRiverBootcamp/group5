@@ -14,6 +14,11 @@ namespace Account.Services;
             CreateMap<MakeTransfer, Operation>()
             .ForMember(dest => dest.TransactionAmount,      
                             opt => opt.MapFrom(src => src.Amount));
+            CreateMap<Operation, OperationDTO>()
+            .ForMember(dest => dest.Amount,
+                            opt => opt.MapFrom(src => src.TransactionAmount))
+            .ForMember(dest => dest.Date,
+                            opt => opt.MapFrom(src => src.OperationTime)); ; 
         }
     }
 

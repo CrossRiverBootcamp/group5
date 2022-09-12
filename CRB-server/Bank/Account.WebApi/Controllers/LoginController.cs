@@ -23,7 +23,7 @@ namespace Account.WebApi.Controllers
 
             Guid accountId = await _loginService.Login(loginDTO);
             if(accountId == Guid.Empty)
-                return Unauthorized("the email or password are worng!");
+                return Unauthorized("The email or password are worng, please try again");
             return Ok(accountId);
         }
 

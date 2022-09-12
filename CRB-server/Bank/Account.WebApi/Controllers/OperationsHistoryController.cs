@@ -19,7 +19,7 @@ namespace Account.WebApi.Controllers
 
         // GET: api/<OperationsHistoryController>
         [HttpGet("GetOperationsList/{accountID}/{pageNumber}/{numberOfRecords}")]
-        public async Task<ActionResult> GetOperationsList(Guid accountID, int pageNumber, int numberOfRecords)
+        public async Task<ActionResult> GetOperationsList(Guid accountID, int pageNumber,int numberOfRecords)
         {
             List<OperationDTO> operationsDTO = await _operationsHistoryService.GetOperationsHistotyListAsync(accountID, pageNumber, numberOfRecords);
             if (operationsDTO == null)

@@ -28,7 +28,7 @@ export class OperationsHistoryComponent implements OnInit {
   displayedColumns: string[] = ['accountId', 'debitOrCredit', 'amount', 'balance', 'date'];
 
   pageEvent?: PageEvent;
-  pageNumber: number = 0;
+  pageNumber: number = 1;
   numberOfRecords: number = 10;
 
   onPaginateChange(event: PageEvent) {
@@ -41,6 +41,8 @@ export class OperationsHistoryComponent implements OnInit {
   getOperationsList() {
     this._accountActionsService.getOperationsHistoryByAccountId(this.accountId, this.pageNumber, this.numberOfRecords)
       .subscribe(data => {
+        console.log(data);
+        
         this.operationsList = data;
       })
   }

@@ -44,7 +44,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseErrorHandlerMiddleware();
+//app.UseErrorHandlerMiddleware();
 
 app.UseCors("AllowAll");
 

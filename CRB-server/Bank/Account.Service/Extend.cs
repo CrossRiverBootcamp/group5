@@ -18,6 +18,8 @@ namespace Account.Service
             service.AddScoped<IAccountService, AccountService>();
             service.AddScoped<ILoginData, LoginData>();
             service.AddScoped<ILoginService, LoginService>();
+            service.AddScoped<IOperationsHistoryService, OperationsHistoryService>();
+            service.AddScoped<IOperationsHistoryData, OperationsHistoryData>();
         }
         public static void ExtensionAddDbContext(this IServiceCollection service, string Connection)
         {
