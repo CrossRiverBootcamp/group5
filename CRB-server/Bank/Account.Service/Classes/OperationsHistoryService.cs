@@ -1,6 +1,7 @@
-﻿using Account.Data;
-using Account.Data.Entities;
+﻿using Account.Data.Entities;
+using Account.Data.Interfaces;
 using Account.Service.DTO;
+using Account.Service.Interfaces;
 using Account.Services;
 using AutoMapper;
 using System;
@@ -9,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Account.Service
+namespace Account.Service.Classes
 {
     public class OperationsHistoryService : IOperationsHistoryService
     {

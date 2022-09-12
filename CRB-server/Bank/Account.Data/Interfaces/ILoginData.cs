@@ -1,6 +1,6 @@
 ﻿using Account.Data.Models;
 
-namespace Account.Data
+namespace Account.Data.Interfaces
 {
     public interface ILoginData
     {

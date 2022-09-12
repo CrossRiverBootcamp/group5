@@ -1,6 +1,18 @@
 table {
-    width: 263%;
+    width: 120%;
     position: relative;
-    bottom: 200px;
-    right: 229px;
+    right: 137px;
+    bottom: 93px;
+}
+
+mat-form-field {
+    margin-right: 12px;
+}
+
+.paging {
+    position: absolute;
+}
+
+td, th {
+    width: 7%;
 }

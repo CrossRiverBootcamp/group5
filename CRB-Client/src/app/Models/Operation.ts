@@ -1,5 +1,5 @@
 export class Operation {
-    accountId?: string;
+    accountId: string = "";
     debitOrCredit?: boolean;
     amount?: number;
     balance?: number;

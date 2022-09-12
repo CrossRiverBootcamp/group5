@@ -1,6 +1,6 @@
 ﻿using Account.Data.Entities;
 
-namespace Account.Data
+namespace Account.Data.Interfaces
 {
     public interface IOperationsHistoryData
     {

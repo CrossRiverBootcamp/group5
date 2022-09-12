@@ -1,5 +1,5 @@
-﻿using Account.Service;
-using Account.Service.DTO;
+﻿using Account.Service.DTO;
+using Account.Service.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

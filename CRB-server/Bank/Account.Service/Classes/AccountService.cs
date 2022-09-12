@@ -1,6 +1,7 @@
-﻿using Account.Data;
-using Account.Data.Entities;
+﻿using Account.Data.Entities;
+using Account.Data.Interfaces;
 using Account.Service.DTO;
+using Account.Service.Interfaces;
 using Account.Services;
 using AutoMapper;
 using NSB.Messages;
@@ -10,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Account.Service
+namespace Account.Service.Classes
 {
     public class AccountService : IAccountService
     {
@@ -28,15 +29,15 @@ namespace Account.Service
             if (await _accountData.IsEmailExistAsync(customerDTO.Email))
             {
                 Customer customer = _mapper.Map<Customer>(customerDTO);
-                bool isCustomerAdded=await _accountData.AddCustomerAsync(customer);
+                bool isCustomerAdded = await _accountData.AddCustomerAsync(customer);
                 Data.Entities.Account account = new Data.Entities.Account()
                 {
                     CustomerId = customer.Id,
                     OpenDate = DateTime.UtcNow,
-                    Balance=1000
+                    Balance = 1000
                 };
-                bool isAccountCreated=await _accountData.CreateAccountAsync(account);
-                if(isCustomerAdded&& isAccountCreated)
+                bool isAccountCreated = await _accountData.CreateAccountAsync(account);
+                if (isCustomerAdded && isAccountCreated)
                     return true;
                 return false;
             }

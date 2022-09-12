@@ -1,5 +1,8 @@
-﻿using Account.Data;
+﻿using Account.Data.Classes;
 using Account.Data.EF;
+using Account.Data.Interfaces;
+using Account.Service.Classes;
+using Account.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;

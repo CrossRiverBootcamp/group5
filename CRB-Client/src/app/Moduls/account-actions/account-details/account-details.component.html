@@ -4,6 +4,7 @@
     <mat-card-subtitle>here are your account details</mat-card-subtitle>
     <mat-card-content>
       <p class="detail">Name of account owner:</p><p>{{accountInfo?.firstName + " " + accountInfo?.lastName}}</p>
+      <p class="detail">Email Addres:</p><p>{{accountInfo?.email}}</p>
       <p class="detail">Open date: </p><p>{{accountInfo?.openDate | date}}</p>
       <p class="detail">Current balance: </p><p>{{accountInfo?.balance}} $</p>
     </mat-card-content>

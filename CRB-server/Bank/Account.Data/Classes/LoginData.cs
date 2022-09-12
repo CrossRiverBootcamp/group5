@@ -1,4 +1,5 @@
 ﻿using Account.Data.EF;
+using Account.Data.Interfaces;
 using Account.Data.Models;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Account.Data
+namespace Account.Data.Classes
 {
     public class LoginData : ILoginData
     {

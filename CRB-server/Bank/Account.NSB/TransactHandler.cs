@@ -1,4 +1,4 @@
-﻿using Account.Service;
+﻿using Account.Service.Interfaces;
 using NSB.Messages;
 using NServiceBus;
 using NServiceBus.Logging;

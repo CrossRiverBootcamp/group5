@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Account.Data
+namespace Account.Data.Interfaces
 {
     public interface IAccountData
     {

@@ -1,5 +1,6 @@
 ﻿using Account.Data.EF;
 using Account.Data.Entities;
+using Account.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Account.Data
+namespace Account.Data.Classes
 {
     public class AccountData : IAccountData
     {
@@ -19,9 +20,9 @@ namespace Account.Data
 
         public async Task<bool> IsEmailExistAsync(string email)
         {
-            using(var context = _factory.CreateDbContext())
+            using (var context = _factory.CreateDbContext())
             {
-               
+
                 Entities.Account account = await context.Accounts.Include(account => account.Customer)
                     .FirstOrDefaultAsync(account => account.Customer.Email.Equals(email));
                 if (account == null)
@@ -56,7 +57,7 @@ namespace Account.Data
         public async Task<bool> DoesAccountExist(Guid accountId)
         {
             var context = _factory.CreateDbContext();
-                return await context.Accounts.AnyAsync(account => account.Id == accountId);
+            return await context.Accounts.AnyAsync(account => account.Id == accountId);
         }
 
         public Task<bool> IsBalanceGreater(Guid accountId, int amount)

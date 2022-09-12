@@ -1,6 +1,7 @@
-﻿using Account.Data;
+﻿using Account.Data.Interfaces;
 using Account.Data.Models;
 using Account.Service.DTO;
+using Account.Service.Interfaces;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Account.Service
+namespace Account.Service.Classes
 {
     public class LoginService : ILoginService
     {
@@ -30,13 +31,13 @@ namespace Account.Service
         public async Task<CustomerInfoDTO> GetCustomerInfoAsync(Guid accountId)
         {
 
-            CustomerInfoModel customerInfoModel =await _loginData.GetCustomerInfoAsync(accountId);
+            CustomerInfoModel customerInfoModel = await _loginData.GetCustomerInfoAsync(accountId);
             if (customerInfoModel == null)
                 return null;
             CustomerInfoDTO customerInfoDTO = _mapper.Map<CustomerInfoDTO>(customerInfoModel);
             return customerInfoDTO;
         }
 
-        
+
     }
 }

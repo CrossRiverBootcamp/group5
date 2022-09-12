@@ -1,5 +1,6 @@
 ﻿using Account.Data.EF;
 using Account.Data.Entities;
+using Account.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Account.Data
+namespace Account.Data.Classes
 {
     public class OperationsHistoryData : IOperationsHistoryData
     {
@@ -21,8 +22,8 @@ namespace Account.Data
         public async Task<List<Operation>> GetOperationsHistoty(Guid accountID, int pageNumber, int numberOfRecords)
         {
             using var context = _factory.CreateDbContext();
-                return await context.Operations.Where(operation => operation.AccountId == accountID)
-                    .Skip(numberOfRecords*(pageNumber-1)).Take(numberOfRecords).ToListAsync();
+            return await context.Operations.Where(operation => operation.AccountId == accountID)
+                .Skip(numberOfRecords * (pageNumber - 1)).Take(numberOfRecords).ToListAsync();
         }
     }
 }

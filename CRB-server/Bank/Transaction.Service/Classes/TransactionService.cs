@@ -7,14 +7,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Transaction.Data;
+using Transaction.Data.Interfaces;
 using Transaction.Service.DTO;
+using Transaction.Service.Interfaces;
 using Transaction.Service.Models;
 using Transaction.Services;
 
-namespace Transaction.Service
+namespace Transaction.Service.Classes
 {
-    public class TransactionService: ITransactionService, IHandleMessages<Transfered>
+    public class TransactionService : ITransactionService, IHandleMessages<Transfered>
     {
         private readonly ITransactionData _transactionData;
         private readonly IMapper _mapper;
@@ -35,15 +36,15 @@ namespace Transaction.Service
             Data.Entities.Transaction transaction = _mapper.Map<Data.Entities.Transaction>(transactionDTO);
             transaction.Status = "Processing";
             transaction.Date = DateTime.UtcNow;
-            Guid transactionId =await _transactionData.AddTransactionAsync(transaction);
-            if(transactionId != Guid.Empty) 
-            { 
+            Guid transactionId = await _transactionData.AddTransactionAsync(transaction);
+            if (transactionId != Guid.Empty)
+            {
                 TransactionAdded transactionAdded = _mapper.Map<TransactionAdded>(transactionDTO);
                 transactionAdded.TransactionId = transactionId;
                 await messageSession.Publish(transactionAdded).ConfigureAwait(false);
                 return true;
             }
-           return false;
+            return false;
 
         }
 
@@ -58,7 +59,7 @@ namespace Transaction.Service
         private Task UpdateTransactionAsync(UpdateTransactionModel updateTransactionModel)
         {
             //how to send the object to DL?
-            return  _transactionData.UpdateTransactionAsync(updateTransactionModel.TransactionId, updateTransactionModel.Status, updateTransactionModel.FailureReason);
+            return _transactionData.UpdateTransactionAsync(updateTransactionModel.TransactionId, updateTransactionModel.Status, updateTransactionModel.FailureReason);
         }
     }
 }

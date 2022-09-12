@@ -1,6 +1,7 @@
+using Account.Data.EF;
 using Account.Service;
 using Account.WebApi.Middlewares;
-
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,15 +27,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-//using (var client = new AccountDbContext())
-//{
-//    client.Database.EnsureCreated();
-//}
-//using (var scope = app.Services.CreateScope())
-//{
-//    var dataContext = scope.ServiceProvider.GetRequiredService<DataContext>();
-//    dataContext.Database.Migrate();
-//}
+
+//should be in the extend class?
+using (var scope = app.Services.CreateScope())
+{
+    var dataContext = scope.ServiceProvider.GetRequiredService<AccountDbContext>();
+    dataContext.Database.Migrate();
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

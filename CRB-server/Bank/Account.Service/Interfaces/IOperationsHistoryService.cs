@@ -1,6 +1,6 @@
 ﻿using Account.Service.DTO;
 
-namespace Account.Service
+namespace Account.Service.Interfaces
 {
     public interface IOperationsHistoryService
     {

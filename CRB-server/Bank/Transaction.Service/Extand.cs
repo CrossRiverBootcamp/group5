@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Transaction.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,6 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Transaction.Data.EF;
+using Transaction.Data.Classes;
+using Transaction.Data.Interfaces;
+using Transaction.Service.Classes;
+using Transaction.Service.Interfaces;
 
 namespace Transaction.Service
 {

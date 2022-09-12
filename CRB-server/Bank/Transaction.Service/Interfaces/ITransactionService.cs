@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Transaction.Service.DTO;
 using Transaction.Service.Models;
 
-namespace Transaction.Service
+namespace Transaction.Service.Interfaces
 {
     public interface ITransactionService
     {

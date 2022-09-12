@@ -16,6 +16,7 @@ import { AccountActionsRoutingModule } from './account-action-routing.module';
 import { OperationsHistoryComponent } from './operations-history/operations-history.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 
@@ -38,7 +39,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatCardModule,
     MatMenuModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSnackBarModule
   ],
   exports: [NewTransactionComponent, AccountDetailsComponent, ActionsMenuComponent, OperationsHistoryComponent],
   providers: [AccountActionsService]

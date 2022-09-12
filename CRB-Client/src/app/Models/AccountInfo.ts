@@ -2,7 +2,7 @@ export interface AccountInfo {
     firstName?: string;
     lastName?: string ;
     openDate?: Date;
-    //email?: string;
+    email?: string;
     balance?: number ;
 
 }

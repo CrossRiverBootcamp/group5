@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Transaction.Data.EF;
+using Transaction.Data.Interfaces;
 
-namespace Transaction.Data
+namespace Transaction.Data.Classes
 {
-    public class TransactionData: ITransactionData
+    public class TransactionData : ITransactionData
     {
         private readonly IDbContextFactory<TransactionDbContext> _factory;
         public TransactionData(IDbContextFactory<TransactionDbContext> factory)
@@ -16,12 +17,12 @@ namespace Transaction.Data
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }
 
-        public async Task<Guid> AddTransactionAsync(Data.Entities.Transaction transaction)
+        public async Task<Guid> AddTransactionAsync(Entities.Transaction transaction)
         {
             using (var context = _factory.CreateDbContext())
             {
                 await context.Transactions.AddAsync(transaction);
-                await context.SaveChangesAsync();   
+                await context.SaveChangesAsync();
                 return transaction.Id;
             }
         }
@@ -33,7 +34,7 @@ namespace Transaction.Data
                 Entities.Transaction transaction = await context.Transactions.FindAsync(transactionId);
                 transaction.Status = status;
                 transaction.FailureReason = failureReason;
-                await context.SaveChangesAsync();              
+                await context.SaveChangesAsync();
             }
         }
     }
