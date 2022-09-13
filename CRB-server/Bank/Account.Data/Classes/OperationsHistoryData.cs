@@ -22,8 +22,25 @@ namespace Account.Data.Classes
         public async Task<List<Operation>> GetOperationsHistoty(Guid accountID, int pageNumber, int numberOfRecords)
         {
             using var context = _factory.CreateDbContext();
-            return await context.Operations.Where(operation => operation.AccountId == accountID)
-                .Skip(numberOfRecords * (pageNumber - 1)).Take(numberOfRecords).ToListAsync();
+           
+            var innerJoinQuery =
+                await  (from o1 in context.Operations
+                join o2 in context.Operations 
+                on o1.TransactionId equals o2.TransactionId 
+                where o1.AccountId == accountID
+                select(new Operation
+                        {   Id = o1.Id,
+                            AccountId = o2.AccountId,
+                            TransactionId= o1.TransactionId ,
+                            Debit_Credit= o1.Debit_Credit,
+                            TransactionAmount = o1.TransactionAmount,
+                            Balance = o1.Balance,
+                            OperationTime = o1.OperationTime
+                        })
+                     ).Where( operation => operation.AccountId != accountID)//?
+                     .Skip(numberOfRecords * (pageNumber - 1)).Take(numberOfRecords).ToListAsync();
+            return  innerJoinQuery;
+
         }
     }
 }

@@ -21,7 +21,11 @@ namespace Account.Service.Classes
         public AccountService(IAccountData accountData, IMapper mapper)
         {
             _accountData = accountData;
-            _mapper = mapper;
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<AutoMapperProfile>();
+            });
+            _mapper = config.CreateMapper();
 
         }
         public async Task<bool> AddCustomerAsync(CustomerDTO customerDTO)

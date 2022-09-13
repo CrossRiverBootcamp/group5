@@ -21,4 +21,3 @@ namespace Account.Services;
                             opt => opt.MapFrom(src => src.OperationTime)); ; 
         }
     }
-

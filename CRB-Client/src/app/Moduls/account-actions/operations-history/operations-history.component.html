@@ -4,12 +4,12 @@
 
         <ng-container matColumnDef="accountId">
             <th mat-header-cell *matHeaderCellDef> To/From Account </th>
-            <td mat-cell *matCellDef="let element"> {{element.accountId}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.accountID}} </td>
         </ng-container>
 
         <ng-container matColumnDef="debitOrCredit">
             <th mat-header-cell *matHeaderCellDef> Debit/Credit </th>
-            <td mat-cell *matCellDef="let element"> {{element.debitOrCredit}} </td>
+            <td mat-cell *matCellDef="let element" > {{element.debit_Credit}} </td>
         </ng-container>
 
         <ng-container matColumnDef="amount">

@@ -21,7 +21,7 @@ export class OperationsHistoryComponent implements OnInit {
         this.accountId = params.get('id');
       }
     })
-    // this.getOperationsList();
+    this.getOperationsList();
   }
 
   title: string = 'Operations History';
@@ -60,9 +60,10 @@ export class OperationsHistoryComponent implements OnInit {
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
   openSnackBar(element: Operation) {
-    this._accountActionsService.getAccountInfo(element.accountId).subscribe(data => {
+    this._accountActionsService.getAccountInfo(element.accountID).subscribe(data => {
       this.partnerAccountInfo = data;
       this._snackBar.open(
+       
         'To/From: '+ JSON.stringify(this.partnerAccountInfo.firstName + ' ' + this.partnerAccountInfo.lastName )
         +' - Email Addres: '+JSON.stringify(this.partnerAccountInfo.email), 'close');
     })

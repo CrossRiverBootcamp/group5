@@ -1,6 +1,6 @@
 export class Operation {
-    accountId: string = "";
-    debitOrCredit?: boolean;
+    accountID: string = "";
+    debit_Credit?: boolean;
     amount?: number;
     balance?: number;
     date?: Date;

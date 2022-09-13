@@ -22,9 +22,16 @@ export class AccountDetailsComponent implements OnInit {
     this._acr.paramMap.subscribe(params => {
       if (params.get('id') !== undefined) {
         this.accountId = params.get('id');
-        this._accountActionsService.getAccountInfo(this.accountId).subscribe(data => {
-          this.accountInfo = data;
-        })
+        this._accountActionsService.getAccountInfo(this.accountId).subscribe((res) => {
+          this.accountInfo = res;
+        },
+          (err) => {
+            if (err.status == 401) {
+              console.log(err.error());
+
+            }
+          }
+        )
       }
     })
   }

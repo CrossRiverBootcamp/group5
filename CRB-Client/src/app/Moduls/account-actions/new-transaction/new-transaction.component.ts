@@ -35,6 +35,7 @@ export class NewTransactionComponent implements OnInit {
     if (this.newTransactionForm.valid) {
       this.transaction = new NewTransaction();
       this.transaction = this.newTransactionForm.value;
+      this.transaction.fromAccountId=this.accountId;
       this._accountActionsService.createTransaction(this.transaction).subscribe(success => {
         if (success) {
           //check status code
