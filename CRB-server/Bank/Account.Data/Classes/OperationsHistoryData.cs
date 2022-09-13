@@ -37,7 +37,7 @@ namespace Account.Data.Classes
                             Balance = o1.Balance,
                             OperationTime = o1.OperationTime
                         })
-                     ).Where( operation => operation.AccountId != accountID)//?
+                     ).Where( operation => operation.AccountId != accountID).OrderByDescending(o=>o.OperationTime)
                      .Skip(numberOfRecords * (pageNumber - 1)).Take(numberOfRecords).ToListAsync();
             return  innerJoinQuery;
 

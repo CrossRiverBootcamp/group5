@@ -38,10 +38,10 @@ export class OperationsHistoryComponent implements OnInit {
 
   pageEvent?: PageEvent;
   pageNumber: number = 1;
-  numberOfRecords: number = 10;
+  numberOfRecords: number=4;
 
   onPaginateChange(event: PageEvent) {
-    this.pageNumber = event.pageIndex;
+    this.pageNumber = event.pageIndex+1;
     this.numberOfRecords = event.pageSize;
     this.getOperationsList();
     // alert(JSON.stringify("Current page size: " + event.pageSize + "Current page index: " + event.pageIndex));

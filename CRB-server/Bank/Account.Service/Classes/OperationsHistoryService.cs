@@ -31,7 +31,7 @@ namespace Account.Service.Classes
         {
             List<Operation> operationsList = await _OperationsHistoryData.GetOperationsHistoty(accountID, pageNumber, numberOfRecords);
             List<OperationDTO> operationsListDTO = operationsList.ConvertAll(operation => _mapper.Map<OperationDTO>(operation));
-            operationsListDTO.Sort((o1, o2) => o2.Date.CompareTo(o1.Date));
+            //operationsListDTO.Sort((o1, o2) => o2.Date.CompareTo(o1.Date));
             return operationsListDTO;
         }
     }
