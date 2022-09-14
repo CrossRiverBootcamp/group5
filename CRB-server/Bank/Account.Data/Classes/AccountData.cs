@@ -57,7 +57,7 @@ namespace Account.Data.Classes
                 EmailVerification emailVerification = await context.EmailVerifications  
                     .FirstOrDefaultAsync(verification => verification.Email.Equals(email) 
                 && verification.VerificationCode == code 
-                && verification.ExpirationTime.Equals(DateTime.Now) && verification.ExpirationTime.Minute <= DateTime.Now.Minute-30);
+                && verification.ExpirationTime.Equals(DateTime.Now) && verification.ExpirationTime.Minute - DateTime.Now.Minute <= 30);
                 if(emailVerification == null)
                     return false;
                 return true;
