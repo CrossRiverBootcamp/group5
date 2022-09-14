@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Account.Data.Entities
 {
+    [Index("Email", IsUnique = true)]
     public class EmailVerification
     {
         [Key]
@@ -16,6 +18,6 @@ namespace Account.Data.Entities
         [Range(1000,9999)]
         public int VerificationCode { get; set; }
         [Required]
-        public TimeOnly ExpirationTime { get; set; }
+        public DateTime ExpirationTime { get; set; }
     }
 }
