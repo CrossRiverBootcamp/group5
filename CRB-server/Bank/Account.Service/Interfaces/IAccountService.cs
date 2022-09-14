@@ -10,6 +10,7 @@ namespace Account.Service.Interfaces
 {
     public interface IAccountService
     {
+        Task<bool> CreateVerificationCode(string email);
         Task<bool> AddCustomerAsync(CustomerDTO customerDTO);
         Task<bool> DoesAccountExist(Guid accountId);
         Task<bool> IsBalanceGreater(Guid accountId, int amount);

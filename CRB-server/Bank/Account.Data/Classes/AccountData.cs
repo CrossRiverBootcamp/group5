@@ -18,6 +18,17 @@ namespace Account.Data.Classes
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }
 
+        public async Task<bool> CreateEmailVerification(EmailVerification emailVerification)
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                await context.EmailVerifications.AddAsync(emailVerification);
+                await context.SaveChangesAsync();
+                return true;
+                //false?
+            }
+        }
+
         public async Task<bool> IsEmailExistAsync(string email)
         {
             using (var context = _factory.CreateDbContext())
@@ -27,9 +38,9 @@ namespace Account.Data.Classes
                     .FirstOrDefaultAsync(account => account.Customer.Email.Equals(email));
                 if (account == null)
                 {
-                    return true;
+                    return false;
                 }
-                return false;
+                return true;
             }
         }
         public async Task<bool> AddCustomerAsync(Customer customer)

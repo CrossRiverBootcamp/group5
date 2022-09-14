@@ -9,6 +9,7 @@ namespace Account.Data.Interfaces
 {
     public interface IAccountData
     {
+        Task<bool> CreateEmailVerification(EmailVerification emailVerification);
         Task<bool> IsEmailExistAsync(string email);
         Task<bool> AddCustomerAsync(Customer customer);
         Task<bool> CreateAccountAsync(Entities.Account account);
