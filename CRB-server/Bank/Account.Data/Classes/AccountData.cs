@@ -22,7 +22,14 @@ namespace Account.Data.Classes
         {
             using (var context = _factory.CreateDbContext())
             {
-                await context.EmailVerifications.AddAsync(emailVerification);
+                EmailVerification existsVerification = await context.EmailVerifications.FindAsync(emailVerification.Email);
+                if(existsVerification != null)
+                {
+                    existsVerification.VerificationCode = emailVerification.VerificationCode;
+                    existsVerification.ExpirationTime = emailVerification.ExpirationTime;
+                }
+                else
+                    await context.EmailVerifications.AddAsync(emailVerification);
                 await context.SaveChangesAsync();
                 return true;
                 //false?
@@ -40,6 +47,19 @@ namespace Account.Data.Classes
                 {
                     return false;
                 }
+                return true;
+            }
+        }
+        public async Task<bool> ValidVerificationCode(string email, int code)//?????
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                EmailVerification emailVerification = await context.EmailVerifications  
+                    .FirstOrDefaultAsync(verification => verification.Email.Equals(email) 
+                && verification.VerificationCode == code 
+                && verification.ExpirationTime.Equals(DateTime.Now) && verification.ExpirationTime.Minute <= DateTime.Now.Minute-30);
+                if(emailVerification == null)
+                    return false;
                 return true;
             }
         }

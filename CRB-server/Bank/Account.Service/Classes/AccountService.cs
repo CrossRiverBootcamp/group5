@@ -33,55 +33,57 @@ namespace Account.Service.Classes
 
         public async Task<bool> CreateVerificationCode(string email)
         {
-            if (!await _accountData.IsEmailExistAsync(email))
+            if (await _accountData.IsEmailExistAsync(email))
             {
-                int code = new Random().Next(1000, 10000);
+                return false;
+            }
+            int code = new Random().Next(1000, 10000);
 
-                EmailVerification emailVerification = new EmailVerification()
+            EmailVerification emailVerification = new EmailVerification()
+            {
+                Email = email,
+                VerificationCode = code,
+                ExpirationTime = DateTime.Now.AddMinutes(30)
+            };
+            if (await _accountData.CreateEmailVerification(emailVerification))
+            {
+                var fromAddress = new MailAddress("crbcrproject@gmail.com", "CRB C&R");
+                var toAddress = new MailAddress(email);
+                const string fromPassword = "nbitifwvunfkzyoa";
+
+                const string subject = "Verification code";
+                string body = "Hi We received a request to create a bank account for you" +
+                    " Your verification code  from Cross River Bank is: " + code
+                    + ". this verification code will expire in 30 minutes!";
+
+                var smtp = new SmtpClient
                 {
-                    Email = email,
-                    VerificationCode = code,
-                    ExpirationTime = DateTime.Now.AddMinutes(30)
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
+                    Timeout = 5000,
+                    UseDefaultCredentials = false
                 };
-                if (await _accountData.CreateEmailVerification(emailVerification))
+                using (var message = new MailMessage(fromAddress, toAddress)
                 {
-                    var fromAddress = new MailAddress("crbcrproject@gmail.com", "CRB C&R");
-                    var toAddress = new MailAddress(email);
-                    const string fromPassword = "nbitifwvunfkzyoa";
-
-                    const string subject = "Verification code";
-                    string body = "Hi We received a request to create a bank account for you" +
-                        " Your verification code  from Cross River Bank is: " + code 
-                        + ". this verification code will expire in 30 minutes!";
-
-                    var smtp = new SmtpClient
-                    {
-                        Host = "smtp.gmail.com",
-                        Port = 587,
-                        EnableSsl = true,
-                        DeliveryMethod = SmtpDeliveryMethod.Network,
-                        Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
-                        Timeout = 5000,
-                        UseDefaultCredentials = false
-                    };
-                    using (var message = new MailMessage(fromAddress, toAddress)
-                    {
-                        Subject = subject,
-                        Body = body
-                    })
-                    {
-                        smtp.Send(message);
-                    }
-                    return true;
+                    Subject = subject,
+                    Body = body
+                })
+                {
+                    smtp.Send(message);
                 }
-                return false;//?
+                return true;
             }
             return false;//?
         }
 
-        public async Task<bool> AddCustomerAsync(CustomerDTO customerDTO)
+        public async Task<string> AddCustomerAsync(CustomerDTO customerDTO)
         {
-
+            bool isValid = await _accountData.ValidVerificationCode(customerDTO.Email, customerDTO.VerificationCode);
+            if (!isValid)
+                return "Is the code you entered incorrect? Or 30 minutes have passed since you received the email?";
             Customer customer = _mapper.Map<Customer>(customerDTO);
             bool isCustomerAdded = await _accountData.AddCustomerAsync(customer);
             Data.Entities.Account account = new Data.Entities.Account()
@@ -92,8 +94,8 @@ namespace Account.Service.Classes
             };
             bool isAccountCreated = await _accountData.CreateAccountAsync(account);
             if (isCustomerAdded && isAccountCreated)
-                return true;
-            return false;
+                return "";
+            return "oops... An error occurred while creating the account";
         }
 
 

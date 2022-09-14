@@ -11,6 +11,7 @@ namespace Account.Data.Interfaces
     {
         Task<bool> CreateEmailVerification(EmailVerification emailVerification);
         Task<bool> IsEmailExistAsync(string email);
+        Task<bool> ValidVerificationCode(string email, int code);
         Task<bool> AddCustomerAsync(Customer customer);
         Task<bool> CreateAccountAsync(Entities.Account account);
         Task<bool> DoesAccountExist(Guid accountId);

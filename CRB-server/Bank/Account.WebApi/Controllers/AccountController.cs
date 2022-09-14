@@ -22,7 +22,10 @@ namespace Account.WebApi.Controllers
         [HttpPost("AddCustomer")]
         public async Task<ActionResult> AddCustomerAsync([FromBody] CustomerDTO customerDTO)
         {
-            return Ok(await _accountService.AddCustomerAsync(customerDTO));
+            string res = await _accountService.AddCustomerAsync(customerDTO);
+            if(res == "")
+                return Ok();
+            return BadRequest(res);
         }
 
         

@@ -20,8 +20,8 @@ namespace Account.WebApi.Controllers
         public async Task<ActionResult> SendVerificationCode(string email)
         {
             if (!await _accountService.CreateVerificationCode(email))
-                return BadRequest();
-            return Ok();
+                return BadRequest(false);
+            return Ok(true);
         }
     }
 }
