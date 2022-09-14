@@ -49,7 +49,7 @@ namespace Account.WebApi.Controllers
             //}
 
             var fromAddress = new MailAddress("crbcrproject@gmail.com", "From crb");
-            var toAddress = new MailAddress("rivi05832@gmail.com", "To Rivi");
+            var toAddress = new MailAddress("shchana63@gmail.com", "To Chana");
             const string fromPassword = "exmgsvntnurnimcy";
             const string subject = "test";
             const string body = "Hey now!!";
