@@ -28,6 +28,9 @@ namespace Account.Service.Classes
             _mapper = config.CreateMapper();
 
         }
+
+        public async Task 
+
         public async Task<bool> AddCustomerAsync(CustomerDTO customerDTO)
         {
             if (await _accountData.IsEmailExistAsync(customerDTO.Email))

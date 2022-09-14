@@ -28,9 +28,8 @@ namespace Account.WebApi.Controllers
             Random random = new Random();
             int code = random.Next(1000,10000);
             const string subject = "Verification code";
-            const string body = "Hi! this isHello CRB, We received a request to create a bank account and use your email address." +
-                " Your verification code  from CROSS RIVER BANK is: " ;
-
+            const string body = "Hi ${customerDTO.FirstName} We received a request to create a bank account and use your email address." +
+                " Your verification code  from CROSS RIVER BANK is: ${code}";
 
             var smtp = new SmtpClient
             {
