@@ -27,5 +27,9 @@ namespace Account.Service.DTO
         [MinLength(8)]
         [Required(ErrorMessage = "The Password field is required.")]
         public string Password { get; set; }
+
+        [Range(1000,9999)]
+        [Required(ErrorMessage = "The verification code field is required.")]
+        public int VerificationCode { get; set; }
     }
 }
