@@ -15,17 +15,35 @@ import { AccountRoutingModule } from './registeration-routing.module';
 import { AccountActionsModule } from '../account-actions/account-actions.module';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
-
+import { EmailVerificationComponent } from './email-verification/email-verification.component';
+import { CodeInputModule } from 'angular-code-input';
+import {MatCardModule} from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     SignUpComponent,
     LoginComponent,
+    EmailVerificationComponent,
   ],
   imports: [
-    CommonModule, HttpClientModule,
-    ReactiveFormsModule,MatFormFieldModule, MatInputModule,MatIconModule,MatButtonModule, 
-    AccountActionsModule, AccountRoutingModule, MatToolbarModule, MatMenuModule,
+    CommonModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    MatFormFieldModule, 
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule, 
+    AccountActionsModule, 
+    AccountRoutingModule, 
+    MatToolbarModule, 
+    MatMenuModule,
+    MatCardModule,
+    MatDialogModule,
+    CodeInputModule.forRoot({
+      codeLength: 4,
+      isCharsCode: true
+    })
   ],
   exports: [SignUpComponent, LoginComponent],
   providers: [registerationService]

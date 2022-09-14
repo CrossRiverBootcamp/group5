@@ -11,9 +11,12 @@
             <mat-form-field appearance="outline">            
                 <mat-label>Email:</mat-label>
                 <input matInput placeholder="pat@example.com" formControlName="email" required>
-                <!-- <mat-error *ngIf="email.invalid" formControlName="email">{{getErrorMessage()}}</mat-error> -->
-
             </mat-form-field>
+
+            <ng-container *ngIf="login.controls['email'].errors">
+                <mat-error *ngIf="login.controls['email'].hasError('email')">Please enter a valid email
+                    address</mat-error>
+            </ng-container>
         </div>
         <div class="form-group">
             <mat-form-field appearance="outline">                
@@ -23,6 +26,13 @@
                   <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
             </mat-form-field>
+
+            <ng-container *ngIf="login.controls['password'].errors">
+                <mat-error *ngIf="login.controls['password'].errors['minlength']">Password must be at least
+                    8 characters</mat-error>
+                <mat-error *ngIf="login.controls['password'].errors['maxlength']">Password cannot be more
+                    than 16 characters</mat-error>
+            </ng-container>
         </div>
         
         <button mat-stroked-button color="primary" (click)="onFormSubmit()" >Login</button>

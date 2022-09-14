@@ -17,7 +17,7 @@ namespace Account.WebApi.Controllers
         }
 
         [HttpPost("SendVerificationCode")]
-        public async Task<ActionResult> SendVerificationCode(string email)
+        public async Task<ActionResult> SendVerificationCode([FromBody] string email)
         {
             if (!await _accountService.CreateVerificationCode(email))
                 return BadRequest(false);

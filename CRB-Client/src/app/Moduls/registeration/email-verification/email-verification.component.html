@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Verify your email address</h1>
+<div mat-dialog-content>
+    <p>We have sent a verification code to {{data.email}}</p>
+    <code-input [isCodeHidden]="false" [codeLength]="4" (codeChanged)="onCodeChanged($event)"
+        (codeCompleted)="onCodeCompleted($event)">
+    </code-input>
+</div>
+<div mat-dialog-actions>
+    <a href="" (click)="resendVerificationCode()">Resend the verification code email</a>
+
+    <!-- <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button> -->
+</div>
