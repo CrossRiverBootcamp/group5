@@ -1,8 +1,8 @@
 import { Component, OnInit , Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Customer } from 'src/app/Models/Customer';
 import { EmailVerification } from 'src/app/Models/EmailVerification';
 import { registerationService } from '../registration.service';
-import { DialogData } from '../sign-up/sign-up.component';
 
 @Component({
   selector: 'email-verification',
@@ -13,47 +13,49 @@ export class EmailVerificationComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<EmailVerificationComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: Customer,
     private _registerationService: registerationService
   ) {}
 
-
+  isAccountCreated:boolean = false;
   ngOnInit(): void {
   }
   // this called every time when user changed the code
   onCodeChanged(code: string) {
   }
 
+   errorMessage:string = "";
+   resendMail:boolean = false;
   // this called only if user entered full code
   onCodeCompleted(code: string) {
+      let customer:Customer ={
+          firstName: this.data.firstName,
+          lastName: this.data.lastName,
+          email: this.data. email,
+          password: this. data. password,
+          verificationCode: code,
+      };
 
-    let emailVerification:EmailVerification={
-      email:this.data.email,
-      code:code
-    }
-
-    this._registerationService.checkVerificationCode(emailVerification)
-    .subscribe((res) => {
-     
-    },
-      (err) => {
-
-      });
+      this._registerationService.register(customer)
+        .subscribe((res) => {
+            this.isAccountCreated=true;
+          }, (err) => { 
+            this.errorMessage=err.error;
+          });
   }
 
 
   resendVerificationCode(): void {
     this._registerationService.sendVerificationCode(this.data.email)
     .subscribe((res) => {
-     
+     this.resendMail=true;
     },
       (err) => {
-        console.log(err.error);
-        
+        this.errorMessage=err.error;        
       });
   }
 
-    onNoClick(): void {
+  closeDialog(): void {
     this.dialogRef.close();
   }
 }
