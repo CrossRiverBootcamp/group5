@@ -13,6 +13,5 @@ namespace Account.Service.Interfaces
         Task<bool> CreateVerificationCode(string email);
         Task<string> AddCustomerAsync(CustomerDTO customerDTO);
         Task<Transfered> CheckAndTransfer_AddOperations(MakeTransfer message);
-        Task<bool> AddOperation(MakeTransfer makeTransfer);
     }
 }

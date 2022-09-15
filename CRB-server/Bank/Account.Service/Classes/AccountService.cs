@@ -31,9 +31,7 @@ namespace Account.Service.Classes
         public async Task<bool> CreateVerificationCode(string email)
         {
             if (await _accountData.IsEmailExistAsync(email))
-            {
                 return false;
-            }
             int code = new Random().Next(1000, 10000);
 
             EmailVerification emailVerification = new EmailVerification()
@@ -47,11 +45,10 @@ namespace Account.Service.Classes
                 var fromAddress = new MailAddress("crbcrproject@gmail.com", "CRB C&R");
                 var toAddress = new MailAddress(email);
                 const string fromPassword = "nbitifwvunfkzyoa";
-
                 const string subject = "Verification code";
-                string body = "Hi We received a request to create a bank account for you" +
-                    " Your verification code  from Cross River Bank is: " + code
-                    + ". this verification code will expire in 30 minutes!";
+                string body = "Hi We received a request to create a bank account for you. " +
+                    " Your verification code is: " + code
+                    + ".  -  this verification code will expire in 30 minutes";
 
                 var smtp = new SmtpClient
                 {
