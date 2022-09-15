@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NServiceBus;
-using System.Net;
 using Transaction.Service.DTO;
 using Transaction.Service.Interfaces;
 

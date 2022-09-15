@@ -21,9 +21,7 @@ namespace Account.WebApi.Controllers
         public async Task<ActionResult> LoginAndGetAccountId([FromBody] LoginDTO loginDTO)
         {
             Guid accountId = await _loginService.Login(loginDTO);
-            if (accountId == Guid.Empty)
-                return Unauthorized("The email or password are worng, please try again");
-            return Ok(accountId);
+            return accountId == Guid.Empty ? Unauthorized("The email or password are worng, please try again"): Ok(accountId);  
         }
 
 
@@ -32,9 +30,7 @@ namespace Account.WebApi.Controllers
         public async Task<ActionResult> GetCustomerInfoAsync(Guid accountId)
         {
             CustomerInfoDTO customerInfoDTO = await _loginService.GetCustomerInfoAsync(accountId);
-            if (customerInfoDTO == null)
-                return Unauthorized("the account id is unKnown");
-            return Ok(customerInfoDTO);
+            return customerInfoDTO == null ? Unauthorized("the account id is unKnown") : Ok(customerInfoDTO);             
         }
 
     }

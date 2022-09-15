@@ -39,26 +39,28 @@ export class SignUpComponent {
 
 
   onFormSubmit(): void {
-    let email=this.newCustomer.controls['email'].value;
-    this._registerationService.sendVerificationCode(email)
-    .subscribe((res) => {
-         this.openDialog();
-    },
-      (err) => {
+   this.openDialog();
+    // let email= this.newCustomer.controls['email'].value
+ 
+    // this._registerationService.sendVerificationCode(email)
+    // .subscribe((res) => {
+    //      this.openDialog();
+    // },
+    //   (err) => {
 
-      });
+    //   });
 
-    if (this.newCustomer.valid) {
-      let customer = this.newCustomer.value;
-      this._registerationService.register(customer)
-        .subscribe((success: any) => {
-            if (success) {
-              alert("The account was created successfully")      }
-            else {
-              alert("Account creation failed... try again later")
-            }
-          });
-    }
+    // if (this.newCustomer.valid) {
+    //   let customer = this.newCustomer.value;
+    //   this._registerationService.register(customer)
+    //     .subscribe((success: any) => {
+    //         if (success) {
+    //           alert("The account was created successfully")      }
+    //         else {
+    //           alert("Account creation failed... try again later")
+    //         }
+    //       });
+    // }
 
   }
 //open dialog
