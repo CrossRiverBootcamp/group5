@@ -5,11 +5,6 @@ using Account.Service.Interfaces;
 using Account.Services;
 using AutoMapper;
 using NSB.Messages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net.Mail;
 using System.Net;
 
@@ -81,9 +76,9 @@ namespace Account.Service.Classes
 
         public async Task<string> AddCustomerAsync(CustomerDTO customerDTO)
         {
-            bool isValid = await _accountData.ValidVerificationCode(customerDTO.Email, customerDTO.VerificationCode);
-            if (!isValid)
-                return "Is the code you entered incorrect? Or 30 minutes have passed since you received the email?";
+            //bool isValid = await _accountData.ValidVerificationCode(customerDTO.Email, customerDTO.VerificationCode);
+            //if (!isValid)
+            //    return "Is the code you entered incorrect? Or 30 minutes have passed since you received the email?";
             Customer customer = _mapper.Map<Customer>(customerDTO);
             bool isCustomerAdded = await _accountData.AddCustomerAsync(customer);
             Data.Entities.Account account = new Data.Entities.Account()
@@ -93,9 +88,7 @@ namespace Account.Service.Classes
                 Balance = 1000
             };
             bool isAccountCreated = await _accountData.CreateAccountAsync(account);
-            if (isCustomerAdded && isAccountCreated)
-                return "";
-            return "oops... An error occurred while creating the account";
+            return isCustomerAdded && isAccountCreated ? "" : "oops... An error occurred while creating the account";
         }
 
 

@@ -23,9 +23,7 @@ namespace Account.WebApi.Controllers
         public async Task<ActionResult> AddCustomerAsync([FromBody] CustomerDTO customerDTO)
         {
             string res = await _accountService.AddCustomerAsync(customerDTO);
-            if(res == "")
-                return Ok();
-            return BadRequest(res);
+            return res =="" ? Ok(res) : BadRequest(res);
         }
 
         

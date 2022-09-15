@@ -48,7 +48,8 @@ export class EmailVerificationComponent implements OnInit {
      
     },
       (err) => {
-
+        console.log(err.error);
+        
       });
   }
 

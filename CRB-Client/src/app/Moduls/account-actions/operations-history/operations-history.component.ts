@@ -23,9 +23,10 @@ export class OperationsHistoryComponent implements OnInit {
     })
     this.getOperationsList();
   }
-
+  
   title: string = 'Operations History';
   accountId?: any;
+ 
   operationsList: Operation[] = [
     // {accountId:'C9A87A06-09D2-46A7-FBE7-08DA8F323F11',debitOrCredit:true,amount:1,balance:905,date:new Date()},
     // {accountId:'C9A87A06-09D2-46A7-FBE7-08DA8F323F11',debitOrCredit:true,amount:2,balance:905,date:new Date()},
@@ -50,10 +51,9 @@ export class OperationsHistoryComponent implements OnInit {
   getOperationsList() {
     this._accountActionsService.getOperationsHistoryByAccountId(this.accountId, this.pageNumber, this.numberOfRecords)
       .subscribe(data => {
-        console.log(data);
-      
         this.operationsList = data;
-      })
+        
+      },err=>console.log(err.error));
   }
 
   partnerAccountInfo?: AccountInfo;

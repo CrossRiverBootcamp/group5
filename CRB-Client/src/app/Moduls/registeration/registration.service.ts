@@ -6,7 +6,7 @@ import { EmailVerification } from "src/app/Models/EmailVerification";
 import { LoginDTO } from "src/app/Models/LoginDTO";
 import { DialogData } from "./sign-up/sign-up.component";
 
-const headers = { 'content-type': 'application/json'}  
+ 
 
 @Injectable()
 export class registerationService {
@@ -22,6 +22,7 @@ export class registerationService {
     }
 
     sendVerificationCode(email:string):Observable<boolean> {
+        const headers = { 'content-type': 'application/json'} 
         const body=JSON.stringify(email);
         return this._http.post<boolean>("https://localhost:7182/api/EmailVerification/SendVerificationCode", body, {'headers':headers});
     }

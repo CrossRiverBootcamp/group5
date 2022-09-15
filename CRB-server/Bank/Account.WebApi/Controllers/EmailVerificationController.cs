@@ -1,7 +1,6 @@
 ﻿using Account.Service.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Account.Service.DTO;
+
 
 namespace Account.WebApi.Controllers
 {
@@ -19,9 +18,7 @@ namespace Account.WebApi.Controllers
         [HttpPost("SendVerificationCode")]
         public async Task<ActionResult> SendVerificationCode([FromBody]string email)
         {
-            if (!await _accountService.CreateVerificationCode(email))
-                return BadRequest(false);
-            return Ok(true);
+            return !await _accountService.CreateVerificationCode(email) ? BadRequest(false): Ok(true);
         }
     }
 }

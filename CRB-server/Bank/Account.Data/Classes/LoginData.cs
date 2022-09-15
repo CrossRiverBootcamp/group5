@@ -29,9 +29,8 @@ namespace Account.Data.Classes
                 Entities.Account account = await context.Accounts.Include(account => account.Customer)
                     .FirstOrDefaultAsync(account => account.Customer.Email.Equals(email)
                                             && account.Customer.Password.Equals(password));
-                if (account == null)
-                    return Guid.Empty;
-                return account.Id;
+
+                return account == null ?Guid.Empty: account.Id;
             }
         }
 

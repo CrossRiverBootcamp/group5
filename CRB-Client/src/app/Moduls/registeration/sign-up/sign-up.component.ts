@@ -39,16 +39,16 @@ export class SignUpComponent {
 
 
   onFormSubmit(): void {
-   //this.openDialog();
-    let email= this.newCustomer.controls['email'].value
+   this.openDialog();
+    // let email= this.newCustomer.controls['email'].value
  
-    this._registerationService.sendVerificationCode(email)
-    .subscribe((res) => {
-         this.openDialog();
-    },
-      (err) => {
+    // this._registerationService.sendVerificationCode(email)
+    // .subscribe((res) => {
+    //      this.openDialog();
+    // },
+    //   (err) => {
 
-      });
+    //   });
 
     // if (this.newCustomer.valid) {
     //   let customer = this.newCustomer.value;
