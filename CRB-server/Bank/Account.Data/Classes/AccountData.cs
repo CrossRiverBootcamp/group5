@@ -57,11 +57,14 @@ namespace Account.Data.Classes
             {
                 EmailVerification emailVerification = await context.EmailVerifications  
                     .FirstOrDefaultAsync(verification => verification.Email.Equals(email) 
-                && verification.VerificationCode == code 
-                && verification.ExpirationTime.Equals(DateTime.Now) && verification.ExpirationTime.Minute - DateTime.Now.Minute <= 30);
-                if(emailVerification == null)
+                && verification.VerificationCode == code );
+               
+                if(emailVerification != null)
+                {                   
+                    if (DateTime.Compare(emailVerification.ExpirationTime, DateTime.Now)>=0)
+                        return true;
+                }
                     return false;
-                return true;
             }
         }
 

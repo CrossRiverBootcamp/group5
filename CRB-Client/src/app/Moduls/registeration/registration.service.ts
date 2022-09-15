@@ -4,7 +4,6 @@ import { Observable } from "rxjs";
 import { Customer } from "src/app/Models/Customer";
 import { EmailVerification } from "src/app/Models/EmailVerification";
 import { LoginDTO } from "src/app/Models/LoginDTO";
-import { DialogData } from "./sign-up/sign-up.component";
 
  
 
@@ -26,7 +25,5 @@ export class registerationService {
         const body=JSON.stringify(email);
         return this._http.post<boolean>("https://localhost:7182/api/EmailVerification/SendVerificationCode", body, {'headers':headers});
     }
-    checkVerificationCode(emailVerification: EmailVerification): Observable<boolean> {
-        return this._http.post<boolean>("https://localhost:7182/api/EmailVerification", emailVerification);
-    }
+   
 }

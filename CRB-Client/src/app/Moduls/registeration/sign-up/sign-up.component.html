@@ -2,7 +2,6 @@
     <div class="title">{{title}}</div>
     <form [formGroup]="newCustomer">
         <div id="form-inputs">
-            <!-- <mat-checkbox [formControl]="hideRequiredControl">Hide required marker</mat-checkbox> -->
             <div class="form-group">
                 <mat-form-field appearance="outline">
                     <mat-label for="firstName">First Name:</mat-label>
@@ -59,11 +58,11 @@
                 </ng-container>
             </div>
             <button mat-stroked-button color="primary" (click)="onFormSubmit()">Sign-Up</button>
-            <!-- [disabled]="!newCustomer.valid" -->
+            
+            <mat-error *ngIf="errorMessage.length > 0">{{errorMessage}}</mat-error>
            
         </div>
     </form>
     <br>
- <email-verification *ngIf="emailVerification"></email-verification>
 </div>
 

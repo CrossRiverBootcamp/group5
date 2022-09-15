@@ -1,13 +1,28 @@
-<h1 mat-dialog-title>Verify your email address</h1>
-<div mat-dialog-content>
-    <p>We have sent a verification code to {{data.email}}</p>
-    <code-input [isCodeHidden]="false" [codeLength]="4" (codeChanged)="onCodeChanged($event)"
-        (codeCompleted)="onCodeCompleted($event)">
-    </code-input>
+<div *ngIf="!isAccountCreated">
+    <h1 mat-dialog-title>Verify your email address</h1>
+    <div mat-dialog-content>
+        <p>We have sent a verification code to {{data.email}}</p>
+        <code-input [isCodeHidden]="false" [codeLength]="4" (codeChanged)="onCodeChanged($event)"
+            (codeCompleted)="onCodeCompleted($event)">
+        </code-input>
+        <mat-error *ngIf="errorMessage.length > 0">{{errorMessage}}</mat-error>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-flat-button color="primary" (click)="resendVerificationCode()">Resend the verification code
+            email</button>
+    </div>
+    <br>
+    <h5 *ngIf="resendMail">A new code has been sent to you</h5>
 </div>
-<div mat-dialog-actions>
-    <button mat-button (click)="resendVerificationCode()">Resend the verification code email</button>
-
-    <!-- <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button> -->
+<div *ngIf="isAccountCreated">
+    <h1 mat-dialog-title>
+        <mat-icon>done_outline</mat-icon>
+        Authentication was successful
+    </h1>
+    <div mat-dialog-content>
+        <div>Your account has been successfully created</div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="closeDialog()">Ok</button>
+    </div>
 </div>
