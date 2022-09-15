@@ -1,5 +1,6 @@
 import { Component, OnInit , Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Customer } from 'src/app/Models/Customer';
 import { EmailVerification } from 'src/app/Models/EmailVerification';
 import { registerationService } from '../registration.service';
@@ -14,7 +15,7 @@ export class EmailVerificationComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<EmailVerificationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Customer,
-    private _registerationService: registerationService
+    private _registerationService: registerationService, private _router: Router
   ) {}
 
   isAccountCreated:boolean = false;
@@ -57,5 +58,6 @@ export class EmailVerificationComponent implements OnInit {
 
   closeDialog(): void {
     this.dialogRef.close();
+    this._router.navigate(['/login']);
   }
 }
