@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NSB.Messages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,6 @@ namespace Transaction.Data.Interfaces
     public interface ITransactionData
     {
         Task<Guid> AddTransactionAsync(Entities.Transaction transaction);
-        Task UpdateTransactionAsync(Guid transactionId, string status, string failureReason);
-
+        Task UpdateTransactionAsync(Guid transactionId, eStatus status, string failureReason);
     }
 }

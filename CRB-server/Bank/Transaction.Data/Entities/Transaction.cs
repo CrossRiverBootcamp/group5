@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NSB.Messages;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -22,8 +23,7 @@ namespace Transaction.Data.Entities
         [Required]
         public DateTime Date { get; set; }
         [Required]
-        public string Status { get; set; }
+        public eStatus Status { get; set; }
         public string? FailureReason { get; set; }
-
     }
 }

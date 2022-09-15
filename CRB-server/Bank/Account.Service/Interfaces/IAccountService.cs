@@ -12,9 +12,7 @@ namespace Account.Service.Interfaces
     {
         Task<bool> CreateVerificationCode(string email);
         Task<string> AddCustomerAsync(CustomerDTO customerDTO);
-        Task<bool> DoesAccountExist(Guid accountId);
-        Task<bool> IsBalanceGreater(Guid accountId, int amount);
-        Task<bool> TransactionBetweenAccountsAsync(Guid fromAccountId, Guid toAccountId, int amount);
+        Task<Transfered> CheckAndTransfer_AddOperations(MakeTransfer message);
         Task<bool> AddOperation(MakeTransfer makeTransfer);
     }
 }

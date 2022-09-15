@@ -7,11 +7,13 @@ using AutoMapper;
 using NSB.Messages;
 using System.Net.Mail;
 using System.Net;
+using NServiceBus.Logging;
 
 namespace Account.Service.Classes
 {
     public class AccountService : IAccountService
     {
+        static ILog log = LogManager.GetLogger<AccountService>();
         private readonly IAccountData _accountData;
         private readonly IMapper _mapper;
 
@@ -91,37 +93,44 @@ namespace Account.Service.Classes
             return isCustomerAdded && isAccountCreated ? "" : "oops... An error occurred while creating the account";
         }
 
-
-        public Task<bool> DoesAccountExist(Guid accountId)
+        public async Task<Transfered> CheckAndTransfer_AddOperations(MakeTransfer message)
         {
-            return _accountData.DoesAccountExist(accountId);
+            Transfered transfered = new Transfered();
+            transfered.TransactionId = message.TransactionId;
+            if (message.FromAccountID == message.ToAccountID)
+            {
+                transfered.Status = eStatus.failure;
+                transfered.FailureReason = "can't transfer from and to the same account";
+            }
+            bool bothExist = await _accountData.DoBothAccountsExist(message.FromAccountID, message.ToAccountID);
+            transfered.FailureReason = bothExist == false ? "one or more of the accounts number do not exist." : "";
+            if(!bothExist)
+                transfered.Status = eStatus.failure;
+            bool isGreater = await _accountData.IsBalanceGreater(message.FromAccountID, message.Amount);
+            transfered.FailureReason = isGreater == false ? "The amount to be transferred is greater than the 'from' account balance." : "";
+            if (!isGreater)
+                transfered.Status = eStatus.failure;
+            if (transfered.Status != eStatus.failure)
+            {
+                Operation operationFromAccount = createOperations(message);
+                Operation operationToAccount = createOperations(message);
+                bool transferedAndOperatedInHistory = await _accountData.
+                    TransactionBetweenAccountsAndAddOperationAsync(message.FromAccountID, message.ToAccountID, message.Amount, operationFromAccount, operationToAccount);
+                transfered.FailureReason = transferedAndOperatedInHistory == false ? "The amount to be transferred is greater than the 'from' account balance." : "";
+                transfered.Status = transferedAndOperatedInHistory == false ? eStatus.failure : eStatus.success;
+            }
+            return transfered;
         }
 
-        public Task<bool> IsBalanceGreater(Guid accountId, int amount)
-        {
-            return _accountData.IsBalanceGreater(accountId, amount);
-        }
-        public Task<bool> TransactionBetweenAccountsAsync(Guid fromAccountId, Guid toAccountId, int amount)
-        {
-            return _accountData.TransactionBetweenAccountsAsync(fromAccountId, toAccountId, amount);
-        }
-        //operationservice in diffrent page?
-        public async Task<bool> AddOperation(MakeTransfer makeTransfer)
+        private Operation createOperations(MakeTransfer makeTransfer)
         {
             //add model?
-            Operation operationFromAccount = _mapper.Map<Operation>(makeTransfer);
-            operationFromAccount.AccountId = makeTransfer.FromAccountID;
-            operationFromAccount.Debit_Credit = false;
-            operationFromAccount.Balance = await _accountData.GetBalanceByAccountIdAsync(operationFromAccount.AccountId);
-            operationFromAccount.OperationTime = DateTime.UtcNow;
-
-            Operation operationToAccount = _mapper.Map<Operation>(makeTransfer);
-            operationToAccount.AccountId = makeTransfer.ToAccountID;
-            operationToAccount.Debit_Credit = true;
-            operationToAccount.Balance = await _accountData.GetBalanceByAccountIdAsync(operationToAccount.AccountId);
-            operationToAccount.OperationTime = DateTime.UtcNow;
-
-            return await _accountData.AddOperation(operationFromAccount, operationToAccount);
+            Operation operation = _mapper.Map<Operation>(makeTransfer);
+            operation.AccountId = makeTransfer.FromAccountID;
+            operation.Debit_Credit = false;
+            operation.OperationTime = DateTime.UtcNow;
+            operation.Balance = _accountData.GetBalanceByAccountIdAsync(operation.AccountId);
+            return operation;
         }
     }
 }

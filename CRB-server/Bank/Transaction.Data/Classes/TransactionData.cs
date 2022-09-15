@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NSB.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace Transaction.Data.Classes
             }
         }
 
-        public async Task UpdateTransactionAsync(Guid transactionId, string status, string failureReason)
+        public async Task UpdateTransactionAsync(Guid transactionId, eStatus status, string failureReason)
         {
             using (var context = _factory.CreateDbContext())
             {
