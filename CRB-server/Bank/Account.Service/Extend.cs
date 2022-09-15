@@ -29,5 +29,13 @@ namespace Account.Service
             service.AddDbContextFactory<AccountDbContext>(item =>
                 item.UseSqlServer(Connection));
         }
+        public static void ExtensionMigrateDB(this IServiceCollection service, IServiceProvider appServices)
+        {
+            using (var scope = appServices.CreateScope())
+            {
+                var dataContext = scope.ServiceProvider.GetRequiredService<AccountDbContext>();
+                dataContext.Database.Migrate();
+            }
+        }
     }
 }
