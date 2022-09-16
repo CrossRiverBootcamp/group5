@@ -14,10 +14,9 @@ namespace Account.Data.Interfaces
         Task<bool> ValidVerificationCode(string email, int code);
         Task<bool> AddCustomerAsync(Customer customer);
         Task<bool> CreateAccountAsync(Entities.Account account);
-        Task<bool> DoesAccountExist(Guid accountId);
+        Task<bool> DoBothAccountsExist(Guid fromAccountId, Guid toAccountId);
         Task<bool> IsBalanceGreater(Guid accountId, int amount);
-        Task<bool> TransactionBetweenAccountsAsync(Guid fromAccountId, Guid toAccountId, int amount);
-        Task<int> GetBalanceByAccountIdAsync(Guid accountId);
-        Task<bool> AddOperation(Operation operationFromAccount, Operation operationToAccount);
+        Task<bool> TransactionBetweenAccountsAndAddOperationAsync(Guid fromAccountId, Guid toAccountId, int amount, Operation operationFromAccount, Operation operationToAccount);
+        int GetBalanceByAccountIdAsync(Guid accountId);
     }
 }

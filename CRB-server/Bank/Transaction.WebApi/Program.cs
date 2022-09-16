@@ -61,6 +61,8 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+builder.Services.ExtensionMigrateDB(app.Services);
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

@@ -22,49 +22,9 @@ namespace Account.NSB
 
         public async Task Handle(MakeTransfer message, IMessageHandlerContext context)
         {
-            Transfered transfered = new Transfered();
-            if (message.FromAccountID == message.ToAccountID)
-            {
-                log.Info($"failed to transfer transferd from account: {message.FromAccountID} to account: {message.ToAccountID}");
-                transfered.TransactionId = message.TransactionId;
-                transfered.Status = "fail";
-                transfered.FailureReason = "can't transfer from and to the same account";
-            }
-            else if (!await _accountService.DoesAccountExist(message.FromAccountID)
-                || !await _accountService.DoesAccountExist(message.ToAccountID))
-            {
-                log.Info($"failed to transfer from account: {message.FromAccountID} to account: {message.ToAccountID}");
-                transfered.TransactionId = message.TransactionId;
-                transfered.Status = "fail";
-                transfered.FailureReason = "one or more of the accounts number do not exist";
-            }
-            else if (!await _accountService.IsBalanceGreater(message.FromAccountID, message.Amount))
-            {
-                log.Info($"failed to transfer from account: {message.FromAccountID} to account: {message.ToAccountID}");
-                transfered.TransactionId = message.TransactionId;
-                transfered.Status = "fail";
-                transfered.FailureReason = "The amount to be transferred is greater than the 'from' account balance";
-            }
-            else
-            {
-                if (await _accountService.TransactionBetweenAccountsAsync(message.FromAccountID, message.ToAccountID, message.Amount))
-                {
-                    log.Info($"Successfully transfered from account: {message.FromAccountID} to account: {message.ToAccountID}");
-                    transfered.TransactionId = message.TransactionId;
-                    transfered.Status = "success";
-                    await _accountService.AddOperation(message);
-                }
-                else
-                {
-                    log.Info($"failed to transfer from account: {message.FromAccountID} to account: {message.ToAccountID}");
-                    transfered.TransactionId = message.TransactionId;
-                    transfered.Status = "fail";
-                    transfered.FailureReason = "An error occurred while updating the data in the DB";
-                }
-            }
-
+            Transfered transfered = await _accountService.CheckAndTransfer_AddOperations(message);
+            log.Info($"{transfered.Status} ! the transfer from account: {message.FromAccountID} to account: {message.ToAccountID}");
             await context.Publish(transfered);
-
         }
 
     }

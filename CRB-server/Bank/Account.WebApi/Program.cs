@@ -28,12 +28,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-//should be in the extend class?
-using (var scope = app.Services.CreateScope())
-{
-    var dataContext = scope.ServiceProvider.GetRequiredService<AccountDbContext>();
-    dataContext.Database.Migrate();
-}
+builder.Services.ExtensionMigrateDB(app.Services);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

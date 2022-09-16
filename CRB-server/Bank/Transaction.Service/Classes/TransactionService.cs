@@ -34,7 +34,7 @@ namespace Transaction.Service.Classes
         public async Task<bool> AddTransactionAsync(TransactionDTO transactionDTO, IMessageSession messageSession)
         {
             Data.Entities.Transaction transaction = _mapper.Map<Data.Entities.Transaction>(transactionDTO);
-            transaction.Status = "Processing";
+            transaction.Status = eStatus.processing;
             transaction.Date = DateTime.UtcNow;
             Guid transactionId = await _transactionData.AddTransactionAsync(transaction);
             if (transactionId != Guid.Empty)

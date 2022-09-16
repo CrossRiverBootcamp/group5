@@ -12,12 +12,14 @@ import { MatMenuModule} from '@angular/material/menu';
 import { RegisterationModule } from './Moduls/registeration/registeration.module';
 import { AccountActionsModule } from './Moduls/account-actions/account-actions.module';
 import { HomeComponent } from './home/home.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
