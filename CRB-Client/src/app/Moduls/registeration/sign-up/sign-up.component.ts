@@ -46,6 +46,7 @@ export class SignUpComponent {
   //open dialog
   openDialog(): void {
     const dialogRef = this.dialog.open(EmailVerificationComponent, {
+      disableClose: true ,
       width: '500px',
       data: {
         firstName: this.newCustomer.controls['firstName'].value,

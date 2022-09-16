@@ -18,16 +18,20 @@ export class EmailVerificationComponent implements OnInit {
   ) {}
 
   isAccountCreated:boolean = false;
+  errorMessage:string = "";
+  resendMail:boolean = false;
   ngOnInit(): void {
   }
   // this called every time when user changed the code
-  onCodeChanged(code: string) {
+  onCodeChanged(code: string) {  
+    this.errorMessage="";
+    this.resendMail=false;
   }
 
-   errorMessage:string = "";
-   resendMail:boolean = false;
+
   // this called only if user entered full code
   onCodeCompleted(code: string) {
+  
       let customer:Customer ={
           firstName: this.data.firstName,
           lastName: this.data.lastName,

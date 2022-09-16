@@ -68,13 +68,20 @@ namespace Account.Data.Classes
         }
         public async Task<bool> AddCustomerAsync(Customer customer)
         {
-            using (var context = _factory.CreateDbContext())
+            try
             {
-                await context.Customers.AddAsync(customer);
-                await context.SaveChangesAsync();
-                return true;
-                //false?
+                using (var context = _factory.CreateDbContext())
+                {
+                    await context.Customers.AddAsync(customer);
+                    await context.SaveChangesAsync();
+                    return true;
+                }
             }
+            catch
+            {
+                return false;
+            }
+          
         }
 
         public async Task<bool> CreateAccountAsync(Entities.Account account)
