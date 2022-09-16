@@ -22,7 +22,7 @@ export class AccountDetailsComponent implements OnInit {
     this._acr.paramMap.subscribe(params => {
       if (params.get('id') !== undefined) {
         this.accountId = params.get('id');
-        this._accountActionsService.getAccountInfo(this.accountId).subscribe((res) => {
+        this._accountActionsService.getCustomerInfo(this.accountId).subscribe((res) => {
           this.accountInfo = res;
         },
           (err) => {

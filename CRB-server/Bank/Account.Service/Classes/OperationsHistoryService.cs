@@ -27,8 +27,15 @@ namespace Account.Service.Classes
         {
             List<Operation> operationsList = await _OperationsHistoryData.GetOperationsHistoty(accountID, pageNumber, numberOfRecords);
             List<OperationDTO> operationsListDTO = operationsList.ConvertAll(operation => _mapper.Map<OperationDTO>(operation));
-            //operationsListDTO.Sort((o1, o2) => o2.Date.CompareTo(o1.Date));
             return operationsListDTO;
         }
+
+        public async Task<AccountInfoDTO> GetAccountInfo(Guid accountID)
+        {
+            Data.Entities.Account account = await _OperationsHistoryData.GetAccountInfo(accountID);
+            AccountInfoDTO accountInfoDTO = _mapper.Map<AccountInfoDTO>(account);
+            return accountInfoDTO;
+        }
+
     }
 }

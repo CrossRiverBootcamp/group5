@@ -26,5 +26,12 @@ namespace Account.WebApi.Controllers
             return operationsDTO == null ? NotFound() : operationsDTO.Count == 0 ? NoContent() : Ok(operationsDTO);
         }
 
+        [HttpGet("GetAccountInfo/{accountID}")]
+        public async Task<ActionResult> GetAccountInfo(Guid accountID)
+        {
+            AccountInfoDTO accountInfoDTO = await _operationsHistoryService.GetAccountInfo(accountID);
+            return accountInfoDTO != null ? Ok(accountInfoDTO) : NotFound();
+        }
+
     }
 }

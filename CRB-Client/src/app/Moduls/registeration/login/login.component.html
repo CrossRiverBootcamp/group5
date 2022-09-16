@@ -36,9 +36,10 @@
         </div>
         
         <button mat-stroked-button color="primary" (click)="onFormSubmit()" >Login</button>
-
+<br>
         <mat-error *ngIf="error">{{errorMessage}}</mat-error>
-     
+        <br>
+     <a href="sign-up.component.html">You don't have an account yet?</a>
        <!-- [disabled]="!newCustomer.valid" -->
     </div>
     </form>

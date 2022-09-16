@@ -15,6 +15,13 @@ namespace Account.Data.Classes
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }
 
+        public async Task<Entities.Account> GetAccountInfo(Guid accountId)
+        {
+             var context = _factory.CreateDbContext();
+             return await context.Accounts.Include(account => account.Customer)
+                    .FirstOrDefaultAsync(account => account.Id.Equals(accountId));
+        }
+
         public async Task<List<Operation>> GetOperationsHistoty(Guid accountID, int pageNumber, int numberOfRecords)
         {
             using var context = _factory.CreateDbContext();

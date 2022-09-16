@@ -23,10 +23,10 @@ export class OperationsHistoryComponent implements OnInit {
     })
     this.getOperationsList();
   }
-  
+
   title: string = 'Operations History';
   accountId?: any;
- 
+
   operationsList: Operation[] = [
     // {accountId:'C9A87A06-09D2-46A7-FBE7-08DA8F323F11',debitOrCredit:true,amount:1,balance:905,date:new Date()},
     // {accountId:'C9A87A06-09D2-46A7-FBE7-08DA8F323F11',debitOrCredit:true,amount:2,balance:905,date:new Date()},
@@ -39,21 +39,20 @@ export class OperationsHistoryComponent implements OnInit {
 
   pageEvent?: PageEvent;
   pageNumber: number = 1;
-  numberOfRecords: number=4;
+  numberOfRecords: number = 4;
 
   onPaginateChange(event: PageEvent) {
-    this.pageNumber = event.pageIndex+1;
+    this.pageNumber = event.pageIndex + 1;
     this.numberOfRecords = event.pageSize;
     this.getOperationsList();
-    // alert(JSON.stringify("Current page size: " + event.pageSize + "Current page index: " + event.pageIndex));
   }
 
   getOperationsList() {
     this._accountActionsService.getOperationsHistoryByAccountId(this.accountId, this.pageNumber, this.numberOfRecords)
       .subscribe(data => {
         this.operationsList = data;
-        
-      },err=>console.log(err.error));
+
+      }, err => console.log(err.error));
   }
 
   partnerAccountInfo?: AccountInfo;
@@ -62,11 +61,18 @@ export class OperationsHistoryComponent implements OnInit {
   openSnackBar(element: Operation) {
     this._accountActionsService.getAccountInfo(element.accountID).subscribe(data => {
       this.partnerAccountInfo = data;
+      let s: string;
+      if (element.debit_Credit)
+        s = "From: ";
+      else
+        s = "To: ";
+
       this._snackBar.open(
-       
-        'To/From: '+ JSON.stringify(this.partnerAccountInfo.firstName + ' ' + this.partnerAccountInfo.lastName )
-        +' - Email Addres: '+JSON.stringify(this.partnerAccountInfo.email), 'close');
-    })
+
+        s + JSON.stringify(this.partnerAccountInfo.firstName + ' ' + this.partnerAccountInfo.lastName)
+        + ' - Email Addres: ' + JSON.stringify(this.partnerAccountInfo.email), 'close');
+    },
+      err => console.log(err.error))
   }
 
 }
