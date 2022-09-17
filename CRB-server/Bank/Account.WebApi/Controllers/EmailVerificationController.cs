@@ -2,23 +2,22 @@
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace Account.WebApi.Controllers
+namespace Account.WebApi.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class EmailVerificationController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class EmailVerificationController : ControllerBase
+    private readonly IAccountService _accountService;
+
+    public EmailVerificationController(IAccountService accountService)
     {
-        private readonly IAccountService _accountService;
+        _accountService = accountService;
+    }
 
-        public EmailVerificationController(IAccountService accountService)
-        {
-            _accountService = accountService;
-        }
-
-        [HttpPost("SendVerificationCode")]
-        public async Task<ActionResult> SendVerificationCode([FromBody]string email)
-        {
-            return !await _accountService.CreateVerificationCode(email) ? BadRequest(false): Ok(true);
-        }
+    [HttpPost("SendVerificationCode")]
+    public async Task<ActionResult> SendVerificationCode([FromBody]string email)
+    {
+        return !await _accountService.CreateVerificationCode(email) ? BadRequest(false): Ok(true);
     }
 }

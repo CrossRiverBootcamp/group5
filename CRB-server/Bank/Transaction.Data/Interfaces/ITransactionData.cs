@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Transaction.Data.Interfaces
+namespace Transaction.Data.Interfaces;
+
+public interface ITransactionData
 {
-    public interface ITransactionData
-    {
-        Task<Guid> AddTransactionAsync(Entities.Transaction transaction);
-        Task UpdateTransactionAsync(Guid transactionId, eStatus status, string failureReason);
-    }
+    Task<Guid> AddTransactionAsync(Entities.Transaction transaction);
+    Task UpdateTransactionAsync(Guid transactionId, eStatus status, string failureReason);
 }

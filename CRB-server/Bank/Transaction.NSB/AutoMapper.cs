@@ -7,13 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Transaction.Service.Models;
 
-namespace Transaction.NSB
+namespace Transaction.NSB;
+
+public class AutoMapper:Profile
 {
-    public class AutoMapper:Profile
+    public AutoMapper()
     {
-        public AutoMapper()
-        {
-            CreateMap<TransactionAdded, MakeTransfer>();
-        }
+        CreateMap<TransactionAdded, MakeTransfer>();
     }
 }

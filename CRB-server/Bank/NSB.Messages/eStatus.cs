@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NSB.Messages
+namespace NSB.Messages;
+
+public enum eStatus
 {
-    public enum eStatus
-    {
-        failure,
-        success,
-        processing
-    }
+    failure,
+    success,
+    processing
 }

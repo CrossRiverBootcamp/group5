@@ -1,17 +1,11 @@
 ﻿using NServiceBus;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Transaction.Service.DTO;
 using Transaction.Service.Models;
 
-namespace Transaction.Service.Interfaces
+namespace Transaction.Service.Interfaces;
+
+public interface ITransactionService
 {
-    public interface ITransactionService
-    {
-        Task<bool> AddTransactionAsync(TransactionDTO transactionDTO, IMessageSession messageSession);
-        //Task UpdateTransactionAsync(UpdateTransactionModel updateTransactionModel);
-    }
+    Task<bool> AddTransactionAsync(TransactionDTO transactionDTO, IMessageSession messageSession);
+    //Task UpdateTransactionAsync(UpdateTransactionModel updateTransactionModel);
 }

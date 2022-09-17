@@ -1,10 +1,9 @@
 ﻿using Account.Service.DTO;
 
-namespace Account.Service.Interfaces
+namespace Account.Service.Interfaces;
+
+public interface IOperationsHistoryService
 {
-    public interface IOperationsHistoryService
-    {
-        Task<List<OperationDTO>> GetOperationsHistotyListAsync(Guid accountID, int pageNumber, int numberOfRecords);
-        Task<AccountInfoDTO> GetAccountInfo(Guid accountID);
-    }
+    Task<List<OperationDTO>> GetOperationsHistotyListAsync(Guid accountID, int pageNumber, int numberOfRecords);
+    Task<AccountInfoDTO> GetAccountInfo(Guid accountID);
 }

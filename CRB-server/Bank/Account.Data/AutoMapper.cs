@@ -7,13 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Account.Data
+namespace Account.Data;
+
+public class AutoMapper: Profile
 {
-    public class AutoMapper: Profile
+    public AutoMapper()
     {
-        public AutoMapper()
-        {
-            CreateMap<Customer, CustomerInfoModel>();
-        }
+        CreateMap<Customer, CustomerInfoModel>();
     }
 }

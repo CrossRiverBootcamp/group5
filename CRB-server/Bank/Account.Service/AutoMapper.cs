@@ -21,10 +21,8 @@ namespace Account.Services;
                             opt => opt.MapFrom(src => src.OperationTime));
         CreateMap<Data.Entities.Account, AccountInfoDTO>()
             .ForMember(dest => dest.FirstName,
-                            opt => opt.MapFrom(src => src.Customer.FirstName))
-            .ForMember(dest => dest.LastName,
-                            opt => opt.MapFrom(src => src.Customer.LastName))
-            .ForMember(dest => dest.Email,
+                            opt => opt.MapFrom(src => src.Customer.FirstName)).ForMember(dest => dest.LastName,
+                            opt => opt.MapFrom(src => src.Customer.LastName)).ForMember(dest => dest.Email,
                             opt => opt.MapFrom(src => src.Customer.Email));
     }
     }

@@ -1,10 +1,9 @@
 ﻿using Account.Service.DTO;
 
-namespace Account.Service.Interfaces
+namespace Account.Service.Interfaces;
+
+public interface ILoginService
 {
-    public interface ILoginService
-    {
-        Task<Guid> Login(LoginDTO loginDTO);
-        Task<CustomerInfoDTO> GetCustomerInfoAsync(Guid accountId);
-    }
+    Task<Guid> Login(LoginDTO loginDTO);
+    Task<CustomerInfoDTO> GetCustomerInfoAsync(Guid accountId);
 }

@@ -1,10 +1,9 @@
 ﻿using Account.Data.Entities;
 
-namespace Account.Data.Interfaces
+namespace Account.Data.Interfaces;
+
+public interface IOperationsHistoryData
 {
-    public interface IOperationsHistoryData
-    {
-        Task<List<Operation>> GetOperationsHistoty(Guid accountID, int pageNumber, int numberOfRecords);
-        Task<Data.Entities.Account> GetAccountInfo(Guid accountID);
-    }
+    Task<List<Operation>> GetOperationsHistoty(Guid accountID, int pageNumber, int numberOfRecords);
+    Task<Data.Entities.Account> GetAccountInfo(Guid accountID);
 }
