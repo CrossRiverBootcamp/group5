@@ -107,17 +107,21 @@ public class AccountService : IAccountService
             transferred.Status = eStatus.failure;
             transferred.FailureReason = "can't transfer from and to the same account";
         }
-        bool bothExist = await _accountData.DoBothAccountsExistAsync(message.FromAccountID, message.ToAccountID);
-        transferred.FailureReason = bothExist == false ? "one or more of the accounts number do not exist." : null;
-        if (!bothExist)
-            transferred.Status = eStatus.failure;
         else
         {
-            bool isGreater = await _accountData.IsBalanceGreaterAsync(message.FromAccountID, message.Amount);
-            transferred.FailureReason = isGreater == false ? "The amount to be transferred is greater than the 'from' account balance." : null;
-            if (!isGreater)
+            bool bothExist = await _accountData.DoBothAccountsExistAsync(message.FromAccountID, message.ToAccountID);
+            transferred.FailureReason = bothExist == false ? "one or more of the accounts number do not exist." : null;
+            if (!bothExist)
                 transferred.Status = eStatus.failure;
+            else
+            {
+                bool isGreater = await _accountData.IsBalanceGreaterAsync(message.FromAccountID, message.Amount);
+                transferred.FailureReason = isGreater == false ? "The amount to be transferred is greater than the 'from' account balance." : null;
+                if (!isGreater)
+                    transferred.Status = eStatus.failure;
+            }
         }
+   
        
         if (transferred.Status != eStatus.failure)
         {
