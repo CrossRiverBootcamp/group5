@@ -24,7 +24,7 @@ public class OperationsHistoryService : IOperationsHistoryService
         return operationsListDTO;
     }
 
-    public async Task<CustomerInfoDTO> GetAccountInfo(Guid accountID)
+    public async Task<CustomerInfoDTO> GetAccountInfoAsync(Guid accountID)
     {
         return await _accountService.GetCustomerInfoAsync(accountID);
     }

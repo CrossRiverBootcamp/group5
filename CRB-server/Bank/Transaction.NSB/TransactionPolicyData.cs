@@ -1,5 +1,4 @@
 ﻿
-
 namespace Transaction.NSB;
 
 public class TransactionPolicyData: ContainSagaData

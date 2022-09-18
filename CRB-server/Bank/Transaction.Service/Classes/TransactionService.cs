@@ -2,7 +2,7 @@
 
 namespace Transaction.Service.Classes;
 
-public class TransactionService : ITransactionService, IHandleMessages<Transfered>
+public class TransactionService : ITransactionService, IHandleMessages<Transferred>
 {
     private readonly ITransactionData _transactionData;
     private readonly IMapper _mapper;
@@ -32,10 +32,9 @@ public class TransactionService : ITransactionService, IHandleMessages<Transfere
             return true;
         }
         return false;
-
     }
 
-    public async Task Handle(Transfered message, IMessageHandlerContext context)
+    public async Task Handle(Transferred message, IMessageHandlerContext context)
     {
         bool isUpdated= await _transactionData.UpdateTransactionAsync(message.TransactionId, message.Status, message.FailureReason);
         if(!isUpdated)
