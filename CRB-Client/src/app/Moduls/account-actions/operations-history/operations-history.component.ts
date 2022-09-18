@@ -27,13 +27,7 @@ export class OperationsHistoryComponent implements OnInit {
   title: string = 'Operations History';
   accountId?: any;
 
-  operationsList: Operation[] = [
-    // {accountId:'C9A87A06-09D2-46A7-FBE7-08DA8F323F11',debitOrCredit:true,amount:1,balance:905,date:new Date()},
-    // {accountId:'C9A87A06-09D2-46A7-FBE7-08DA8F323F11',debitOrCredit:true,amount:2,balance:905,date:new Date()},
-    // {accountId:'C9A87A06-09D2-46A7-FBE7-08DA8F323F11',debitOrCredit:true,amount:3,balance:905,date:new Date()},
-    // {accountId:'C9A87A06-09D2-46A7-FBE7-08DA8F323F11',debitOrCredit:true,amount:4,balance:905,date:new Date()},
-    // {accountId:'C9A87A06-09D2-46A7-FBE7-08DA8F323F11',debitOrCredit:true,amount:5,balance:905,date:new Date()}
-  ];
+  operationsList: Operation[] = [];
 
   displayedColumns: string[] = ['accountId', 'debitOrCredit', 'amount', 'balance', 'date', 'moreDetails'];
 
@@ -59,10 +53,10 @@ export class OperationsHistoryComponent implements OnInit {
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
   openSnackBar(element: Operation) {
-    this._accountActionsService.getAccountInfo(element.accountID).subscribe(data => {
+    this._accountActionsService.getCustomerInfo(element.accountID).subscribe(data => {
       this.partnerAccountInfo = data;
       let s: string;
-      if (element.debit_Credit)
+      if (element.debitOrCredit)
         s = "From: ";
       else
         s = "To: ";

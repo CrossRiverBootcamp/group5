@@ -11,14 +11,16 @@ export class AccountActionsService {
      
     constructor(private _http: HttpClient) { }
 
-    getCustomerInfo(accountId: string): Observable<AccountInfo> {
+    getAccountInfo(accountId: string): Observable<AccountInfo> {
         return this._http.get<AccountInfo>("https://localhost:7182/api/Account/GetAccountInfo/"+accountId);
     }
-    getAccountInfo(accountId: string): Observable<AccountInfo> {
-        return this._http.get<AccountInfo>("https://localhost:7182/api/OperationsHistory/GetAccountInfo/"+accountId);
-    }
+
     createTransaction(transaction: NewTransaction) :Observable<any> {
-        return this._http.post<any>("https://localhost:7147/api/Transaction/AddTransactionAsync", transaction);
+        return this._http.post<any>("https://localhost:7147/api/Transaction/AddTransaction", transaction);
+    }
+
+    getCustomerInfo(accountId: string): Observable<AccountInfo> {
+        return this._http.get<AccountInfo>("https://localhost:7182/api/OperationsHistory/GetAccountInfo/"+accountId);
     }
 
     getOperationsHistoryByAccountId(accountId: string, pageNumber: number, pageSize: number): Observable<Operation[]> {
