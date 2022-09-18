@@ -41,8 +41,15 @@ export class SignUpComponent {
             this.errorMessage = err.error;
           });
     }
-
   }
+  // (err) => {
+  //   if (err.status == 401) {
+  //     this.error = true;
+  //     this.errorMessage = err.error;
+  //   }
+  // });
+
+
   //open dialog
   openDialog(): void {
     const dialogRef = this.dialog.open(EmailVerificationComponent, {

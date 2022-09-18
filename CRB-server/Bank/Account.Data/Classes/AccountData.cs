@@ -119,5 +119,4 @@ public class AccountData : IAccountData
         Entities.Account account = await context.Accounts.FindAsync(accountId);
         return account.Balance;        
     }
-
 }
