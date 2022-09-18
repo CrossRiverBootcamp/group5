@@ -1,7 +1,8 @@
 <app-actions-menu></app-actions-menu>
-<div class="title">{{title}}</div>
+
 <div *ngIf="operationsList != null">
     <div class="operationsTable">
+        
         <table mat-table [dataSource]="operationsList" class="mat-elevation-z8">
 
             <ng-container matColumnDef="accountId">
@@ -50,6 +51,6 @@
         </mat-paginator>
     </div>
 </div>
-    <h1 *ngIf="operationsList == null">
-        No transfers have been made in this account
-    </h1>
+<h1 *ngIf="operationsList == null">
+    No transfers have been made in this account
+</h1>

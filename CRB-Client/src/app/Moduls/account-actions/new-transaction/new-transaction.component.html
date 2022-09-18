@@ -16,6 +16,12 @@
                     <span matPrefix>$&nbsp;</span>
                     <span matSuffix>.00</span>
                 </mat-form-field>
+                <ng-container *ngIf="newTransactionForm.controls['amount'].errors">
+                    <mat-error *ngIf="newTransactionForm.controls['amount'].errors['max']">you can transfer at most
+                        1000000$ at a time</mat-error>
+                    <mat-error *ngIf="newTransactionForm.controls['amount'].errors['min']">you can not transfer less then
+                        1$ </mat-error>
+                </ng-container>
             </div>
             <p>
                 <mat-form-field class="example-full-width" appearance="outline">
@@ -30,7 +36,7 @@
             <mat-label *ngIf="isTransactionAdded">Transaction successfully added in DB</mat-label>
 
         </div>
-      
+
     </form>
 
 </div>
