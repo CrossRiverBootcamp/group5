@@ -11,7 +11,7 @@ public class Operation
     [Required]
     public Guid TransactionId  { get; set; }
     [Required]
-    public Boolean Debit_Credit { get; set; }
+    public bool DebitOrCredit { get; set; }
     [Required]
     public int TransactionAmount { get; set; }
     [Required]

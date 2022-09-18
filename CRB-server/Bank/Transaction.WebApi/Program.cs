@@ -8,7 +8,6 @@ builder.Services.ExtensionAddDbContext(builder.Configuration.GetConnectionString
 
 
 var rabbitMQConnection = builder.Configuration.GetConnectionString("RabbitMQ");
-var databaseConnection = builder.Configuration.GetConnectionString("myconn");
 var databaseNSBConnection = builder.Configuration.GetConnectionString("NSB");
 
 #region back-end-use-nservicebus
@@ -18,7 +17,7 @@ builder.Host.UseNServiceBus(hostBuilderContext =>
     var endpointConfiguration = new EndpointConfiguration("TransactionApi");
     endpointConfiguration.EnableInstallers();
     endpointConfiguration.EnableOutbox();
-    endpointConfiguration.SendOnly();
+    //endpointConfiguration.SendOnly();
 
     var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
     persistence.ConnectionBuilder(
@@ -27,7 +26,6 @@ builder.Host.UseNServiceBus(hostBuilderContext =>
         return new SqlConnection(databaseNSBConnection);
     });
     var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
-    //dialect.Schema("NSB");
 
     var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
     transport.ConnectionString(rabbitMQConnection);
@@ -39,7 +37,6 @@ builder.Host.UseNServiceBus(hostBuilderContext =>
 #endregion
 
 builder.Services.AddControllers();
-//builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddCors(options =>
 {

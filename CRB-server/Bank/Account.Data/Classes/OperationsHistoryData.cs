@@ -10,18 +10,11 @@ public class OperationsHistoryData : IOperationsHistoryData
         _factory = factory ?? throw new ArgumentNullException(nameof(factory));
     }
 
-    public async Task<Entities.Account> GetAccountInfo(Guid accountId)
-    {
-         var context = _factory.CreateDbContext();
-         return await context.Accounts.Include(account => account.Customer)
-                .FirstOrDefaultAsync(account => account.Id.Equals(accountId));
-    }
-
-    public async Task<List<Operation>> GetOperationsHistoty(Guid accountID, int pageNumber, int numberOfRecords)
+    public async Task<List<Operation>> GetOperationsHistotyListAsync(Guid accountID, int pageNumber, int numberOfRecords)
     {
         using var context = _factory.CreateDbContext();
        
-        var innerJoinQuery =
+        var operationList =
             await  (from o1 in context.Operations
             join o2 in context.Operations 
             on o1.TransactionId equals o2.TransactionId 
@@ -30,14 +23,14 @@ public class OperationsHistoryData : IOperationsHistoryData
                     {   Id = o1.Id,
                         AccountId = o2.AccountId,
                         TransactionId= o1.TransactionId ,
-                        Debit_Credit= o1.Debit_Credit,
+                        DebitOrCredit= o1.DebitOrCredit,
                         TransactionAmount = o1.TransactionAmount,
                         Balance = o1.Balance,
                         OperationTime = o1.OperationTime
                     })
                  ).Where( operation => operation.AccountId != accountID).OrderByDescending(o=>o.OperationTime)
                  .Skip(numberOfRecords * (pageNumber - 1)).Take(numberOfRecords).ToListAsync();
-        return  innerJoinQuery;
+        return operationList;
 
     }
 }

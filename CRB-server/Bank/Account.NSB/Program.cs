@@ -35,9 +35,6 @@ class Program
                 return new SqlConnection(databaseNSBConnection);
             });
         var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
-       //dialect.Schema("NSB");
-        // var conventions = endpointConfiguration.Conventions();
-        //conventions.DefiningEventsAs(type => type.Namespace == "Measure.Messages.Events");
         #endregion
 
         var endpointInstance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);

@@ -1,5 +1,3 @@
-using Account.Service;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,7 +35,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-//app.UseErrorHandlerMiddleware();
+app.UseErrorHandlerMiddleware();
 
 app.UseCors("AllowAll");
 

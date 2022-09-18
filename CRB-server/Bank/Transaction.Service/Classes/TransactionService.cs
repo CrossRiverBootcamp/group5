@@ -37,15 +37,14 @@ public class TransactionService : ITransactionService, IHandleMessages<Transfere
 
     public async Task Handle(Transfered message, IMessageHandlerContext context)
     {
-        log.Info($"Update status for Transaction, TransactionId = {message.TransactionId}");
-        UpdateTransactionModel updateTransactionModel = _mapper.Map<UpdateTransactionModel>(message);
-        await UpdateTransactionAsync(updateTransactionModel);
-
+        bool isUpdated= await _transactionData.UpdateTransactionAsync(message.TransactionId, message.Status, message.FailureReason);
+        if(!isUpdated)
+            log.Info($"Failed to update status for Transaction, TransactionId = {message.TransactionId}");
+        else
+            log.Info($"Successfully updated status for Transaction, TransactionId = {message.TransactionId}");
     }
 
-    private Task UpdateTransactionAsync(UpdateTransactionModel updateTransactionModel)
-    {
-        //how to send the object to DL?
-        return _transactionData.UpdateTransactionAsync(updateTransactionModel.TransactionId, updateTransactionModel.Status, updateTransactionModel.FailureReason);
-    }
 }
+
+   
+

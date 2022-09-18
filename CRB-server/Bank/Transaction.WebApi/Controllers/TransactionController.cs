@@ -17,8 +17,8 @@ public class TransactionController : ControllerBase
     }
 
     // POST api/<TransactionController>
-    [HttpPost("AddTransactionAsync")]
-    public async  Task<ActionResult> AddTransactionAsync([FromBody] TransactionDTO transactionDTO)
+    [HttpPost("AddTransaction")]
+    public async Task<ActionResult> AddTransactionAsync([FromBody] TransactionDTO transactionDTO)
     {
         bool isTransactionAdded = await _transactionService.AddTransactionAsync(transactionDTO, _messageSession);
         return isTransactionAdded ? Accepted("Transaction successfully added in DB") : BadRequest("failed to add transaction in DB");
