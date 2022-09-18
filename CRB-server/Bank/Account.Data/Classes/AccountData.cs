@@ -9,23 +9,21 @@ public class AccountData : IAccountData
         _factory = factory ?? throw new ArgumentNullException(nameof(factory));
     }
 
-    public async Task<bool> CreateEmailVerification(EmailVerification emailVerification)
+    public async Task<bool> AddEmailVerificationAsync(EmailVerification emailVerification)
     {
         try
         {
-            using (var context = _factory.CreateDbContext())
+            using var context = _factory.CreateDbContext();
+            EmailVerification existsVerification = await context.EmailVerifications.FindAsync(emailVerification.Email);
+            if(existsVerification != null)
             {
-                EmailVerification existsVerification = await context.EmailVerifications.FindAsync(emailVerification.Email);
-                if (existsVerification != null)
-                {
                     existsVerification.VerificationCode = emailVerification.VerificationCode;
                     existsVerification.ExpirationTime = emailVerification.ExpirationTime;
-                }
-                else
-                    await context.EmailVerifications.AddAsync(emailVerification);
-                await context.SaveChangesAsync();
-                return true;
             }
+            else
+                   await context.EmailVerifications.AddAsync(emailVerification);
+            await context.SaveChangesAsync();
+            return true;            
         }
         catch
         {
@@ -36,17 +34,10 @@ public class AccountData : IAccountData
 
     public async Task<bool> IsEmailExistAsync(string email)
     {
-        using (var context = _factory.CreateDbContext())
-        {
-
-            Entities.Account account = await context.Accounts.Include(account => account.Customer)
+        using var context = _factory.CreateDbContext();
+        Entities.Account account = await context.Accounts.Include(account => account.Customer)
                 .FirstOrDefaultAsync(account => account.Customer.Email.Equals(email));
-            if (account == null)
-            {
-                return false;
-            }
-            return true;
-        }
+        return account != null ? true : false;       
     }
 
     public async Task<bool> ValidVerificationCode(string email, int code)
@@ -90,7 +81,7 @@ public class AccountData : IAccountData
     }
     public async Task<bool> DoBothAccountsExist(Guid fromAccountId, Guid toAccountId)
     {
-        var context = _factory.CreateDbContext();
+        using var context = _factory.CreateDbContext();
         bool fromRes =  await context.Accounts.AnyAsync(account => account.Id == fromAccountId);
         bool toRes = await context.Accounts.AnyAsync(account => account.Id == toAccountId);
         return fromRes && toRes; 
@@ -98,41 +89,37 @@ public class AccountData : IAccountData
 
     public async Task<bool> IsBalanceGreater(Guid accountId, int amount)
     {
-        var context = _factory.CreateDbContext();
+        using var context = _factory.CreateDbContext();
         return await context.Accounts.AnyAsync(account => account.Id == accountId && account.Balance >= amount);
     }
 
-    public async Task<bool> TransactionBetweenAccountsAndAddOperationAsync(Guid fromAccountId, Guid toAccountId, int amount, Operation operationFromAccount, Operation operationToAccount)
+    public async Task<bool> TransactionBetweenAccountsAndAddOperationAsync(Operation operationFromAccount, Operation operationToAccount)
     {
         try
         {
-            using (var context = _factory.CreateDbContext())
-            {
-                Entities.Account fromAccount = await context.Accounts.FindAsync(fromAccountId);
-                fromAccount.Balance -= amount;
+            using var context = _factory.CreateDbContext();
+            
+                Entities.Account fromAccount = await context.Accounts.FindAsync(operationFromAccount.AccountId);
+                fromAccount.Balance -= operationFromAccount.TransactionAmount;
                 await context.Operations.AddAsync(operationFromAccount);
-                Entities.Account toAccount = await context.Accounts.FindAsync(toAccountId);
-                toAccount.Balance += amount;
+                Entities.Account toAccount = await context.Accounts.FindAsync(operationToAccount.AccountId);
+                toAccount.Balance += operationToAccount.TransactionAmount;
                 await context.Operations.AddAsync(operationToAccount);
                 await context.SaveChangesAsync();
                 return true;
-            }
+            
         }
         catch
         {
-            return false; // "An error occurred while updating the data in the DB";
+            return false; 
         }
 
     }
-    public int GetBalanceByAccountIdAsync(Guid accountId)//it's not async????
+    public async Task<int> GetBalanceByAccountIdAsync(Guid accountId)
     {
-        using (var context = _factory.CreateDbContext())
-        {
-            Entities.Account account = context.Accounts.Find(accountId);
-            //check account is null?
-            return account.Balance;
-
-        }
+        using var context = _factory.CreateDbContext();       
+        Entities.Account account = await context.Accounts.FindAsync(accountId);
+        return account.Balance;        
     }
 
 }

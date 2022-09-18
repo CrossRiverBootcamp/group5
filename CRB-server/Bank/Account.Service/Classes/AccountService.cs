@@ -18,19 +18,20 @@ public class AccountService : IAccountService
 
     }
 
-    public async Task<bool> CreateVerificationCode(string email)
+    public async Task<bool> CreateVerificationCodeAsync(string email)
     {
         if (await _accountData.IsEmailExistAsync(email))
             return false;
-        int code = new Random().Next(1000, 10000);
 
+        int code = new Random().Next(1000, 10000);
         EmailVerification emailVerification = new EmailVerification()
         {
             Email = email,
             VerificationCode = code,
             ExpirationTime = DateTime.Now.AddMinutes(30)
         };
-        if (await _accountData.CreateEmailVerification(emailVerification))
+
+        if (await _accountData.AddEmailVerificationAsync(emailVerification))
         {
             var fromAddress = new MailAddress("crbcrproject@gmail.com", "CRB C&R");
             var toAddress = new MailAddress(email);
@@ -60,7 +61,7 @@ public class AccountService : IAccountService
             }
             return true;
         }
-        return false;//?
+        return false;
     }
 
     public async Task<bool> CreateAccountAsync(CustomerDTO customerDTO)
@@ -77,6 +78,14 @@ public class AccountService : IAccountService
         };
         return await _accountData.CreateAccountAsync(account, customer);       
     }
+    public async Task<CustomerInfoDTO> GetCustomerInfoAsync(Guid accountId)
+    {
+        Data.Entities.Account account = await _accountData.GetAccountInfoAsync(accountId);
+        if (account == null)
+            return null;
+        CustomerInfoDTO customerInfoDTO = _mapper.Map<CustomerInfoDTO>(account);
+        return customerInfoDTO;
+    }
     public async Task<AccountInfoDTO> GetAccountInfoAsync(Guid accountId)
     {
         Data.Entities.Account account =  await _accountData.GetAccountInfoAsync(accountId);
@@ -85,7 +94,8 @@ public class AccountService : IAccountService
         AccountInfoDTO accountInfoDTO = _mapper.Map<AccountInfoDTO>(account);
         return accountInfoDTO;
     }
-    public async Task<Transfered> CheckAndTransfer_AddOperations(MakeTransfer message)
+
+    public async Task<Transfered> CheckTransferAddOperationsAsync(MakeTransfer message)
     {
         Transfered transfered = new Transfered();
         transfered.TransactionId = message.TransactionId;
@@ -95,33 +105,41 @@ public class AccountService : IAccountService
             transfered.FailureReason = "can't transfer from and to the same account";
         }
         bool bothExist = await _accountData.DoBothAccountsExist(message.FromAccountID, message.ToAccountID);
-        transfered.FailureReason = bothExist == false ? "one or more of the accounts number do not exist." : "";
-        if(!bothExist)
+        transfered.FailureReason = bothExist == false ? "one or more of the accounts number do not exist." : null;
+        if (!bothExist)
             transfered.Status = eStatus.failure;
-        bool isGreater = await _accountData.IsBalanceGreater(message.FromAccountID, message.Amount);
-        transfered.FailureReason = isGreater == false ? "The amount to be transferred is greater than the 'from' account balance." : "";
-        if (!isGreater)
-            transfered.Status = eStatus.failure;
+        else
+        {
+            bool isGreater = await _accountData.IsBalanceGreater(message.FromAccountID, message.Amount);
+            transfered.FailureReason = isGreater == false ? "The amount to be transferred is greater than the 'from' account balance." : null;
+            if (!isGreater)
+                transfered.Status = eStatus.failure;
+        }
+       
         if (transfered.Status != eStatus.failure)
         {
-            Operation operationFromAccount = createOperations(message);
-            Operation operationToAccount = createOperations(message);
-            bool transferedAndOperatedInHistory = await _accountData.
-                TransactionBetweenAccountsAndAddOperationAsync(message.FromAccountID, message.ToAccountID, message.Amount, operationFromAccount, operationToAccount);
-            transfered.FailureReason = transferedAndOperatedInHistory == false ? "The amount to be transferred is greater than the 'from' account balance." : "";
-            transfered.Status = transferedAndOperatedInHistory == false ? eStatus.failure : eStatus.success;
+            bool isTansfered= await makeTransferBetweenAccounts(message);
+            
+            transfered.FailureReason = isTansfered == false ? "an error occurred in DB" : null;
+            transfered.Status = isTansfered == false ? eStatus.failure : eStatus.success;
         }
         return transfered;
     }
 
-    private Operation createOperations(MakeTransfer makeTransfer)
+    private async Task<bool> makeTransferBetweenAccounts(MakeTransfer makeTransfer)
     {
-        //add model?
-        Operation operation = _mapper.Map<Operation>(makeTransfer);
-        operation.AccountId = makeTransfer.FromAccountID;
-        operation.Debit_Credit = false;
-        operation.OperationTime = DateTime.UtcNow;
-        operation.Balance = _accountData.GetBalanceByAccountIdAsync(operation.AccountId);
-        return operation;
+        Operation operationFromAccount = _mapper.Map<Operation>(makeTransfer);
+        operationFromAccount.AccountId = makeTransfer.FromAccountID;
+        operationFromAccount.DebitOrCredit = false;
+        operationFromAccount.OperationTime = DateTime.UtcNow;
+        operationFromAccount.Balance = await _accountData.GetBalanceByAccountIdAsync(operationFromAccount.AccountId) - makeTransfer.Amount;
+       
+        Operation operationToAccount = _mapper.Map<Operation>(makeTransfer);
+        operationToAccount.AccountId = makeTransfer.ToAccountID;
+        operationToAccount.DebitOrCredit = true;
+        operationToAccount.OperationTime = DateTime.UtcNow;
+        operationToAccount.Balance = await _accountData.GetBalanceByAccountIdAsync(operationToAccount.AccountId) + makeTransfer.Amount;
+        
+        return await _accountData.TransactionBetweenAccountsAndAddOperationAsync(operationFromAccount, operationToAccount);
     }
 }

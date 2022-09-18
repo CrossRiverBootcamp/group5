@@ -14,9 +14,8 @@ public class OperationsHistoryController : ControllerBase
         _operationsHistoryService = operationsHistoryService;
     }
 
-    // GET: api/<OperationsHistoryController>
     [HttpGet("GetOperationsList/{accountID}/{pageNumber}/{numberOfRecords}")]
-    public async Task<ActionResult> GetOperationsList(Guid accountID, int pageNumber,int numberOfRecords)
+    public async Task<ActionResult> GetOperationsListAsync(Guid accountID, int pageNumber,int numberOfRecords)
     {
         List<OperationDTO> operationsDTO = 
             await _operationsHistoryService.GetOperationsHistotyListAsync(accountID, pageNumber, numberOfRecords);
@@ -26,8 +25,8 @@ public class OperationsHistoryController : ControllerBase
     [HttpGet("GetAccountInfo/{accountID}")]
     public async Task<ActionResult> GetAccountInfo(Guid accountID)
     {
-        AccountInfoDTO accountInfoDTO = await _operationsHistoryService.GetAccountInfo(accountID);
-        return accountInfoDTO != null ? Ok(accountInfoDTO) : NotFound();
+        CustomerInfoDTO customerInfoDTO = await _operationsHistoryService.GetAccountInfo(accountID);
+        return customerInfoDTO != null ? Ok(customerInfoDTO) : NotFound();
     }
 
 }

@@ -21,8 +21,7 @@ public class TransactionPolicy : Saga<TransactionPolicyData>, IAmStartedByMessag
 
     public async Task Handle(Transfered message, IMessageHandlerContext context)
     {
-        log.Info($"Transferred Transaction, TransactionId = {message.TransactionId}");
-       
+        log.Info($"Get Transfered Transaction, TransactionId = {message.TransactionId}");       
         MarkAsComplete();
     }
 

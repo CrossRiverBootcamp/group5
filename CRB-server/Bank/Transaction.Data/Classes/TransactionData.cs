@@ -11,22 +11,27 @@ public class TransactionData : ITransactionData
 
     public async Task<Guid> AddTransactionAsync(Entities.Transaction transaction)
     {
-        using (var context = _factory.CreateDbContext())
-        {
-            await context.Transactions.AddAsync(transaction);
-            await context.SaveChangesAsync();
-            return transaction.Id;
-        }
+        using var context = _factory.CreateDbContext(); 
+        await context.Transactions.AddAsync(transaction);
+        await context.SaveChangesAsync();
+        return transaction.Id;   
     }
 
-    public async Task UpdateTransactionAsync(Guid transactionId, eStatus status, string failureReason)
+    public async Task<bool> UpdateTransactionAsync(Guid transactionId, eStatus status, string failureReason)
     {
-        using (var context = _factory.CreateDbContext())
+        try
         {
+            using var context = _factory.CreateDbContext();        
             Entities.Transaction transaction = await context.Transactions.FindAsync(transactionId);
             transaction.Status = status;
             transaction.FailureReason = failureReason;
             await context.SaveChangesAsync();
+            return true;
         }
+        catch
+        {
+            return false;
+        }
+            
     }
 }
