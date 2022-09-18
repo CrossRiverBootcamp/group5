@@ -1,7 +1,4 @@
-﻿using Account.Service.DTO;
-using Account.Service.Interfaces;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿
 
 namespace Account.WebApi.Controllers;
 

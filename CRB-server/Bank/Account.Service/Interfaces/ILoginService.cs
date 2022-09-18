@@ -1,5 +1,4 @@
-﻿using Account.Service.DTO;
-
+﻿
 namespace Account.Service.Interfaces;
 
 public interface ILoginService

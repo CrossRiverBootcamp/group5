@@ -1,15 +1,4 @@
-﻿using Account.Data.Classes;
-using Account.Data.EF;
-using Account.Data.Interfaces;
-using Account.Service.Classes;
-using Account.Service.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace Account.Service;
 

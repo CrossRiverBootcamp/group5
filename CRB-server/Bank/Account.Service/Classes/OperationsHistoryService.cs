@@ -1,11 +1,4 @@
-﻿using Account.Data.Entities;
-using Account.Data.Interfaces;
-using Account.Service.DTO;
-using Account.Service.Interfaces;
-using Account.Services;
-using AutoMapper;
-
-
+﻿
 namespace Account.Service.Classes;
 
 public class OperationsHistoryService : IOperationsHistoryService

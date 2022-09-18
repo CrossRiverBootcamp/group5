@@ -1,5 +1,4 @@
-﻿using Account.Data.Entities;
-
+﻿
 namespace Account.Data.Interfaces;
 
 public interface IOperationsHistoryData

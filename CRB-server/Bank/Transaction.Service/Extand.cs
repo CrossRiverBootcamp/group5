@@ -1,11 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using Transaction.Data.EF;
-using Transaction.Data.Classes;
-using Transaction.Data.Interfaces;
-using Transaction.Service.Classes;
-using Transaction.Service.Interfaces;
-
+﻿
 namespace Transaction.Service;
 
 public static class Extand

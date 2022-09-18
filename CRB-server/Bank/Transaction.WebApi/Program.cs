@@ -1,7 +1,4 @@
-using Microsoft.Data.SqlClient;
-using NServiceBus;
-using Transaction.Service;
-using Transaction.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

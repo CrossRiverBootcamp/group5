@@ -1,5 +1,4 @@
-﻿using Account.Data.Models;
-
+﻿
 namespace Account.Data.Interfaces;
 
 public interface ILoginData

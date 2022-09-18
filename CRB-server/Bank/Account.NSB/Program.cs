@@ -1,14 +1,4 @@
-﻿using Account.Data.Classes;
-using Account.Data.Interfaces;
-using Account.Service;
-using Account.Service.Classes;
-using Account.Service.Interfaces;
-using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.DependencyInjection;
-using NSB.Messages;
-using NServiceBus;
-using NServiceBus.Logging;
-
+﻿
 class Program
 {
     static ILog log = LogManager.GetLogger<Program>();
