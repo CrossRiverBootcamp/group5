@@ -69,15 +69,12 @@ public class AccountService : IAccountService
         if (!isValid)
             return false;
         Customer customer = _mapper.Map<Customer>(customerDTO);
-        bool isCustomerAdded = await _accountData.CreateCustomerAsync(customer);
         Data.Entities.Account account = new Data.Entities.Account()
         {
-            CustomerId = customer.Id,
             OpenDate = DateTime.UtcNow,
             Balance = 1000
         };
-        bool isAccountAdded =  await _accountData.CreateAccountAsync(account);  
-        return isCustomerAdded && isAccountAdded;
+        return await _accountData.CreateAccountAsync(account, customer);  
     }
 
     public async Task<CustomerInfoDTO> GetCustomerInfoAsync(Guid accountId)

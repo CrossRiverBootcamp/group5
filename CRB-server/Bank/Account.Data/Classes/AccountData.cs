@@ -54,25 +54,14 @@ public class AccountData : IAccountData
             }
                 return false;      
     }
-    public async Task<bool> CreateCustomerAsync(Customer customer)
-    {
-        try
-        {
-            using var context = _factory.CreateDbContext();          
-            await context.Customers.AddAsync(customer);
-            await context.SaveChangesAsync();
-            return true;
-        }
-        catch
-        {
-            return false;
-        }
-    }
-    public async Task<bool> CreateAccountAsync(Entities.Account account)
+   
+    public async Task<bool> CreateAccountAsync(Entities.Account account, Customer customer)
     {
         try
         {
             using var context = _factory.CreateDbContext();
+            await context.Customers.AddAsync(customer);
+            account.CustomerId = customer.Id;
             await context.Accounts.AddAsync(account);
             await context.SaveChangesAsync();
             return true;     
