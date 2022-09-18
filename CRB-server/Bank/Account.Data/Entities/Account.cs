@@ -6,6 +6,7 @@ public class Account
 {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; set; }
+    [Required]
     public Guid CustomerId { get; set; }
     [ForeignKey("CustomerId")]
     public virtual Customer Customer { get; set; }

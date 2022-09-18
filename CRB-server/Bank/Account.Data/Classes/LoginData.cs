@@ -14,31 +14,17 @@ public class LoginData : ILoginData
 
     public async Task<Guid> GetAccountIdAsync(string email, string password)
     {
-        using (var context = _factory.CreateDbContext())
-        {
+        using var context = _factory.CreateDbContext();
+        
             Entities.Account account = await context.Accounts.Include(account => account.Customer)
                 .FirstOrDefaultAsync(account => account.Customer.Email.Equals(email)
                                         && account.Customer.Password.Equals(password));
 
-            return account == null ?Guid.Empty: account.Id;
-        }
+            return account == null ? Guid.Empty: account.Id;
+        
     }
 
-    public async Task<CustomerInfoModel> GetCustomerInfoAsync(Guid accountId)
-    {
-        using (var context = _factory.CreateDbContext())
-        {
-            Entities.Account account = await context.Accounts.Include(account => account.Customer)
-                .FirstOrDefaultAsync(account => account.Id.Equals(accountId));
-            if (account == null)
-                return null;
-            CustomerInfoModel customerInfoModel = _mapper.Map<CustomerInfoModel>(account.Customer);
-            customerInfoModel.OpenDate = account.OpenDate;
-            customerInfoModel.Balance = account.Balance;
-            return customerInfoModel;
-
-        }
-    }
+    
 
 
 }

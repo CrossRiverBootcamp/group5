@@ -49,10 +49,10 @@ public class AccountData : IAccountData
         }
     }
 
-    public async Task<bool> ValidVerificationCode(string email, int code)//?????
+    public async Task<bool> ValidVerificationCode(string email, int code)
     {
-        using (var context = _factory.CreateDbContext())
-        {
+            using var context = _factory.CreateDbContext();
+       
             EmailVerification emailVerification = await context.EmailVerifications  
                 .FirstOrDefaultAsync(verification => verification.Email.Equals(email) 
             && verification.VerificationCode == code );
@@ -63,44 +63,31 @@ public class AccountData : IAccountData
                     return true;
             }
                 return false;
-        }
+       
     }
 
-    public async Task<bool> AddCustomerAsync(Customer customer)
+
+    public async Task<bool> CreateAccountAsync(Entities.Account account, Customer customer)
     {
         try
         {
-            using (var context = _factory.CreateDbContext())
-            {
+            using var context = _factory.CreateDbContext();
+                await context.Accounts.AddAsync(account);
                 await context.Customers.AddAsync(customer);
                 await context.SaveChangesAsync();
                 return true;
-            }
         }
         catch
         {
             return false;
         }
-      
     }
-
-    public async Task<bool> CreateAccountAsync(Entities.Account account)
+    public async Task<Entities.Account> GetAccountInfoAsync(Guid accountId)
     {
-        try
-        {
-            using (var context = _factory.CreateDbContext())
-            {
-                await context.Accounts.AddAsync(account);
-                await context.SaveChangesAsync();
-                return true;
-            }
-        }
-        catch
-        {
-            return false;
-        }
+        using var context = _factory.CreateDbContext();
+        return await context.Accounts.Include(account => account.Customer)
+                .FirstOrDefaultAsync(account => account.Id.Equals(accountId));
     }
-
     public async Task<bool> DoBothAccountsExist(Guid fromAccountId, Guid toAccountId)
     {
         var context = _factory.CreateDbContext();

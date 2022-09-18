@@ -14,14 +14,17 @@ public class AccountController : ControllerBase
         _accountService = accountService;
     }
 
-
-    // POST api/<AccountController>
-    [HttpPost("AddCustomer")]
-    public async Task<ActionResult> AddCustomerAsync([FromBody] CustomerDTO customerDTO)
+    [HttpPost("CreateAccount")]
+    public async Task<ActionResult> CreateAccountAsync([FromBody] CustomerDTO customerDTO)
     {
-        string res = await _accountService.AddCustomerAsync(customerDTO);
-        return res =="" ? Ok(res) : BadRequest(res);
+        bool res = await _accountService.CreateAccountAsync(customerDTO);
+        return res? Ok(res) : BadRequest();
     }
 
-    
+    [HttpGet("GetAccountInfo/{accountId}")]
+    public async Task<ActionResult> GetAccountInfoAsync(Guid accountId)
+    {
+        AccountInfoDTO accountInfoDTO = await _accountService.GetAccountInfoAsync(accountId);
+        return accountInfoDTO == null ? Unauthorized("the account id is unKnown") : Ok(accountInfoDTO);
+    }
 }

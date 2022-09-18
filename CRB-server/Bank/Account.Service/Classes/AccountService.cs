@@ -7,7 +7,7 @@ public class AccountService : IAccountService
     private readonly IAccountData _accountData;
     private readonly IMapper _mapper;
 
-    public AccountService(IAccountData accountData, IMapper mapper)
+    public AccountService(IAccountData accountData)
     {
         _accountData = accountData;
         var config = new MapperConfiguration(cfg =>
@@ -63,23 +63,28 @@ public class AccountService : IAccountService
         return false;//?
     }
 
-    public async Task<string> AddCustomerAsync(CustomerDTO customerDTO)
+    public async Task<bool> CreateAccountAsync(CustomerDTO customerDTO)
     {
         bool isValid = await _accountData.ValidVerificationCode(customerDTO.Email, customerDTO.VerificationCode);
         if (!isValid)
-            return "Is the code you entered incorrect? Or 30 minutes have passed since you received the email?";
+            return false;
         Customer customer = _mapper.Map<Customer>(customerDTO);
-        bool isCustomerAdded = await _accountData.AddCustomerAsync(customer);
         Data.Entities.Account account = new Data.Entities.Account()
         {
             CustomerId = customer.Id,
             OpenDate = DateTime.UtcNow,
             Balance = 1000
         };
-        bool isAccountCreated = await _accountData.CreateAccountAsync(account);
-        return isCustomerAdded && isAccountCreated ? "" : "oops... An error occurred while creating the account";
+        return await _accountData.CreateAccountAsync(account, customer);       
     }
-
+    public async Task<AccountInfoDTO> GetAccountInfoAsync(Guid accountId)
+    {
+        Data.Entities.Account account =  await _accountData.GetAccountInfoAsync(accountId);
+        if (account == null)
+            return null;
+        AccountInfoDTO accountInfoDTO = _mapper.Map<AccountInfoDTO>(account);
+        return accountInfoDTO;
+    }
     public async Task<Transfered> CheckAndTransfer_AddOperations(MakeTransfer message)
     {
         Transfered transfered = new Transfered();

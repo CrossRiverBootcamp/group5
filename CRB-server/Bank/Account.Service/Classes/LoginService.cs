@@ -12,21 +12,12 @@ public class LoginService : ILoginService
         _mapper = mapper;
     }
 
-    public Task<Guid> Login(LoginDTO loginDTO)
+    public async Task<Guid> Login(LoginDTO loginDTO)
     {
-        Task<Guid> AccountId = _loginData.GetAccountIdAsync(loginDTO.Email, loginDTO.Password);
-        return AccountId;
+        return await _loginData.GetAccountIdAsync(loginDTO.Email, loginDTO.Password);
     }
 
-    public async Task<CustomerInfoDTO> GetCustomerInfoAsync(Guid accountId)
-    {
-
-        CustomerInfoModel customerInfoModel = await _loginData.GetCustomerInfoAsync(accountId);
-        if (customerInfoModel == null)
-            return null;
-        CustomerInfoDTO customerInfoDTO = _mapper.Map<CustomerInfoDTO>(customerInfoModel);
-        return customerInfoDTO;
-    }
+    
 
 
 }
