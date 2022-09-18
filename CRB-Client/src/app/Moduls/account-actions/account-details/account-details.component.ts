@@ -14,7 +14,6 @@ export class AccountDetailsComponent implements OnInit {
 
   constructor(private _accountActionsService: AccountActionsService, private _acr: ActivatedRoute) { }
 
-  //subscription: Subscription | undefined;
   accountId?: any;
   accountInfo?: AccountInfo;
 

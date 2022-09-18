@@ -15,6 +15,6 @@ public class EmailVerificationController : ControllerBase
     [HttpPost("SendVerificationCode")]
     public async Task<ActionResult> SendVerificationCodeAsync([FromBody]string email)
     {
-        return !await _accountService.CreateVerificationCodeAsync(email) ? BadRequest(false): Ok(true);
+        return !await _accountService.CreateVerificationCodeAsync(email) ? BadRequest(false) : Ok(true);
     }
 }
