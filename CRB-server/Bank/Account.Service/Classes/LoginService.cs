@@ -1,14 +1,4 @@
-﻿using Account.Data.Interfaces;
-using Account.Data.Models;
-using Account.Service.DTO;
-using Account.Service.Interfaces;
-using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Account.Service.Classes;
 
 public class LoginService : ILoginService

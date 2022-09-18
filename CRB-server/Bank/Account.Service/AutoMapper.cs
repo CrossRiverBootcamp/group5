@@ -1,9 +1,4 @@
-﻿using Account.Data.Entities;
-using Account.Data.Models;
-using Account.Service.DTO;
-using AutoMapper;
-using NSB.Messages;
-
+﻿
 namespace Account.Services;
     public class AutoMapperProfile : Profile
     {

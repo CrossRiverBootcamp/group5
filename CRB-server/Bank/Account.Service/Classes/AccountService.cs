@@ -1,14 +1,4 @@
-﻿using Account.Data.Entities;
-using Account.Data.Interfaces;
-using Account.Service.DTO;
-using Account.Service.Interfaces;
-using Account.Services;
-using AutoMapper;
-using NSB.Messages;
-using System.Net.Mail;
-using System.Net;
-using NServiceBus.Logging;
-
+﻿
 namespace Account.Service.Classes;
 
 public class AccountService : IAccountService

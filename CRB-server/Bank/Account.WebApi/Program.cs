@@ -1,6 +1,4 @@
-using Account.Data.EF;
 using Account.Service;
-using Account.WebApi.Middlewares;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,11 +1,4 @@
-﻿using Account.Data.Entities;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Account.Data.EF;
 
 public class AccountDbContext : DbContext

@@ -1,7 +1,4 @@
-﻿using Account.Service.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-
-
+﻿
 namespace Account.WebApi.Controllers;
 
 [Route("api/[controller]")]

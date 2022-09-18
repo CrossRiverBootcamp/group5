@@ -1,10 +1,4 @@
-﻿using Account.Data.EF;
-using Account.Data.Interfaces;
-using Account.Data.Models;
-using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-
-
+﻿
 namespace Account.Data.Classes;
 
 public class LoginData : ILoginData
