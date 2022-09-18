@@ -1,47 +1,42 @@
-<!-- <button mat-button [matMenuTriggerFor]="menu">Menu</button>
-<mat-menu #menu="matMenu" #belowMenu="matMenu" yPosition="below">
-    <button mat-menu-item routerLink="sign-up" routerLinkActive="active">{{signUpTitle}}</button>
-    <button mat-menu-item routerLink="login" routerLinkActive="active">{{loginTitle}}</button>
-</mat-menu> -->
 <div>
     <div class="title">{{title}}</div>
     <form [formGroup]="login">
         <div id="form-inputs">
-        <div class="form-group">
-            <mat-form-field appearance="outline">            
-                <mat-label>Email:</mat-label>
-                <input matInput placeholder="pat@example.com" formControlName="email" required>
-            </mat-form-field>
+            <div class="form-group">
+                <mat-form-field appearance="outline">
+                    <mat-label>Email:</mat-label>
+                    <input matInput placeholder="pat@example.com" formControlName="email" required>
+                </mat-form-field>
 
-            <ng-container *ngIf="login.controls['email'].errors">
-                <mat-error *ngIf="login.controls['email'].hasError('email')">Please enter a valid email
-                    address</mat-error>
-            </ng-container>
-        </div>
-        <div class="form-group">
-            <mat-form-field appearance="outline">                
-                <mat-label>Password:</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-            </mat-form-field>
+                <ng-container *ngIf="login.controls['email'].errors">
+                    <mat-error *ngIf="login.controls['email'].hasError('email')">Please enter a valid email
+                        address</mat-error>
+                </ng-container>
+            </div>
+            <div class="form-group">
+                <mat-form-field appearance="outline">
+                    <mat-label>Password:</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
 
-            <ng-container *ngIf="login.controls['password'].errors">
-                <mat-error *ngIf="login.controls['password'].errors['minlength']">Password must be at least
-                    8 characters</mat-error>
-                <mat-error *ngIf="login.controls['password'].errors['maxlength']">Password cannot be more
-                    than 16 characters</mat-error>
-            </ng-container>
+                <ng-container *ngIf="login.controls['password'].errors">
+                    <mat-error *ngIf="login.controls['password'].errors['minlength']">Password must be at least
+                        8 characters</mat-error>
+                    <mat-error *ngIf="login.controls['password'].errors['maxlength']">Password cannot be more
+                        than 16 characters</mat-error>
+                </ng-container>
+            </div>
+
+            <button mat-stroked-button color="primary" (click)="onFormSubmit()">Login</button>
+            <br>
+            <mat-error *ngIf="error">{{errorMessage}}</mat-error>
+            <br>
+            <button mat-flat-button (click)="navigateToSignUp()">You don't have an account yet?</button>
         </div>
-        
-        <button mat-stroked-button color="primary" (click)="onFormSubmit()" >Login</button>
-<br>
-        <mat-error *ngIf="error">{{errorMessage}}</mat-error>
-        <br>
-     <a href="sign-up.component.html">You don't have an account yet?</a>
-       <!-- [disabled]="!newCustomer.valid" -->
-    </div>
     </form>
 
 </div>

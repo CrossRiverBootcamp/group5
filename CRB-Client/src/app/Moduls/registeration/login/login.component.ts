@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
       let loginDTO = this.login.value;
       this._registerationService.login(loginDTO)
         .subscribe((res) => {
-          this._router.navigate(['/account-menu', res]);
+          this._router.navigate(['/account-details', res]);
         },
           (err) => {
             if (err.status == 401) {
@@ -40,6 +40,10 @@ export class LoginComponent implements OnInit {
             }
           });
     }
+  }
+
+  navigateToSignUp() : void{
+    this._router.navigate(['/sign-up']);
   }
 }
 

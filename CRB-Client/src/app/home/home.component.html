@@ -2,11 +2,10 @@
     <mat-toolbar>
         <span>My Bank</span>
         <span class="example-spacer"></span>
-        <button mat-button [matMenuTriggerFor]="menu">Menu</button>
-        <mat-menu #menu="matMenu" #belowMenu="matMenu" yPosition="below">
-            <button mat-menu-item routerLink="sign-up" routerLinkActive="active">{{signUp}}</button>
-            <button mat-menu-item routerLink="login" routerLinkActive="active">{{login}}</button>
-        </mat-menu>
+        <div class="registerButtons">
+            <button mat-button routerLink="sign-up" routerLinkActive="active">{{signUp}}</button>
+            <button mat-button routerLink="login" routerLinkActive="active">{{login}}</button>
+        </div>
     </mat-toolbar>
 </p>
 <div id="container">
