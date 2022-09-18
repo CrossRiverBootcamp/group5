@@ -1,8 +1,8 @@
 <app-actions-menu></app-actions-menu>
-
+<div class="title">{{title}}</div>
 <div *ngIf="operationsList != null">
     <div class="operationsTable">
-        
+
         <table mat-table [dataSource]="operationsList" class="mat-elevation-z8">
 
             <ng-container matColumnDef="accountId">
@@ -46,7 +46,7 @@
         </table>
     </div>
     <div class="paging">
-        <mat-paginator [length]="100" [pageSize]="4" [pageSizeOptions]="[1,2,4]" (page)="onPaginateChange($event)"
+        <mat-paginator [length]="100" [pageSize]="4" [pageSizeOptions]="[1,2,4,6]" (page)="onPaginateChange($event)"
             aria-label="Select page">
         </mat-paginator>
     </div>

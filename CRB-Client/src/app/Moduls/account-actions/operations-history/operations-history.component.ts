@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -9,11 +9,13 @@ import { AccountActionsService } from '../account-actions.service';
 @Component({
   selector: 'app-operations-history',
   templateUrl: './operations-history.component.html',
-  styleUrls: ['./operations-history.component.scss']
+  styleUrls: ['./operations-history.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OperationsHistoryComponent implements OnInit {
 
-  constructor(private _accountActionsService: AccountActionsService, private _acr: ActivatedRoute, private _snackBar: MatSnackBar) { }
+  constructor(private _accountActionsService: AccountActionsService, private _acr: ActivatedRoute, private _snackBar: MatSnackBar,
+    private _cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this._acr.paramMap.subscribe(params => {
@@ -45,7 +47,7 @@ export class OperationsHistoryComponent implements OnInit {
     this._accountActionsService.getOperationsHistoryByAccountId(this.accountId, this.pageNumber, this.numberOfRecords)
       .subscribe(data => {
         this.operationsList = data;
-
+        this._cdr.detectChanges();
       }, err => console.log(err.error));
   }
 
