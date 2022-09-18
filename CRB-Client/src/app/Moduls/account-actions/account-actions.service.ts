@@ -12,7 +12,7 @@ export class AccountActionsService {
     constructor(private _http: HttpClient) { }
 
     getCustomerInfo(accountId: string): Observable<AccountInfo> {
-        return this._http.get<AccountInfo>("https://localhost:7182/api/Login/GetCustomerInfoAsync/"+accountId);
+        return this._http.get<AccountInfo>("https://localhost:7182/api/Account/GetAccountInfo/"+accountId);
     }
     getAccountInfo(accountId: string): Observable<AccountInfo> {
         return this._http.get<AccountInfo>("https://localhost:7182/api/OperationsHistory/GetAccountInfo/"+accountId);

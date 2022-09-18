@@ -13,7 +13,7 @@ export class registerationService {
     constructor(private _http: HttpClient) { }
 
     register(customer: Customer): Observable<boolean> {
-        return this._http.post<boolean>("/api/Account/AddCustomer", customer);
+        return this._http.post<boolean>("/api/Account/CreateAccount", customer);
     }
 
     login(loginDTO: LoginDTO): Observable<string> {

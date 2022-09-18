@@ -8,7 +8,6 @@ global using NSB.Messages;
 global using System.Net.Mail;
 global using System.Net;
 global using NServiceBus.Logging;
-global using Account.Data.Models;
 global using System.ComponentModel.DataAnnotations;
 global using Account.Data.Classes;
 global using Account.Data.EF;
