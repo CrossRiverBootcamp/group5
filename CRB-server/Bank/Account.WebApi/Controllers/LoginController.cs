@@ -13,9 +13,8 @@ public class LoginController : ControllerBase
         _loginService = loginService;
     }
 
-    // POST api/<LoginController>
     [HttpPost("LoginAndGetAccountId")]
-    public async Task<ActionResult> LoginAndGetAccountId([FromBody] LoginDTO loginDTO)
+    public async Task<ActionResult> LoginAndGetAccountIdAsync([FromBody] LoginDTO loginDTO)
     {
         Guid accountId = await _loginService.Login(loginDTO);
         return accountId == Guid.Empty ? Unauthorized("The email or password are worng, please try again"): Ok(accountId);  

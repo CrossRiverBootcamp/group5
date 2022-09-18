@@ -1,7 +1,7 @@
 ﻿
 namespace NSB.Messages;
 
-public class Transfered:IEvent
+public class Transferred:IEvent
 {
     public Guid TransactionId { get; set; }
     public eStatus Status { get; set; }

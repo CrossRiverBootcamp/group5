@@ -16,8 +16,4 @@ public class LoginService : ILoginService
     {
         return await _loginData.GetAccountIdAsync(loginDTO.Email, loginDTO.Password);
     }
-
-    
-
-
 }

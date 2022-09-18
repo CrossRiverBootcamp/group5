@@ -31,6 +31,5 @@ public class OperationsHistoryData : IOperationsHistoryData
                  ).Where( operation => operation.AccountId != accountID).OrderByDescending(o=>o.OperationTime)
                  .Skip(numberOfRecords * (pageNumber - 1)).Take(numberOfRecords).ToListAsync();
         return operationList;
-
     }
 }

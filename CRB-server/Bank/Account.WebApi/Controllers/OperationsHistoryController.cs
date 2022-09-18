@@ -25,7 +25,7 @@ public class OperationsHistoryController : ControllerBase
     [HttpGet("GetAccountInfo/{accountID}")]
     public async Task<ActionResult> GetAccountInfo(Guid accountID)
     {
-        CustomerInfoDTO customerInfoDTO = await _operationsHistoryService.GetAccountInfo(accountID);
+        CustomerInfoDTO customerInfoDTO = await _operationsHistoryService.GetAccountInfoAsync(accountID);
         return customerInfoDTO != null ? Ok(customerInfoDTO) : NotFound();
     }
 

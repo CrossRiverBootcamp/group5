@@ -16,7 +16,6 @@ public class TransactionController : ControllerBase
         _messageSession = messageSession;
     }
 
-    // POST api/<TransactionController>
     [HttpPost("AddTransaction")]
     public async Task<ActionResult> AddTransactionAsync([FromBody] TransactionDTO transactionDTO)
     {

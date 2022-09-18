@@ -7,7 +7,6 @@ public class AutoMapperProfile : Profile
     {
         CreateMap<TransactionDTO, Data.Entities.Transaction>();
         CreateMap<TransactionDTO, TransactionAdded>();
-        CreateMap<Transfered, UpdateTransactionModel>();
     }
 }
 

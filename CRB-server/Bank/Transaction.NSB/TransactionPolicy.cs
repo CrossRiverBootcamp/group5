@@ -1,8 +1,7 @@
 ﻿
-
 namespace Transaction.NSB;
 
-public class TransactionPolicy : Saga<TransactionPolicyData>, IAmStartedByMessages<TransactionAdded>, IHandleMessages<Transfered>
+public class TransactionPolicy : Saga<TransactionPolicyData>, IAmStartedByMessages<TransactionAdded>, IHandleMessages<Transferred>
 {
     static ILog log = LogManager.GetLogger<TransactionPolicy>();
     private readonly IMapper _mapper;
@@ -19,7 +18,7 @@ public class TransactionPolicy : Saga<TransactionPolicyData>, IAmStartedByMessag
         await context.Send(makeTransfer).ConfigureAwait(false);
     }
 
-    public async Task Handle(Transfered message, IMessageHandlerContext context)
+    public async Task Handle(Transferred message, IMessageHandlerContext context)
     {
         log.Info($"Get Transfered Transaction, TransactionId = {message.TransactionId}");       
         MarkAsComplete();
@@ -29,7 +28,7 @@ public class TransactionPolicy : Saga<TransactionPolicyData>, IAmStartedByMessag
     {
         mapper.MapSaga(sagaData => sagaData.TransactionId)
             .ToMessage<TransactionAdded>(message => message.TransactionId)
-            .ToMessage<Transfered>(message => message.TransactionId);
+            .ToMessage<Transferred>(message => message.TransactionId);
     }
     
 }

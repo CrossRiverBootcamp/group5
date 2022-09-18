@@ -15,7 +15,6 @@ public class AccountService : IAccountService
             cfg.AddProfile<AutoMapperProfile>();
         });
         _mapper = config.CreateMapper();
-
     }
 
     public async Task<bool> CreateVerificationCodeAsync(string email)
@@ -66,7 +65,7 @@ public class AccountService : IAccountService
 
     public async Task<bool> CreateAccountAsync(CustomerDTO customerDTO)
     {
-        bool isValid = await _accountData.ValidVerificationCode(customerDTO.Email, customerDTO.VerificationCode);
+        bool isValid = await _accountData.ValidVerificationCodeAsync(customerDTO.Email, customerDTO.VerificationCode);
         if (!isValid)
             return false;
         Customer customer = _mapper.Map<Customer>(customerDTO);
@@ -78,6 +77,7 @@ public class AccountService : IAccountService
         };
         return await _accountData.CreateAccountAsync(account, customer);       
     }
+
     public async Task<CustomerInfoDTO> GetCustomerInfoAsync(Guid accountId)
     {
         Data.Entities.Account account = await _accountData.GetAccountInfoAsync(accountId);
@@ -86,6 +86,7 @@ public class AccountService : IAccountService
         CustomerInfoDTO customerInfoDTO = _mapper.Map<CustomerInfoDTO>(account);
         return customerInfoDTO;
     }
+
     public async Task<AccountInfoDTO> GetAccountInfoAsync(Guid accountId)
     {
         Data.Entities.Account account =  await _accountData.GetAccountInfoAsync(accountId);
@@ -95,38 +96,38 @@ public class AccountService : IAccountService
         return accountInfoDTO;
     }
 
-    public async Task<Transfered> CheckTransferAddOperationsAsync(MakeTransfer message)
+    public async Task<Transferred> CheckTransferAddOperationsAsync(MakeTransfer message)
     {
-        Transfered transfered = new Transfered();
-        transfered.TransactionId = message.TransactionId;
+        Transferred transferred = new Transferred();
+        transferred.TransactionId = message.TransactionId;
         if (message.FromAccountID == message.ToAccountID)
         {
-            transfered.Status = eStatus.failure;
-            transfered.FailureReason = "can't transfer from and to the same account";
+            transferred.Status = eStatus.failure;
+            transferred.FailureReason = "can't transfer from and to the same account";
         }
-        bool bothExist = await _accountData.DoBothAccountsExist(message.FromAccountID, message.ToAccountID);
-        transfered.FailureReason = bothExist == false ? "one or more of the accounts number do not exist." : null;
+        bool bothExist = await _accountData.DoBothAccountsExistAsync(message.FromAccountID, message.ToAccountID);
+        transferred.FailureReason = bothExist == false ? "one or more of the accounts number do not exist." : null;
         if (!bothExist)
-            transfered.Status = eStatus.failure;
+            transferred.Status = eStatus.failure;
         else
         {
-            bool isGreater = await _accountData.IsBalanceGreater(message.FromAccountID, message.Amount);
-            transfered.FailureReason = isGreater == false ? "The amount to be transferred is greater than the 'from' account balance." : null;
+            bool isGreater = await _accountData.IsBalanceGreaterAsync(message.FromAccountID, message.Amount);
+            transferred.FailureReason = isGreater == false ? "The amount to be transferred is greater than the 'from' account balance." : null;
             if (!isGreater)
-                transfered.Status = eStatus.failure;
+                transferred.Status = eStatus.failure;
         }
        
-        if (transfered.Status != eStatus.failure)
+        if (transferred.Status != eStatus.failure)
         {
-            bool isTansfered= await makeTransferBetweenAccounts(message);
+            bool isTansferred= await makeTransferBetweenAccountsAsync(message);
             
-            transfered.FailureReason = isTansfered == false ? "an error occurred in DB" : null;
-            transfered.Status = isTansfered == false ? eStatus.failure : eStatus.success;
+            transferred.FailureReason = isTansferred == false ? "an error occurred in DB" : null;
+            transferred.Status = isTansferred == false ? eStatus.failure : eStatus.success;
         }
-        return transfered;
+        return transferred;
     }
 
-    private async Task<bool> makeTransferBetweenAccounts(MakeTransfer makeTransfer)
+    private async Task<bool> makeTransferBetweenAccountsAsync(MakeTransfer makeTransfer)
     {
         Operation operationFromAccount = _mapper.Map<Operation>(makeTransfer);
         operationFromAccount.AccountId = makeTransfer.FromAccountID;
