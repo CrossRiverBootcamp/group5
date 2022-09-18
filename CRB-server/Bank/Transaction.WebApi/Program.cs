@@ -17,7 +17,6 @@ builder.Host.UseNServiceBus(hostBuilderContext =>
     var endpointConfiguration = new EndpointConfiguration("TransactionApi");
     endpointConfiguration.EnableInstallers();
     endpointConfiguration.EnableOutbox();
-    //endpointConfiguration.SendOnly();
 
     var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
     persistence.ConnectionBuilder(

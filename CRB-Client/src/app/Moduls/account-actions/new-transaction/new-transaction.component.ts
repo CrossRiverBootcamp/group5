@@ -23,6 +23,8 @@ export class NewTransactionComponent implements OnInit {
 
   title: string = 'New Transaction';
   accountId?: any;
+  errorMessage: string = '';
+  isTransactionAdded: boolean = false;
   transaction: NewTransaction = new NewTransaction();
 
   newTransactionForm: FormGroup = new FormGroup({
@@ -35,16 +37,13 @@ export class NewTransactionComponent implements OnInit {
     if (this.newTransactionForm.valid) {
       this.transaction = new NewTransaction();
       this.transaction = this.newTransactionForm.value;
-      this.transaction.fromAccountId=this.accountId;
-      this._accountActionsService.createTransaction(this.transaction).subscribe(success => {
-        if (success) {
-          //check status code
-          alert("The transaction was successfully completed");
-        }
-        else {
-          alert("The transaction failed");
-        }
-      })
+      this.transaction.fromAccountId = this.accountId;
+      this._accountActionsService.createTransaction(this.transaction).subscribe((res) => {
+        this.isTransactionAdded = true;
+      },
+        (err) => {
+          this.errorMessage = err.error;
+        })
     }
   }
 }

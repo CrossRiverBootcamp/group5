@@ -4,7 +4,7 @@ namespace NSB.Messages;
 
 public enum eStatus
 {
-    failure,
+    processing,   
     success,
-    processing
+    failure
 }

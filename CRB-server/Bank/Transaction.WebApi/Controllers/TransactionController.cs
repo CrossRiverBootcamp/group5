@@ -20,7 +20,7 @@ public class TransactionController : ControllerBase
     public async Task<ActionResult> AddTransactionAsync([FromBody] TransactionDTO transactionDTO)
     {
         bool isTransactionAdded = await _transactionService.AddTransactionAsync(transactionDTO, _messageSession);
-        return isTransactionAdded ? Accepted("Transaction successfully added in DB") : BadRequest("failed to add transaction in DB");
+        return isTransactionAdded ? Accepted(true) : BadRequest("failed to add transaction in DB");
     }
 
 }

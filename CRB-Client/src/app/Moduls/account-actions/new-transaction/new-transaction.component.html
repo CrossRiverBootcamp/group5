@@ -25,8 +25,12 @@
             </p>
 
             <button mat-stroked-button color="primary" (click)="addTransaction()">create transaction</button>
-        </div>
+            <br>
+            <mat-error *ngIf="errorMessage.length > 0">{{errorMessage}}</mat-error>
+            <mat-label *ngIf="isTransactionAdded">Transaction successfully added in DB</mat-label>
 
+        </div>
+      
     </form>
 
 </div>

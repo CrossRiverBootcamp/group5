@@ -18,7 +18,7 @@ public class AccountController : ControllerBase
     public async Task<ActionResult> CreateAccountAsync([FromBody] CustomerDTO customerDTO)
     {
         bool res = await _accountService.CreateAccountAsync(customerDTO);
-        return res? Ok(res) : BadRequest();
+        return res? Ok(res) : BadRequest("An error occurred, are you sure this is the correct code and it didn't expire yet?");
     }
 
     [HttpGet("GetAccountInfo/{accountId}")]

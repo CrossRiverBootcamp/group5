@@ -14,7 +14,6 @@ export class AccountDetailsComponent implements OnInit {
 
   constructor(private _accountActionsService: AccountActionsService, private _acr: ActivatedRoute) { }
 
-  //subscription: Subscription | undefined;
   accountId?: any;
   accountInfo?: AccountInfo;
 
@@ -28,7 +27,6 @@ export class AccountDetailsComponent implements OnInit {
           (err) => {
             if (err.status == 401) {
               console.log(err.error());
-
             }
           }
         )
