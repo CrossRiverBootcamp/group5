@@ -32,9 +32,9 @@ public class AccountService : IAccountService
 
         if (await _accountData.AddEmailVerificationAsync(emailVerification))
         {
-            var fromAddress = new MailAddress("crbcrproject@gmail.com", "CRB C&R");
+            var fromAddress = new MailAddress("crbcr96@gmail.com", "CRB C&R");
             var toAddress = new MailAddress(email);
-            const string fromPassword = "nbitifwvunfkzyoa";
+            const string fromPassword = "udkwgkwxcrxarsdi";
             const string subject = "Verification code";
             string body = "Hi We received a request to create a bank account for you. " +
                 " Your verification code is: " + code
@@ -69,13 +69,15 @@ public class AccountService : IAccountService
         if (!isValid)
             return false;
         Customer customer = _mapper.Map<Customer>(customerDTO);
+        bool isCustomerAdded = await _accountData.CreateCustomerAsync(customer);
         Data.Entities.Account account = new Data.Entities.Account()
         {
             CustomerId = customer.Id,
             OpenDate = DateTime.UtcNow,
             Balance = 1000
         };
-        return await _accountData.CreateAccountAsync(account, customer);       
+        bool isAccountAdded =  await _accountData.CreateAccountAsync(account);  
+        return isCustomerAdded && isAccountAdded;
     }
 
     public async Task<CustomerInfoDTO> GetCustomerInfoAsync(Guid accountId)

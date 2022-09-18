@@ -38,7 +38,7 @@ export class SignUpComponent {
           this.openDialog();
         },
           (err) => {
-            this.errorMessage = err.error;
+            this.errorMessage = "An error occurred, please try signing up with a different email address";
           });
     }
 

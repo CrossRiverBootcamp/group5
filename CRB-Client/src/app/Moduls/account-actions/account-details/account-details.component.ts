@@ -28,7 +28,6 @@ export class AccountDetailsComponent implements OnInit {
           (err) => {
             if (err.status == 401) {
               console.log(err.error());
-
             }
           }
         )

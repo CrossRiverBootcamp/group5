@@ -3,7 +3,7 @@ namespace Account.Data.Interfaces;
 
 public interface IAccountData
 {
-    Task<bool> CreateAccountAsync(Entities.Account account, Customer customer);
+    Task<bool> CreateAccountAsync(Entities.Account account);
     Task<bool> AddEmailVerificationAsync(EmailVerification emailVerification);
     Task<bool> IsEmailExistAsync(string email);
     Task<bool> ValidVerificationCodeAsync(string email, int code);
@@ -12,5 +12,6 @@ public interface IAccountData
     Task<bool> TransactionBetweenAccountsAndAddOperationAsync(Operation operationFromAccount, Operation operationToAccount);
     Task<int> GetBalanceByAccountIdAsync(Guid accountId);
     Task<Entities.Account> GetAccountInfoAsync(Guid accountId);
+    Task<bool> CreateCustomerAsync(Customer customer);
 
 }

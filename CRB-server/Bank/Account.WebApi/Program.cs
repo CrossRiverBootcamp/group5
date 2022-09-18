@@ -35,8 +35,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseErrorHandlerMiddleware();
-
 app.UseCors("AllowAll");
 
 app.UseAuthorization();

@@ -54,16 +54,28 @@ public class AccountData : IAccountData
             }
                 return false;      
     }
-
-    public async Task<bool> CreateAccountAsync(Entities.Account account, Customer customer)
+    public async Task<bool> CreateCustomerAsync(Customer customer)
+    {
+        try
+        {
+            using var context = _factory.CreateDbContext();          
+            await context.Customers.AddAsync(customer);
+            await context.SaveChangesAsync();
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+    public async Task<bool> CreateAccountAsync(Entities.Account account)
     {
         try
         {
             using var context = _factory.CreateDbContext();
             await context.Accounts.AddAsync(account);
-            await context.Customers.AddAsync(customer);
             await context.SaveChangesAsync();
-            return true;
+            return true;     
         }
         catch
         {
@@ -119,5 +131,4 @@ public class AccountData : IAccountData
         Entities.Account account = await context.Accounts.FindAsync(accountId);
         return account.Balance;        
     }
-
 }
